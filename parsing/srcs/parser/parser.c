@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 15:04:19 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/06 19:25:57 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 void		parser(t_wrapper *wrp, char **envp)
 {
-	t_env *env;
-
-	env = NULL;
-	env = init_env(envp, env);
+	wrp->env = NULL;
+	wrp->env = init_env(envp, wrp->env);	
 	while (1)
 	{
 		parse_line(wrp);
-		is_builtin(wrp->pipeline->cmd.tokens, env);
+		if (wrp->pipeline)
+		{
+			if (wrp->pipeline->next == NULL)
+				ft_only_cmd(wrp);
+		}
 	}
 }
 
@@ -43,6 +45,7 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 	{
 		tmp = ft_split(tab[i], ' ');
 		tab_checker(wrp ,tmp, &iofiles);
+		tab_trimmer(tmp);
 		token = cmd_create(tmp, iofiles.infile, "test");
 		pipeline_addback(&(wrp->pipeline), pipeline_new(token));
 		i++;

@@ -45,6 +45,10 @@ SRCS =	parsing/srcs/libft/ft_atoi.c\
 		parsing/srcs/parser/tab_utils.c\
 		parsing/srcs/main.c\
 		execution/builtins/*.c\
+		execution/ft_exec_cmd.c\
+		execution/get_path.c\
+		execution/split.c\
+
 
 
 
