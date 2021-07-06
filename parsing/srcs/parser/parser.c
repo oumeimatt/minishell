@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 15:04:19 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/06 18:34:44 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 void		parser(t_wrapper *wrp, char **envp)
 {
-	t_env *env;
-
-	env = NULL;
-	env = init_env(envp, env);
+	wrp->env = NULL;
+	wrp->env = init_env(envp, wrp->env);
 	while (1)
 	{
 		parse_line(wrp);
-		is_builtin(wrp->pipeline->cmd.tokens, env);
+		if (wrp->pipeline)
+			is_builtin(wrp->pipeline->cmd.tokens, wrp->env);
 	}
 }
 
@@ -30,20 +29,22 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 	char	**tab;
 	int		i;
 	char	**tmp;
-	t_iofiles iofiles;
+	t_iofiles *iofiles;
 	t_cmd	token;
-
 
 	i = 0;
 
+	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	line = ft_strtrim(line, " \t");
 	tab = ft_split(line, '|');
+	
 	wrp->pipeline = NULL;
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
-		tab_checker(wrp ,tmp, &iofiles);
-		token = cmd_create(tmp, iofiles.infile, "test");
+		tab_checker(wrp ,tmp, iofiles);
+		debug_tab(iofiles->tokens);
+		token = cmd_create(iofiles->tokens, iofiles->infile, iofiles->outfile);
 		pipeline_addback(&(wrp->pipeline), pipeline_new(token));
 		i++;
 	}
