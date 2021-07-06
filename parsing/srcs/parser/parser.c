@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 18:34:44 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/06 20:39:56 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 	{
 		tmp = ft_split(tab[i], ' ');
 		tab_checker(wrp ,tmp, iofiles);
-		debug_tab(iofiles->tokens);
+		tab_trimmer(iofiles->tokens);
 		token = cmd_create(iofiles->tokens, iofiles->infile, iofiles->outfile);
 		pipeline_addback(&(wrp->pipeline), pipeline_new(token));
 		i++;
@@ -61,7 +61,8 @@ void			parse_line(t_wrapper *wrp)
 	if (line != NULL)
 	{
 		parse_tokens(wrp, line);
-		pipeline_debug(wrp->pipeline);
+		pipeline_debug(wrp->pipeline);		
+		printf ("%s\n", wrp->pipeline->cmd.output_files[1]);
 		free(line);
 		line = NULL;
 	}

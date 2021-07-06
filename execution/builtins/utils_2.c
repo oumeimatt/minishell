@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 18:22:07 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/06 15:15:16 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/06 19:35:03 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char    *print_value(t_env *env, char *key)
     t_env   *temp;
 
     temp = env;
- /*    while (temp != NULL)
+    while (temp != NULL)
     {
         if (temp->next == NULL)
         {
@@ -91,12 +91,6 @@ char    *print_value(t_env *env, char *key)
                 return (temp->value + strlen(key) + 1);
             temp = temp->next;
         }
-    } */
-    while (temp->next)
-    {
-        if (ft_strcmp(temp->key, key) == 0)
-            return (temp->value + ft_strlen(key) + 1);
-        temp = temp->next;
     }
     return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 17:34:09 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 18:34:20 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/06 20:39:04 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,12 @@ void			ft_env_var(t_wrapper *wrp, t_iofiles *iofiles, char **tab, int i, int sta
 void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 {
 	int	i;
-	int flag;
-/* 	char *dsign;
-	int	start; */
 	int	j;
+	int flag;
 
 	j = 0;
-	flag = 0;
 	i = 0;
-	
+	flag = 0;
 	iofiles->tokens = NULL;
 	iofiles->infile = NULL;
 	iofiles->outfile = NULL;
@@ -88,6 +85,7 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 			iofiles->infile[0] = ft_strdup(tab[i]);
 			iofiles->infile[1] = ft_strdup(tab[i + 1]);
 			iofiles->infile[2] = NULL;
+			flag = 2;
 		}	
 		else if (!ft_strcmp(tab[i], ">") || !ft_strcmp(tab[i], ">>"))
 		{
@@ -95,24 +93,15 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 			iofiles->outfile[0] = ft_strdup(tab[i]);
 			iofiles->outfile[1] = ft_strdup(tab[i + 1]);
 			iofiles->outfile[2] = NULL;
+			flag = 2;
 		}
-		else
+		else if (flag == 0)
 		{	
 			fill_tokens(iofiles, tab, &i, &j);
 			expand_var_env(wrp, iofiles, tab, i);
 		}	
 		
-		
-/* 		if (is_squote(tab[i][0]))
-			flag = 1;
-		if (ft_strchr(tab[i], '$'))
-		{
-			tab_trimmer(tab);
-			dsign = ft_strchr(tab[i], '$');
-			start = dsign - tab[i];
-			if (flag == 0)	
-				ft_env_var(wrp, tab, i, start);
-		} */
+		flag = (flag > 0 ? flag - 1 : 0);
 		i++;
 	}
 	iofiles->tokens[j] = NULL;
@@ -121,7 +110,7 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 void		fill_tokens(t_iofiles *iofiles, char **tab, int *i, int *j)
 {
 	iofiles->tokens[*j] = ft_strdup(tab[*i]);
-	printf ("token[%d] : %s\n", *j, iofiles->tokens[*j]);
+//	printf ("token[%d] : %s\n", *j, iofiles->tokens[*j]);
 	*j += 1;	
 }
 
