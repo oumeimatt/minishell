@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../parsing/inc/minishell.h"
+#include "../../inc/minishell.h"
 
 char	*print_quotes(char *str, char *temp)
 {

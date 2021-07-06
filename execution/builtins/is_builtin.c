@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../parsing/inc/minishell.h"
+#include "../../inc/minishell.h"
 
 void    is_builtin(char **str, t_env *env) // str == tokens->cmd[0]
 {

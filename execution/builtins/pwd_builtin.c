@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../parsing/inc/minishell.h"
+#include "../../inc/minishell.h"
 
 char    *pwd_builtin()
 {

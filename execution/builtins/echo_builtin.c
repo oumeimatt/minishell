@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../parsing/inc/minishell.h"
+#include "../../inc/minishell.h"
 
 int		echo_valid_option(char *str)
 {

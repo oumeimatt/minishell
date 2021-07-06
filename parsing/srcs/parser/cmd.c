@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 t_cmd			cmd_create(char **tokens, char **in_files, char *out_files)
 {

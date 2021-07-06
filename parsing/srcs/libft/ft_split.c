@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "../../../inc/libft.h"
 
 int      words_n(const char *s, char c)
 {

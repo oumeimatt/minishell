@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../parsing/inc/minishell.h"
+#include "../../inc/minishell.h"
 
 void	ft_add_node(t_env **head_ref, char *line, char *key)
 {
