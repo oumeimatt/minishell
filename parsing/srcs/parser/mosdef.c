@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 11:01:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 20:33:41 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/06 20:45:43 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ void			pipeline_debug(t_pipeline *lst)
 		{
 			for (int i = 0; (lst->cmd.tokens)[i]; i++)
 				printf ("[%s]", (lst->cmd.tokens)[i]);
-			if (lst->cmd.input_files)	
+/* 			if (lst->cmd.input_files)	
 				printf ("input file : %s", lst->cmd.input_files[1]);
 			if (lst->cmd.output_files)
-				printf ("input file : %s", lst->cmd.input_files[1]);
+				printf ("input file : %s", lst->cmd.input_files[1]); */
 			printf (" | ");
 			lst = lst->next;	
 		}
