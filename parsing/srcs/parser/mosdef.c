@@ -6,23 +6,11 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 11:01:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 20:45:43 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 19:19:52 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/minishell.h"
-
-int				GetTabSize(char **tab)
-{
-	size_t	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-
 
 t_pipeline		*pipeline_last(t_pipeline *lst)
 {
@@ -33,12 +21,13 @@ t_pipeline		*pipeline_last(t_pipeline *lst)
 	return (lst);
 }
 
-t_pipeline		*pipeline_new(t_cmd cmd)
+t_pipeline		*pipeline_new(t_cmd cmd, t_lstredir *redir)
 {
 	t_pipeline	*lst;
 
 	if (!(lst = malloc(sizeof(t_pipeline))))
 		return (NULL);
+	lst->redir = redir;
 	lst->cmd = cmd;
 	lst->next = NULL;
 	return (lst);
@@ -61,7 +50,9 @@ void			pipeline_addback(t_pipeline **alst, t_pipeline *lst)
 	t_pipeline	*tmp;
 	
 	if (!*alst)
+	{	
 		*alst = lst;
+	}
 	else if (alst && lst && *alst)
 	{
 		tmp = pipeline_last(*alst);
@@ -80,16 +71,14 @@ t_wrapper		*contruct_wrapper(void)
 
 void			pipeline_debug(t_pipeline *lst)
 {
-	if (lst)
+	if (lst && lst->cmd.tokens)
 	{	
 		while (lst->next)
 		{
-			for (int i = 0; (lst->cmd.tokens)[i]; i++)
+			for (int i = 0; lst->cmd.tokens[i] != NULL; i++)
 				printf ("[%s]", (lst->cmd.tokens)[i]);
-/* 			if (lst->cmd.input_files)	
-				printf ("input file : %s", lst->cmd.input_files[1]);
-			if (lst->cmd.output_files)
-				printf ("input file : %s", lst->cmd.input_files[1]); */
+			printf ("\n");
+			lstredir_debug(lst->redir);
 			printf (" | ");
 			lst = lst->next;	
 		}

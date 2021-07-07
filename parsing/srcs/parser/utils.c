@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 17:34:09 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 10:14:45 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/07 19:12:57 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			destroy_tab(char **tab)
 	int j;
 
 	i = 0;
-	j = GetTabSize(tab);
+	j = tab_len(tab);
 	while (i < j)
 	{
 		free(tab[i]);
@@ -68,32 +68,36 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 	int	i;
 	int	j;
 	int flag;
+	t_lstredir *tmp;
 
 	j = 0;
 	i = 0;
 	flag = 0;
 
+	tmp = NULL;
 	iofiles->tokens = NULL;
-	iofiles->infile = NULL;
-	iofiles->outfile = NULL;
-	iofiles->tokens = (char **) malloc (sizeof(char *) * 20);
+	iofiles->redir = NULL;
+	iofiles->redir = malloc (sizeof (t_lstredir));
+	iofiles->tokens = (char **) malloc (sizeof(char *) * 1024);
 	
 	while (tab[i])
 	{
 		if (!ft_strcmp(tab[i] , "<") || !ft_strcmp(tab[i], "<<"))
 		{
-			iofiles->infile = malloc (sizeof(char *) * 3);
-			iofiles->infile[0] = ft_strdup(tab[i]);
-			iofiles->infile[1] = ft_strdup(tab[i + 1]);
-			iofiles->infile[2] = NULL;
+			if (!ft_strcmp(tab[i], "<"))
+			{	
+				lstredir_addback(&tmp, lstredir_new(1, tab[i + 1]));
+			}
+			else if (!ft_strcmp(tab[i], "<<"))
+				lstredir_addback(&tmp, lstredir_new(2, tab[i + 1]));
 			flag = 2;
 		}	
 		else if (!ft_strcmp(tab[i], ">") || !ft_strcmp(tab[i], ">>"))
 		{
-			iofiles->outfile = malloc(sizeof(char *) * 3);
-			iofiles->outfile[0] = ft_strdup(tab[i]);
-			iofiles->outfile[1] = ft_strdup(tab[i + 1]);
-			iofiles->outfile[2] = NULL;
+			if (!ft_strcmp(tab[i], ">"))
+				lstredir_addback(&tmp, lstredir_new(3, tab[i + 1]));
+			if (!ft_strcmp(tab[i], ">>"))
+				lstredir_addback(&tmp, lstredir_new(4, tab[i + 1]));
 			flag = 2;
 		}
 		else if (flag == 0)
@@ -106,12 +110,12 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 		i++;
 	}
 	iofiles->tokens[j] = NULL;
+	iofiles->redir = tmp;
 }
 
 void		fill_tokens(t_iofiles *iofiles, char **tab, int *i, int *j)
 {
 	iofiles->tokens[*j] = ft_strdup(tab[*i]);
-//	printf ("token[%d] : %s\n", *j, iofiles->tokens[*j]);
 	*j += 1;	
 }
 

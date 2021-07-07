@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 13:56:38 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 19:18:37 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void		parser(t_wrapper *wrp, char **envp)
 		if (wrp->pipeline)
 		{
 			if (wrp->pipeline->next == NULL)
-				ft_only_cmd(wrp);
-					
+				ft_only_cmd(wrp);		
 		}
 	}
 }
@@ -42,15 +41,14 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	line = ft_strtrim(line, " \t");
 	tab = ft_split(line, '|');
-	
 	wrp->pipeline = NULL;
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
 		tab_checker(wrp ,tmp, iofiles);
 		tab_trimmer(iofiles->tokens);
-		token = cmd_create(iofiles->tokens, iofiles->infile, iofiles->outfile, tmp);
-		pipeline_addback(&(wrp->pipeline), pipeline_new(token));
+		token = cmd_create(iofiles->tokens, tmp);
+ 		pipeline_addback(&(wrp->pipeline), pipeline_new(token, iofiles->redir));
 		i++;
 	}
 	destroy_tab(tab);
@@ -67,8 +65,7 @@ void			parse_line(t_wrapper *wrp)
 	if (line != NULL)
 	{
 		parse_tokens(wrp, line);
-		debug_tab(wrp->pipeline->cmd.line);
-		//pipeline_debug(wrp->pipeline);
+		pipeline_debug(wrp->pipeline);
 		free(line);
 		line = NULL;
 	}

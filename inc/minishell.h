@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 14:58:58 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 19:14:26 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,25 @@ typedef struct      s_env
 
 /** execution **/
 /**/
+typedef struct		s_lstredir
+{
+	int		type;
+	char	*filename;
+	struct s_lstredir *next;
+}				t_lstredir;
+
+t_lstredir		*lstredir_last(t_lstredir *lst);
+t_lstredir		*lstredir_new(int type, char *filename);
+int				lstredir_size(t_lstredir *lst);
+void			lstredir_addback(t_lstredir **alst, t_lstredir *lst);
+void			lstredir_debug(t_lstredir *lst);
+/**/
 typedef struct	iofiles
 {
 	char **infile;
 	char **outfile;
 	char **tokens;
+	t_lstredir *redir;
 }	t_iofiles;
 
 
@@ -62,14 +76,12 @@ typedef struct	iofiles
 typedef struct s_cmd
 {
     char    **tokens;
-    char    **input_files;
-    char    **output_files;
 	char	**line;
 	int		in;
 	int 	out;
 }               t_cmd;
 
-t_cmd			cmd_create(char **tokens, char **in_files, char **out_files, char **line);
+t_cmd			cmd_create(char **tokens, char **line);
 void			cmd_destroy(t_cmd *cmd);
 
 /*							*/
@@ -77,12 +89,13 @@ void			cmd_destroy(t_cmd *cmd);
 /*							*/
 typedef struct s_pipeline
 {
-	t_cmd	cmd;
+	t_cmd		cmd;
+	t_lstredir *redir;
 	struct s_pipeline *next;
 }				t_pipeline;
 
 t_pipeline		*pipeline_last(t_pipeline *lst);
-t_pipeline		*pipeline_new(t_cmd cmd);
+t_pipeline		*pipeline_new(t_cmd cmd, t_lstredir *redir);
 int				pipeline_size(t_pipeline *lst);
 void			pipeline_addback(t_pipeline **alst, t_pipeline *lst);
 void			pipeline_debug(t_pipeline *lst);
