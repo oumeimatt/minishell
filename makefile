@@ -44,6 +44,7 @@ SRCS =	parsing/srcs/libft/ft_atoi.c\
 		parsing/srcs/parser/cmd.c\
 		parsing/srcs/parser/tab_utils.c\
 		parsing/srcs/parser/line.c\
+		parsing/srcs/parser/lstredir.c\
 		parsing/srcs/main.c\
 		execution/builtins/*.c\
 		execution/ft_exec_cmd.c\
@@ -61,7 +62,6 @@ FLAGS = -Wall -Werror -Wextra -lreadline -g -fsanitize=address
 all:		$(NAME)
 
 $(NAME):	$(SRCS)
-		@echo "Program : $(NAME)"
 		@echo "Compiling..."
 		$(QUIET)$(cc) $(FLAGS) $(SRCS) -I $(INCLUDES) 
 		@echo "Done."
@@ -72,7 +72,7 @@ clean:
 fclean: clean
 			@rm -rf $(NAME)
 			@rm -rf ./inc/*.gch
-			@rm -rf $(NAME)
+			@rm -rf a.out
 
 re:		fclean all
 
