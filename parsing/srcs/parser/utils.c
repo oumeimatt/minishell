@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 17:34:09 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 15:20:04 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/07 10:14:45 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void			ft_env_var(t_wrapper *wrp ,char **tab, int i, int start)
 	
 	len = ft_strlen(tab[i]) - start;
 	first = ft_substr(tab[i], 0, start);
-	printf("keeey ===== %s\n", ft_substr(tab[i], start + 1, len - 1));
 	tab[i] = print_value(wrp->env, ft_substr(tab[i], start + 1, len - 1));/* ft_lstgetvalue(wrp->envlst, ft_substr(tab[i], start + 1, len - 1)); */
 	if (tab[i] == NULL)
 		tab[i] = ft_strdup("");

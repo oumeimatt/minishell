@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 19:25:57 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/07 10:36:13 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		parser(t_wrapper *wrp, char **envp)
 		{
 			if (wrp->pipeline->next == NULL)
 				ft_only_cmd(wrp);
+					
 		}
 	}
 }

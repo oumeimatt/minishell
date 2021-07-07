@@ -62,7 +62,7 @@ all:		$(NAME)
 $(NAME):	$(SRCS)
 		@echo "Program : $(NAME)"
 		@echo "Compiling..."
-		$(QUIET)$(cc) -g $(FLAGS) $(SRCS)-I $(INCLUDES)
+		$(QUIET)$(cc) $(FLAGS) $(SRCS) -I $(INCLUDES) 
 		@echo "Done."
 
 clean:
@@ -71,7 +71,7 @@ clean:
 fclean: clean
 			@rm -rf $(NAME)
 			@rm -rf ./inc/*.gch
-			@rm -rf a.out
+			@rm -rf $(NAME)
 
 re:		fclean all
 
