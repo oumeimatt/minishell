@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 11:01:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 19:19:52 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 19:25:32 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void			pipeline_debug(t_pipeline *lst)
 		{
 			for (int i = 0; lst->cmd.tokens[i] != NULL; i++)
 				printf ("[%s]", (lst->cmd.tokens)[i]);
-			printf ("\n");
-			lstredir_debug(lst->redir);
 			printf (" | ");
 			lst = lst->next;	
 		}
