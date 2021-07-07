@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 17:34:09 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 17:45:59 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 19:12:57 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,14 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 
 	tmp = NULL;
 	iofiles->tokens = NULL;
-	iofiles->infile = NULL;
-	iofiles->outfile = NULL;
 	iofiles->redir = NULL;
 	iofiles->redir = malloc (sizeof (t_lstredir));
-	//wrp->pipeline->redir = NULL;
-	iofiles->tokens = (char **) malloc (sizeof(char *) * 20);
+	iofiles->tokens = (char **) malloc (sizeof(char *) * 1024);
 	
 	while (tab[i])
 	{
 		if (!ft_strcmp(tab[i] , "<") || !ft_strcmp(tab[i], "<<"))
 		{
-/* 			iofiles->infile = malloc (sizeof(char *) * 3);
-			iofiles->infile[0] = ft_strdup(tab[i]);
-			iofiles->infile[1] = ft_strdup(tab[i + 1]);
-			iofiles->infile[2] = NULL; */
 			if (!ft_strcmp(tab[i], "<"))
 			{	
 				lstredir_addback(&tmp, lstredir_new(1, tab[i + 1]));
@@ -101,10 +94,6 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 		}	
 		else if (!ft_strcmp(tab[i], ">") || !ft_strcmp(tab[i], ">>"))
 		{
-/* 			iofiles->outfile = malloc(sizeof(char *) * 3);
-			iofiles->outfile[0] = ft_strdup(tab[i]);
-			iofiles->outfile[1] = ft_strdup(tab[i + 1]);
-			iofiles->outfile[2] = NULL; */
 			if (!ft_strcmp(tab[i], ">"))
 				lstredir_addback(&tmp, lstredir_new(3, tab[i + 1]));
 			if (!ft_strcmp(tab[i], ">>"))
@@ -113,7 +102,6 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 		}
 		else if (flag == 0)
 		{	
-//			write (1, "LOL\n", 4);
 			fill_tokens(iofiles, tab, &i, &j);
 			expand_var_env(wrp, iofiles, tab, i);
 		}	
@@ -128,7 +116,6 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 void		fill_tokens(t_iofiles *iofiles, char **tab, int *i, int *j)
 {
 	iofiles->tokens[*j] = ft_strdup(tab[*i]);
-//	printf ("token[%d] : %s\n", *j, iofiles->tokens[*j]);
 	*j += 1;	
 }
 
