@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 11:06:49 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 10:36:13 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,16 @@ void		parser(t_wrapper *wrp, char **envp)
 {
 	wrp->env = NULL;
 	wrp->env = init_env(envp, wrp->env);
+
 	while (1)
 	{
 		parse_line(wrp);
 		if (wrp->pipeline)
-			is_builtin(wrp->pipeline->cmd.tokens, wrp->env);
+		{
+			if (wrp->pipeline->next == NULL)
+				ft_only_cmd(wrp);
+					
+		}
 	}
 }
 

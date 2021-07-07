@@ -45,6 +45,10 @@ SRCS =	parsing/srcs/libft/ft_atoi.c\
 		parsing/srcs/parser/tab_utils.c\
 		parsing/srcs/main.c\
 		execution/builtins/*.c\
+		execution/ft_exec_cmd.c\
+		execution/get_path.c\
+		execution/split.c\
+
 
 
 
@@ -58,7 +62,7 @@ all:		$(NAME)
 $(NAME):	$(SRCS)
 		@echo "Program : $(NAME)"
 		@echo "Compiling..."
-		$(QUIET)$(cc) -g $(FLAGS) $(SRCS)-I $(INCLUDES)
+		$(QUIET)$(cc) $(FLAGS) $(SRCS) -I $(INCLUDES) 
 		@echo "Done."
 
 clean:
@@ -67,7 +71,7 @@ clean:
 fclean: clean
 			@rm -rf $(NAME)
 			@rm -rf ./inc/*.gch
-			@rm -rf a.out
+			@rm -rf $(NAME)
 
 re:		fclean all
 

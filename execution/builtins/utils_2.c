@@ -92,5 +92,6 @@ char    *print_value(t_env *env, char *key)
             temp = temp->next;
         }
     }
+
     return (NULL);
 }

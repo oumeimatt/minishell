@@ -148,7 +148,7 @@ int		valid_export(char *str);
 void	export_error(char *str);
 void	export_builtin(char **str, t_env *env, int i);
 void	exec_export(char **str, t_env *env);
-void    is_builtin(char **str, t_env *env);
+int    is_builtin(char **str, t_env *env);
 char    *pwd_builtin();
 void	exec_pwd();
 void    unset_error(char *str);
@@ -159,6 +159,18 @@ void    print_list(t_env *head);
 char    *print_value(t_env *env, char *key);
 int		ft_strcmp(const char *s1, const char *s2);
 char    *ft_charjoin(char *str, char c);
+void    exec_exit();
+void    exec_cmd(char **str);
+char	*get_path(t_env *env);
+char	**ft_split_2(char const *str, char c);
+char	**ft_return(char **tab, int number_words);
+void	initial(int *i, int *j);
+int	ft_add_word(char **tab, char const *str, int *nb_word, int c);
+int	ft_word(char const *str, int i, int *nb_word, int c);
+char	*free_ret(char *str1, char *str2, char *to_ret);
+int	check_first(char **s_path, char *cmd);
+char	*absolute_path(char *cmd, char **s_path);
+void	ft_only_cmd(t_wrapper *wrp);
 
 /** execution **/
 
