@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 10:57:27 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 14:58:58 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,12 @@ typedef struct s_cmd
     char    **tokens;
     char    **input_files;
     char    **output_files;
+	char	**line;
 	int		in;
 	int 	out;
 }               t_cmd;
 
-t_cmd			cmd_create(char **tokens, char **in_files, char **out_files);
+t_cmd			cmd_create(char **tokens, char **in_files, char **out_files, char **line);
 void			cmd_destroy(t_cmd *cmd);
 
 /*							*/
@@ -95,7 +96,7 @@ typedef struct s_wrapper
 	t_env		*env;
 }			t_wrapper;
 
-void			new_outfile(t_wrapper wrp, char *instr);
+int				is_redir(char *str);
 
 void			parser(t_wrapper *wrp, char **envp);
 void			parse_envp(t_wrapper *wrp, char **envp);
