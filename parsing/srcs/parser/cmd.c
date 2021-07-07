@@ -6,13 +6,13 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 16:34:31 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 11:05:23 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 14:10:35 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/minishell.h"
 
-t_cmd			cmd_create(char **tokens, char **in_files, char **out_files)
+t_cmd			cmd_create(char **tokens, char **in_files, char **out_files, char **line)
 {
 	t_cmd cmd;
 	
@@ -44,6 +44,8 @@ t_cmd			cmd_create(char **tokens, char **in_files, char **out_files)
 		else if (!ft_strcmp(cmd.output_files[0], ">>"))
 			cmd.out = 2;	
 	}
+	if (line)
+		cmd.line = line;
 	return (cmd);
 }
 
