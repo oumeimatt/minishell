@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 17:34:09 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 20:39:04 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 11:04:28 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 	j = 0;
 	i = 0;
 	flag = 0;
+
 	iofiles->tokens = NULL;
 	iofiles->infile = NULL;
 	iofiles->outfile = NULL;

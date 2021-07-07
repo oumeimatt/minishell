@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 17:15:42 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 10:57:27 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_cmd
     char    **tokens;
     char    **input_files;
     char    **output_files;
+	int		in;
+	int 	out;
 }               t_cmd;
 
 t_cmd			cmd_create(char **tokens, char **in_files, char **out_files);

@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 20:44:38 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/07 11:06:49 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void			parse_line(t_wrapper *wrp)
 	if (line != NULL)
 	{
 		parse_tokens(wrp, line);
-		pipeline_debug(wrp->pipeline);		
+		pipeline_debug(wrp->pipeline);
+		printf ("in : %d ; out : %d\n", wrp->pipeline->cmd.in, wrp->pipeline->cmd.out);
+		printf ("in : %d ; out : %d\n", wrp->pipeline->next->cmd.in, wrp->pipeline->next->cmd.out);
 		free(line);
 		line = NULL;
 	}
