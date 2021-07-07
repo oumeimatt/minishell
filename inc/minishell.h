@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/06 19:22:50 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/07 10:57:27 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ typedef struct	iofiles
 {
 	char **infile;
 	char **outfile;
+	char **tokens;
 }	t_iofiles;
+
+
 /**/
 
 /*							*/
@@ -60,10 +63,12 @@ typedef struct s_cmd
 {
     char    **tokens;
     char    **input_files;
-    char    *output_files;
+    char    **output_files;
+	int		in;
+	int 	out;
 }               t_cmd;
 
-t_cmd			cmd_create(char **tokens, char **in_files, char *out_files);
+t_cmd			cmd_create(char **tokens, char **in_files, char **out_files);
 void			cmd_destroy(t_cmd *cmd);
 
 /*							*/
@@ -100,7 +105,7 @@ char			*print_prompt(char **line);
 t_wrapper		*contruct_wrapper(void);
 /*							*/
 void			debug_tab(char **tab);
-void			ft_env_var(t_wrapper *wrp, char **tab, int i, int flag);
+void			ft_env_var(t_wrapper *wrp, t_iofiles *iofiles, char **tab, int i, int flag);
 int				GetTabSize(char **tab);
 void			destroy_tab(char **tab);
 void			tab_trimmer(char **tab);
@@ -112,7 +117,8 @@ void			output_file(t_wrapper *wrp, char ** tab, int *index);
 
 /*	*/
 /*	*/
-
+void		fill_tokens(t_iofiles *iofiles, char **tab, int *i, int *j);
+void		expand_var_env(t_wrapper *wrp, t_iofiles *iofiles, char **tab, int index);
 /**/
 int		tab_len(char **tab);
 int		exists_in_tab(char *s, char **tab);
