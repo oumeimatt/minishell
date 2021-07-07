@@ -48,15 +48,19 @@ typedef struct      s_env
 typedef struct		s_lstredir
 {
 	int		type;
-	char	*filename;
+	char		*filename;
 	struct s_lstredir *next;
 }				t_lstredir;
 
 t_lstredir		*lstredir_last(t_lstredir *lst);
 t_lstredir		*lstredir_new(int type, char *filename);
-int				lstredir_size(t_lstredir *lst);
+int			lstredir_size(t_lstredir *lst);
 void			lstredir_addback(t_lstredir **alst, t_lstredir *lst);
 void			lstredir_debug(t_lstredir *lst);
+int			getLast_redir_type(t_lstredir *redir);
+int			getFirst_redir_type(t_lstredir *redir);
+
+
 /**/
 typedef struct	iofiles
 {

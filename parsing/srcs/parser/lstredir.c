@@ -74,3 +74,18 @@ void			lstredir_debug(t_lstredir *lst)
 
 	}
 }
+
+int			getLast_redir_type(t_lstredir *redir)
+{
+	t_lstredir *tmp;
+
+	tmp = redir;
+	tmp = lstredir_last(tmp);
+	return (getFirst_redir_type(tmp));
+}
+
+int			getFirst_redir_type(t_lstredir *redir)
+{
+	return (redir->type);
+}
+
