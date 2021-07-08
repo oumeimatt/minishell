@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 18:11:31 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/08 21:23:28 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			parse_line(t_wrapper *wrp)
 	{
 		parse_tokens(wrp, line);
 		pipeline_debug(wrp->pipeline);
-		lstredir_debug(wrp->pipeline->redir);
+//		lstredir_debug(wrp->pipeline->redir);
 		free(line);
 		line = NULL;
 	}

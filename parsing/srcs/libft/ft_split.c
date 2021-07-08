@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 12:38:04 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 21:12:25 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int      words_n(const char *s, char c)
 {
     int count;
     int i;
-	int	dquote;
+//	int	dquote;
 
     i = 0;
-	dquote = 0;
+//	dquote = 0;
 	count = 0;
     while (s[i])
     {    
-		if (is_dquote(s[i]))
-			dquote++;
-		if (s[i] != c && (s[i + 1] == c || !s[i + 1]) && (dquote % 2 == 0))
+/* 		if (is_dquote(s[i]))
+			dquote++; */
+		if (s[i] != c && (s[i + 1] == c || !s[i + 1]) /* && (dquote % 2 == 0) */)
             count++;
 		if (is_redir(s[i]) && !(s[i + 1] == ' '))
 		{	
@@ -47,12 +47,12 @@ int      word_len(const char *str, unsigned int index, char delim)
     i = index;
     while (str[i] && str[i] != delim) 
     {
-        if (is_dquote(str[i]))
+/*         if (is_dquote(str[i]))
 		{
 			while (str[i++] && (!is_dquote(str[i])))
 				len++;
 			return (len + 2);
-		}
+		} */
 		if (is_redir(str[i]))
 		{
 			if ((str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>'))
