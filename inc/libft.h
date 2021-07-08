@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 11:20:31 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/06 12:38:25 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/08 12:27:31 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	**free_tab(char **tab, size_t filled_elems);
 char    **ft_split(const char *str, char c);
+char            **ft_split2(const char *str, char c);
 int      words_n(const char *s, char c);
 int      word_len(const char *str, unsigned int index, char delim);
 

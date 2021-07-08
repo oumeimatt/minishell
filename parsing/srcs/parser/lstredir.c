@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 15:41:48 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 19:04:06 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 12:41:15 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ void			lstredir_addback(t_lstredir **alst, t_lstredir *lst)
 
 void			lstredir_debug(t_lstredir *lst)
 {
-	if (lst && lst->filename)
+	if (lst)
 	{
 		while (lst->next)
 		{
-			printf ("type : %d | file : %s\n", lst->type, lst->filename);
+			printf ("type : [%d], file : %s\n", lst->type, lst->filename);
 			lst = lst->next;
 		}
-		printf ("type : %d | file : %s\n", lst->type, lst->filename);
-
+		printf ("type : [%d], file : %s\n", lst->type, lst->filename);
+		printf ("\n");
 	}
 }
 

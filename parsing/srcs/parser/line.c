@@ -6,22 +6,18 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 14:58:51 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 12:21:25 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/minishell.h"
 
-int			is_redir(char *str)
+int			is_redir(char c)
 {
-	if (!ft_strcmp(str, "<"))
+	if (c == '<')
 		return (1);
-	else if (!ft_strcmp(str, "<<"))
+	else if (c == '>')	
 		return (2);
-	else if (!ft_strcmp(str, ">"))
-		return (3);
-	else if (!ft_strcmp(str, ">>"))
-		return (4);
 	else
 		return (0);
 }

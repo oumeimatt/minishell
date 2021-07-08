@@ -38,6 +38,7 @@ SRCS =	parsing/srcs/libft/ft_atoi.c\
 		parsing/srcs/libft/ft_tolower.c\
 		parsing/srcs/libft/ft_toupper.c\
 		parsing/srcs/libft/ft_split.c\
+		parsing/srcs/libft/ft_split2.c\
 		parsing/srcs/parser/mosdef.c\
 		parsing/srcs/parser/parser.c\
 		parsing/srcs/parser/utils.c\
@@ -57,7 +58,7 @@ SRCS =	parsing/srcs/libft/ft_atoi.c\
 INCLUDES =	inc/libft.h\
 			inc/minishell.h\
 
-FLAGS = -Wall -Werror -Wextra -lreadline -g -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -lreadline -g #-fsanitize=address
 
 all:		$(NAME)
 

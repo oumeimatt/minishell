@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 17:08:13 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 19:05:25 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 12:39:16 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int         main(int argc, char **argv, char **envp)
 	wrp = contruct_wrapper();
 	
 	parser(wrp, envp);
-	
+
 	return (0);
 }
 
