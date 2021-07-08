@@ -6,13 +6,13 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:42:06 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/06/11 16:57:43 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:32:45 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/libft.h"
 
-size_t		ft_strlen(char *str)
+size_t		ft_strlen(const char *str)
 {
 	size_t	i;
 

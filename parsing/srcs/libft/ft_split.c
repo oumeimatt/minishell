@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 12:38:04 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 17:19:05 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char            **ft_split(const char *str, char c)
     int     i;
     int     j;
 
-    if (str)
+	if (str)
     {
         if (!(tab = (char **)malloc(sizeof(char *) * (words_n(str, c) + 1))))
             return (0);

@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 12:40:32 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 17:35:35 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 
 	i = 0;
 
-	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	line = ft_strtrim(line, " \t");
 	tab = ft_split2(line, '|');
+	if (!tab)
+		return ;
+	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	wrp->pipeline = NULL;
 	while (tab[i])
 	{
@@ -65,8 +67,9 @@ void			parse_line(t_wrapper *wrp)
 	if (line != NULL)
 	{
 		parse_tokens(wrp, line);
-		pipeline_debug(wrp->pipeline);
-		lstredir_debug(wrp->pipeline->redir);
+		pipeline_debug(wrp->pipeline); 
+/* 		if (wrp->pipeline->redir)	
+			lstredir_debug(wrp->pipeline->redir); */
 		free(line);
 		line = NULL;
 	}

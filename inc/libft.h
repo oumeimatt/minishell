@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 11:20:31 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/08 12:27:31 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:32:57 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-size_t	ft_strlen(char *str);
+size_t	ft_strlen(const char *str);
 char	*ft_strmapi(char const *s, char(*f) (unsigned int, char));
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 // int		ft_strcmp(const char *s1, const char *s2);
