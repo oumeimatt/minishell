@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 17:34:09 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 19:12:57 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:39:34 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,8 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 	{
 		if (!ft_strcmp(tab[i] , "<") || !ft_strcmp(tab[i], "<<"))
 		{
-			if (!ft_strcmp(tab[i], "<"))
-			{	
+			if (!ft_strcmp(tab[i], "<"))	
 				lstredir_addback(&tmp, lstredir_new(1, tab[i + 1]));
-			}
 			else if (!ft_strcmp(tab[i], "<<"))
 				lstredir_addback(&tmp, lstredir_new(2, tab[i + 1]));
 			flag = 2;
@@ -132,8 +130,9 @@ void		expand_var_env(t_wrapper *wrp, t_iofiles *iofiles, char **tab, int index)
 	{
 		tab_trimmer(tab);
 		dsign = ft_strchr(tab[index], '$');
-		start = dsign - tab[index];
+		start = dsign - tab[index];	
 		if (flag == 0)
 			ft_env_var(wrp, iofiles, tab, index, start);
+		
 	}
 }

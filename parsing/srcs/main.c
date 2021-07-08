@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 17:08:13 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 12:39:16 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 17:05:04 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,14 @@
 void		debug_tab(char **tab)
 {
 	int i;
-	for (i = 0; tab[i + 1] != NULL; i++)
-		printf("[%s] - ", tab[i]);
+
+	i = 0;
+	if (tab[i + 1])
+		while (tab[i + 1] != NULL)
+		{
+			printf("[%s] - ", tab[i]);
+			i++;
+		}
 	if (tab[i] != NULL)
 		printf("[%s]\n", tab[i]);
 }
@@ -31,11 +37,16 @@ int         main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	wrp = contruct_wrapper();
-	
+//	(void)envp;
+
 	parser(wrp, envp);
-/* 	char *str = ft_strdup("ls -la >ou1 >>ou2 >> out3");
-	char **tab = ft_split(str, ' ');
-	debug_tab(tab); */
+
+/* 	char *str = ft_strdup("\"");
+	char **tab = ft_split2(str, '|');
+	printf ("%s\n", tab[0]);
+	printf ("%s\n", str);
+	write (1, "HEHE", 5);
+ */
 
 	return (0);
 }
