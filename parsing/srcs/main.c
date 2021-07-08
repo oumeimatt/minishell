@@ -33,9 +33,6 @@ int         main(int argc, char **argv, char **envp)
 	wrp = contruct_wrapper();
 	
 	parser(wrp, envp);
-/* 	char *str = ft_strdup("ls -la >ou1 >>ou2 >> out3");
-	char **tab = ft_split(str, ' ');
-	debug_tab(tab); */
 
 	return (0);
 }
