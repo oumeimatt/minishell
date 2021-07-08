@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 16:34:31 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/07 19:14:01 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 12:19:27 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ t_cmd			cmd_create(char **tokens, char **line)
 {
 	t_cmd cmd;
 	
-	cmd.in = 0;
-	cmd.out = 0;
+
 	if (tokens)
 	{
 		cmd.tokens = (char **)malloc(sizeof(char *) * (tab_len(tokens) + 1));
