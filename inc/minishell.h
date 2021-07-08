@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 12:21:32 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 19:27:07 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,18 @@ char	*free_ret(char *str1, char *str2, char *to_ret);
 int	check_first(char **s_path, char *cmd);
 char	*absolute_path(char *cmd, char **s_path);
 void	ft_only_cmd(t_wrapper *wrp);
-
+void	ft_is_redirection(t_lstredir *redir, int i);
+void	ft_in_redir(t_lstredir *redir, int i);
+void	ft_here_doc(t_lstredir *redir);
+void	ft_redir_cmd(t_wrapper *wrp);
+void	ft_out_redir(t_lstredir *redir, int i);
+void	ft_append_redir(t_lstredir *redir, int i);
+int		ft_read(int fd, char **str);
+int		ft_remplissage(char **str, char **line, int len);
+int		ft_finish(char **str, char **line);
+int		get_next_line(int fd, char **line);
+int		count_redir(t_lstredir *redir, int type);
+void	ft_hd_redir(int i);
 /** execution **/
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 12:40:32 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 18:11:31 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void		parser(t_wrapper *wrp, char **envp)
 		parse_line(wrp);
 		if (wrp->pipeline)
 		{
-			if (wrp->pipeline->next == NULL)
-				ft_only_cmd(wrp);		
+			if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
+				ft_only_cmd(wrp);	
+			else if (wrp->pipeline->next == NULL && wrp->pipeline->redir)
+				ft_redir_cmd(wrp);
 		}
 	}
 }
@@ -38,10 +40,12 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 
 	i = 0;
 
-	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	line = ft_strtrim(line, " \t");
 	tab = ft_split2(line, '|');
+	if (!tab)
+		return ;
 	wrp->pipeline = NULL;
+	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
