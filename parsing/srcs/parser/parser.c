@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 17:35:35 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 18:21:23 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 		tmp = ft_split(tab[i], ' ');
 		tab_checker(wrp ,tmp, iofiles);
 		tab_trimmer(iofiles->tokens);
-		token = cmd_create(iofiles->tokens, tmp);
+		token = cmd_create(iofiles->tokens);
  		pipeline_addback(&(wrp->pipeline), pipeline_new(token, iofiles->redir));
 		i++;
 	}

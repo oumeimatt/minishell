@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 12:21:32 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 18:21:14 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,10 @@ typedef struct	iofiles
 typedef struct s_cmd
 {
     char    **tokens;
-	char	**line;
 	int		redir;
 }               t_cmd;
 
-t_cmd			cmd_create(char **tokens, char **line);
+t_cmd			cmd_create(char **tokens);
 void			cmd_destroy(t_cmd *cmd);
 
 /*							*/
