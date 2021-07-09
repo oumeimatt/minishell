@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/09 19:15:59 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/09 19:22:59 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 
 	line = ft_strtrim(line, " \t");
 	tab = ft_split2(line, '|');
-	//debug_tab(tab);
 	if (!tab)
 		return ;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
@@ -52,7 +51,6 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 	{
 		tmp = ft_split(tab[i], ' ');
 		tab_trimmer(tmp);
-		debug_tab(tmp);
 		tab_checker(wrp ,tmp, iofiles);
 		token = cmd_create(iofiles->tokens);
  		pipeline_addback(&(wrp->pipeline), pipeline_new(token, iofiles->redir));
@@ -72,7 +70,7 @@ void			parse_line(t_wrapper *wrp)
 	if (line != NULL)
 	{
 		parse_tokens(wrp, line);
-//		pipeline_debug(wrp->pipeline); 
+		pipeline_debug(wrp->pipeline); 
 /* 		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
 
