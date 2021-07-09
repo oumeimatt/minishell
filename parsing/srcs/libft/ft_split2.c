@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:23:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 12:28:04 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/09 18:14:24 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int      words_n2(const char *s, char c)
 	int	dquote;
 
     i = 0;
-	dquote = 0;
+	dquote = 2;
 	count = 0;
     while (s[i])
     {    
@@ -41,12 +41,9 @@ static int      word_len2(const char *str, unsigned int index, char delim)
     i = index;
     while (str[i] && str[i] != delim) 
     {
-        if (is_dquote(str[i]))
-		{
-			while (str[i++] && (!is_dquote(str[i])))
+		if (is_dquote(str[i]))
+			while (str[++i] && !is_dquote(str[i]))
 				len++;
-			return (len + 2);
-		}
 		i++;
         len++;
     }
@@ -71,7 +68,7 @@ char            **ft_split2(const char *str, char c)
                 j++;
             if (!(tab[i] = ft_substr(str, j, word_len2(str, j , c))))
                 return (free_tab(tab, i - 1));
-            j += word_len2(str, j, c);
+            j += word_len2(str, j, c) + 1;
             i++;
         }
         tab[i] = 0;

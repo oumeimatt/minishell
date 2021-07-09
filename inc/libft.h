@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 11:20:31 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/08 16:32:57 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/09 18:13:46 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char    **ft_split(const char *str, char c);
 char            **ft_split2(const char *str, char c);
 int      words_n(const char *s, char c);
 int      word_len(const char *str, unsigned int index, char delim);
-
+char 		*redirection_reformat(const char *string);
 int		is_dollar(char c);
 int		is_squote(char c);
 int     is_dquote(char c);
