@@ -6,13 +6,13 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 12:42:08 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/09 15:42:21 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:21:47 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void    exec_env(t_env *env, int i)
+void    exec_env(t_env *env, int x)
 {
     t_env *tmp = env;
 
@@ -25,10 +25,10 @@ void    exec_env(t_env *env, int i)
             if (valid_export(tmp->value) == 2)
             {
                 ft_putendl_fd(tmp->value, 1);
-                return ;
+                break ;
             }
             else
-                return ;
+                break ;
         }
         else
         {
@@ -41,7 +41,7 @@ void    exec_env(t_env *env, int i)
                 tmp = tmp->next;
         }
     }
-	if (i == 1)
+	if (x == 1)
 		exit(0);
 }
 

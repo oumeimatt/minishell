@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:02:40 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/09 16:25:41 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:19:52 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,9 +179,13 @@ void	exec_export(char **str, t_env *env, int x)
 				i++;
 			}
 		}
+		if (x == 1)
+			exit(0);
 	}
 	if (str[1] == NULL)
+	{
 		only_export(env);
-	if (x == 1)
-		exit(0);
+		if (x == 1)
+			exit(0);
+	}
 }

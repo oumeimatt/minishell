@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/09 15:44:35 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:06:52 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,11 @@ int		get_next_line(int fd, char **line);
 int		count_redir(t_lstredir *redir, int type);
 void	ft_hd_redir(int i);
 void    exec_builtin(char **str, t_env *env, int i) ;
+void	unset_path_cmd(t_wrapper *wrp);
+void    exec_cmd_redir(t_wrapper *wrp, char **split_path);
+void    exec_builtin_redir(t_wrapper *wrp);
+void    unset_path_redir(t_wrapper *wrp);
+
 /** execution **/
 
 #endif

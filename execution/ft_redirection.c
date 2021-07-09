@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:58:12 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/09 15:16:52 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 16:50:24 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,6 @@ void	ft_is_redirection(t_lstredir *redir, int i)
 	}
 }
 
-
-void	ft_hd_redir(int i)
-{
-	int 		in;
-
-	in = open("/tmp/helper", O_RDONLY);
-	if (i == 0)
-		dup2(in, 0);
-	close(in);
-	unlink("/tmp/helper");
-}
-
 void	ft_in_redir(t_lstredir *redir, int i)
 {
 	int			in;
@@ -73,6 +61,8 @@ void	ft_in_redir(t_lstredir *redir, int i)
 		dup2(in, 0);
 		close(in);
 	}
+	else
+		close(in);
 }
 
 void	ft_out_redir(t_lstredir *redir, int i)
@@ -93,6 +83,8 @@ void	ft_out_redir(t_lstredir *redir, int i)
 		dup2(out, 1);
 		close (out);
 	}
+	else
+		close(out);
 }
 
 void	ft_append_redir(t_lstredir *redir, int i)
@@ -109,5 +101,10 @@ void	ft_append_redir(t_lstredir *redir, int i)
 		exit(1);
 	}
 	if (i == 0)
+	{
 		dup2(out, 1);
+		close(out);
+	}
+	else
+		close(out);
 }
