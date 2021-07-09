@@ -6,28 +6,37 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:29:37 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/06 16:59:23 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 16:15:39 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-int    is_builtin(char **str, t_env *env) // str == tokens->cmd[0]
+
+int		is_builtin(char	**str)
+{
+	printf("str == %s\n", str[0]);
+	if (!strcmp(str[0], "echo") || !strcmp(str[0], "cd") ||
+		 !strcmp(str[0], "pwd") || !strcmp(str[0], "export") ||
+		!strcmp(str[0], "env") || !strcmp(str[0], "exit") || 
+		!strcmp(str[0], "unset"))
+		return (0);
+	return (1);
+}
+
+void    exec_builtin(char **str, t_env *env, int i) 
 {
 	if (strcmp(str[0], "echo") == 0)
-		exec_echo(str);
+		exec_echo(str, i);
 	else if (strcmp(str[0], "cd") == 0)
-		exec_cd(str, env);
+		exec_cd(str, env, i);
 	else if (strcmp(str[0], "pwd") == 0)
-		exec_pwd();
+		exec_pwd( i);
 	else if (strcmp(str[0], "export") == 0)
-		exec_export(str, env);
+		exec_export(str, env, i);
 	else if (strcmp(str[0], "unset") == 0)
-		exec_unset(str, env);
+		exec_unset(str, env, i);
 	else if (strcmp(str[0], "env") == 0)	
-		exec_env(env);
+		exec_env(env, i);
 	else if (strcmp(str[0], "exit") == 0)
 		exec_exit();
-	else
-		return (1);
-	return (0);
 }

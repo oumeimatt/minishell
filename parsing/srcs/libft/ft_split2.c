@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:23:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 12:28:04 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/08 21:31:36 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ static int      word_len2(const char *str, unsigned int index, char delim)
     i = index;
     while (str[i] && str[i] != delim) 
     {
-        if (is_dquote(str[i]))
+/*HERE*/
+/*         if (is_dquote(str[i]))
 		{
 			while (str[i++] && (!is_dquote(str[i])))
 				len++;
 			return (len + 2);
-		}
+		} */
 		i++;
         len++;
     }

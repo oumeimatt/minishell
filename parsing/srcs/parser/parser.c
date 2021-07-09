@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 18:21:23 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/09 17:38:35 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void		parser(t_wrapper *wrp, char **envp)
 		parse_line(wrp);
 		if (wrp->pipeline)
 		{
-			if (wrp->pipeline->next == NULL)
-				ft_only_cmd(wrp);		
+			if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
+				ft_only_cmd(wrp);	
+			else if (wrp->pipeline->next == NULL && wrp->pipeline->redir)
+				ft_redir_cmd(wrp);
 		}
 	}
 }
@@ -44,6 +46,7 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 		return ;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	wrp->pipeline = NULL;
+	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
@@ -70,6 +73,7 @@ void			parse_line(t_wrapper *wrp)
 		pipeline_debug(wrp->pipeline); 
 /* 		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
+
 		free(line);
 		line = NULL;
 	}
