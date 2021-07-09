@@ -41,11 +41,11 @@ static int      word_len2(const char *str, unsigned int index, char delim)
     i = index;
     while (str[i] && str[i] != delim) 
     {
-		if (is_dquote(str[i]))
-			while (str[++i] && !is_dquote(str[i]))
-				len++;
-		i++;
-        len++;
+		  if (is_dquote(str[i]))
+		   while (str[++i] && !is_dquote(str[i]))
+				  len++;
+		  i++;
+      len++;
     }
     return (len);
 }

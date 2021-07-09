@@ -51,6 +51,9 @@ SRCS =	parsing/srcs/libft/ft_atoi.c\
 		execution/ft_exec_cmd.c\
 		execution/get_path.c\
 		execution/split.c\
+		execution/ft_redirection.c\
+		execution/ft_here_doc.c\
+		execution/ft_cmd_redir.c\
 
 
 

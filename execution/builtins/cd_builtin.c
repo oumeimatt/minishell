@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:31:04 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/06 14:42:46 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 15:47:06 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void    cd_only(char *buff, t_env *env, char *oldpwd)
 	}
 }
 
-void    exec_cd(char **str, t_env *env)
+void    exec_cd(char **str, t_env *env, int x)
 {
 	char    *buff;
 	int     size;
@@ -89,4 +89,6 @@ void    exec_cd(char **str, t_env *env)
 				strerror(errno));
 	}
 	free(buff);
+	if (x == 1)
+		exit(0);
 }

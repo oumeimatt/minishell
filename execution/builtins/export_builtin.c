@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:02:40 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/06 13:06:25 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:19:52 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*quotes_after_equal(char *str)
 void	only_export(t_env *env)
 {
 	t_env	*tmp;
+	char	*str;
 
 	tmp = env;
 	while (tmp != NULL)
@@ -74,12 +75,17 @@ void	only_export(t_env *env)
         {		
             if (valid_export(tmp->value) == 2)
             {
-                printf("declare -x %s\n", quotes_after_equal(tmp->value));
+				str = quotes_after_equal(tmp->value);
+				ft_putstr_fd("declare -x ", 1);
+				ft_putendl_fd(str, 1);
+				free(str);
+				str = NULL;
 				return ;
             }
             else
             {
-				printf("declare -x %s\n", tmp->value);
+				ft_putstr_fd("declare -x ", 1);
+				ft_putendl_fd(tmp->value, 1);
 				return ;
 			}
         }
@@ -87,13 +93,17 @@ void	only_export(t_env *env)
 		{
 			if (valid_export(tmp->value) == 2)
             {
-                printf("declare -x %s\n", quotes_after_equal(tmp->value));
+				str = quotes_after_equal(tmp->value);
+				ft_putstr_fd("declare -x ", 1);
+				ft_putendl_fd(str, 1);
+				free(str);
+				str = NULL;
 				tmp = tmp->next;
             }
             else
             {
-				printf("declare -x %s\n", tmp->value);
-				tmp = tmp->next;
+				ft_putstr_fd("declare -x ", 1);
+				ft_putendl_fd(tmp->value, 1);
 			}
 		}
 	}
@@ -149,7 +159,7 @@ void	export_builtin(char **str, t_env *env, int i)
 	free(key);
 	key = NULL;
 }
-void	exec_export(char **str, t_env *env)
+void	exec_export(char **str, t_env *env, int x)
 {
 	int		i;
 
@@ -169,7 +179,13 @@ void	exec_export(char **str, t_env *env)
 				i++;
 			}
 		}
+		if (x == 1)
+			exit(0);
 	}
 	if (str[1] == NULL)
+	{
 		only_export(env);
+		if (x == 1)
+			exit(0);
+	}
 }

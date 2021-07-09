@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
 /*   Updated: 2021/07/09 18:14:07 by ztaouil          ###   ########.fr       */
@@ -160,23 +160,3 @@ char 		*redirection_reformat(const char *string)
 	str[s_count] = '\0';
 	return (str);
 }
-
-/* char		**split_v3(const char *str, char dim, char **tab)
-{
-	int p_count;
-	int t_count;
-	int d_quot;
-	int s_quot;
-
-	d_quot =  0;
-	s_quot =  0;
-	p_count = 0;
-	t_count = 0;
-	while (str[p_count] != '\0' && str[p_count] != dim)
-	{
-		
-
-		tab[t_count]
-		p_count++;
-	}
-} */
