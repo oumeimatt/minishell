@@ -108,7 +108,7 @@ char            **ft_split(const char *str, char c)
     int     i;
     int     j;
 
-    if (str)
+	if (str)
     {
         if (!(tab = (char **)malloc(sizeof(char *) * (words_n(str, c) + 1))))
             return (0);

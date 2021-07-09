@@ -80,11 +80,10 @@ typedef struct	iofiles
 typedef struct s_cmd
 {
     char    **tokens;
-	char	**line;
 	int		redir;
 }               t_cmd;
 
-t_cmd			cmd_create(char **tokens, char **line);
+t_cmd			cmd_create(char **tokens);
 void			cmd_destroy(t_cmd *cmd);
 
 /*							*/
