@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/09 17:38:35 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 19:15:59 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 
 	line = ft_strtrim(line, " \t");
 	tab = ft_split2(line, '|');
-	debug_tab(tab);
+	//debug_tab(tab);
 	if (!tab)
 		return ;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
@@ -51,6 +51,7 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
+		tab_trimmer(tmp);
 		debug_tab(tmp);
 		tab_checker(wrp ,tmp, iofiles);
 		token = cmd_create(iofiles->tokens);

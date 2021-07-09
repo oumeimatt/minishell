@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 17:08:13 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/09 17:38:50 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 19:13:22 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,24 @@ int         main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	wrp = contruct_wrapper();
-	(void)envp;
 
 	parser(wrp, envp);
+
+
 /* 	while (1)
 	{
 		char *str = readline("> ");
 		add_history(str);
-		char **tab = ft_split(str, ' ');
+		char **tab = ft_split2(str, '|');
 		debug_tab(tab);
+		printf ("\n");
+		while (tab[i] != NULL)
+		{
+			tmp = ft_split (tab[i], ' ');
+			debug_tab(tmp);
+			destroy_tab(tmp);
+			i++;
+		}
 	} */
 	return (0);
 }
