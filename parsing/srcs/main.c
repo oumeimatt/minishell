@@ -33,21 +33,19 @@ void		debug_tab(char **tab)
 int         main(int argc, char **argv, char **envp)
 {
 	t_wrapper *wrp;
-	
 	(void)argc;
 	(void)argv;
 	wrp = contruct_wrapper();
-//	(void)envp;
+	(void)envp;
 
 	parser(wrp, envp);
-
-/* 	char *str = ft_strdup("\"");
-	char **tab = ft_split2(str, '|');
-	printf ("%s\n", tab[0]);
-	printf ("%s\n", str);
-	write (1, "HEHE", 5);
- */
-
+/* 	while (1)
+	{
+		char *str = readline("> ");
+		add_history(str);
+		char **tab = ft_split(str, ' ');
+		debug_tab(tab);
+	} */
 	return (0);
 }
 

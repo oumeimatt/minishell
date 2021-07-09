@@ -42,6 +42,7 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 
 	line = ft_strtrim(line, " \t");
 	tab = ft_split2(line, '|');
+	debug_tab(tab);
 	if (!tab)
 		return ;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
@@ -50,8 +51,8 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
+		debug_tab(tmp);
 		tab_checker(wrp ,tmp, iofiles);
-		tab_trimmer(iofiles->tokens);
 		token = cmd_create(iofiles->tokens);
  		pipeline_addback(&(wrp->pipeline), pipeline_new(token, iofiles->redir));
 		i++;
@@ -70,7 +71,7 @@ void			parse_line(t_wrapper *wrp)
 	if (line != NULL)
 	{
 		parse_tokens(wrp, line);
-		pipeline_debug(wrp->pipeline); 
+//		pipeline_debug(wrp->pipeline); 
 /* 		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
 
