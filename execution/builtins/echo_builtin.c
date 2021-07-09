@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 13:51:29 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/08 16:31:36 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 15:41:59 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	echo_option_exist(char **str)
 	}
 }
 
-void   exec_echo(char **str)
+void   exec_echo(char **str, int i)
 {
 	int	j;
 
@@ -78,5 +78,7 @@ void   exec_echo(char **str)
 			// printf("\n");
 			ft_putstr_fd("\n", 1);
 		}
-	}   
+	}
+	if (i == 1)
+	exit(0); 
 }        

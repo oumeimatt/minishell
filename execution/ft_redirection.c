@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:58:12 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/08 19:26:52 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 15:16:52 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	ft_in_redir(t_lstredir *redir, int i)
 		exit(1);
 	}
 	if (i == 0)
+	{
 		dup2(in, 0);
+		close(in);
+	}
 }
 
 void	ft_out_redir(t_lstredir *redir, int i)
@@ -86,7 +89,10 @@ void	ft_out_redir(t_lstredir *redir, int i)
 		exit(1);
 	}
 	if (i == 0)
+	{
 		dup2(out, 1);
+		close (out);
+	}
 }
 
 void	ft_append_redir(t_lstredir *redir, int i)
@@ -105,23 +111,3 @@ void	ft_append_redir(t_lstredir *redir, int i)
 	if (i == 0)
 		dup2(out, 1);
 }
-
-
-// int		count_redir(t_lstredir *redir, int type)
-// {
-// 	int		i;
-// 	t_lstredir *tmp;
-
-// 	tmp = redir;
-
-// 	i = 0;
-// 	while (tmp->next != NULL)
-// 	{
-// 		if (tmp->type == type)
-// 			i++;
-// 		tmp = tmp->next;
-// 	}
-// 	if (tmp->type == type)
-// 		i++;
-// 	return (i);
-// }

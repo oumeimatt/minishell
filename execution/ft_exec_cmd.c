@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:09:56 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/08 19:27:21 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 16:33:51 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    exec_cmd(char **cmd)
 		wrng_cmd = ft_split_2(cmd[0], ' ');
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(wrng_cmd[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		ft_putendl_fd(": command not found", 2);
 		exit(127);
 	}
 }
@@ -36,7 +36,7 @@ void	ft_only_cmd(t_wrapper *wrp)
 	if (path != NULL)
 	{
 		split_path = ft_split_2(path, ':');
-		if (is_builtin(wrp->pipeline->cmd.tokens, wrp->env) == 1)
+		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 		{
 			wrp->pipeline->cmd.tokens[0] = 
 				absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
@@ -45,17 +45,21 @@ void	ft_only_cmd(t_wrapper *wrp)
 				exit(1);
 			if (pid == 0)
 				exec_cmd(wrp->pipeline->cmd.tokens);
-			free(path);
 		}
+		else
+			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 0);
+		free(path);
 	}
 	else
 	{
-		if (is_builtin(wrp->pipeline->cmd.tokens, wrp->env) == 1)
+		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
 			ft_putendl_fd(": No such file or directory", 2);
 		}
+		else
+			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 0);
 	}
 }
 
@@ -90,6 +94,7 @@ char	*find_limiter(t_lstredir *redir)
 	}
 	return (limiter);
 }
+
 void	ft_here_doc(t_lstredir *redir)
 {
 	int			in;
@@ -124,32 +129,55 @@ void	ft_redir_cmd(t_wrapper *wrp)
 	if (path != NULL)
 	{
 		split_path = ft_split_2(path, ':');
-		wrp->pipeline->cmd.tokens[0] = 
-			absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
 		if (wrp->pipeline->redir->type == 2)
-			ft_here_doc(wrp->pipeline->redir);
-		pid = fork();
-		if (pid < 0)
-			exit(1);
-		if (pid == 0)
+				ft_here_doc(wrp->pipeline->redir);
+		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 		{
-			ft_is_redirection(wrp->pipeline->redir, 0);
-			if (is_builtin(wrp->pipeline->cmd.tokens, wrp->env) == 1)
+			wrp->pipeline->cmd.tokens[0] = 
+				absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
+			pid = fork();
+			if (pid < 0)
+				exit(1);
+			if (pid == 0)
+			{
+				ft_is_redirection(wrp->pipeline->redir, 0);
 				exec_cmd(wrp->pipeline->cmd.tokens);
+			}
 		}
-		
+		else
+		{
+			pid = fork();
+			if (pid < 0)
+				exit(1);
+			if (pid == 0)
+			{
+				ft_is_redirection(wrp->pipeline->redir, 0);
+				exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+			}
+		}
 		free(path);
 	}
 	else
 	{
-		if (is_builtin(wrp->pipeline->cmd.tokens, wrp->env) == 1)
+		if (wrp->pipeline->redir->type == 2)
+			ft_here_doc(wrp->pipeline->redir);
+		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 		{
-			if (wrp->pipeline->redir->type == 2)
-				ft_here_doc(wrp->pipeline->redir);
 			ft_is_redirection(wrp->pipeline->redir, 1);
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
 			ft_putendl_fd(": No such file or directory", 2);
+		}
+		else
+		{	
+			pid = fork();
+			if (pid < 0)
+				exit(1);
+			if (pid == 0)
+			{
+				ft_is_redirection(wrp->pipeline->redir, 0);
+				exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+			}
 		}
 	}
 }

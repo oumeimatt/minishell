@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 19:27:07 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 15:44:35 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,11 @@ int			min_v(int a, int b);
 
 t_env   *change_value(t_env *env, char *key, char *value);
 void    cd_only(char *buff, t_env *env, char *oldpwd);
-void    exec_cd(char **str, t_env *env);
+void    exec_cd(char **str, t_env *env, int i);
 int		echo_valid_option(char *str);
 void	echo_option_exist(char **str);
-void   exec_echo(char **str);
-void    exec_env(t_env *env);
+void   exec_echo(char **str, int i);
+void    exec_env(t_env *env, int i);
 int     is_key_exist(t_env *env, char *key);
 t_env	*init_env(char **envp, t_env *list);
 char	*print_quotes(char *str, char *temp);
@@ -164,12 +164,12 @@ void	only_export(t_env *env);
 int		valid_export(char *str);
 void	export_error(char *str);
 void	export_builtin(char **str, t_env *env, int i);
-void	exec_export(char **str, t_env *env);
-int    is_builtin(char **str, t_env *env);
+void	exec_export(char **str, t_env *env, int i);
+int    is_builtin(char **str);
 char    *pwd_builtin();
-void	exec_pwd();
+void	exec_pwd(int i);
 void    unset_error(char *str);
-void    exec_unset(char **str, t_env *env);
+void    exec_unset(char **str, t_env *env, int i);
 void	ft_add_node(t_env **head_ref, char *line, char *key);
 void	delete_node(t_env **head_ref, char *key);
 void    print_list(t_env *head);
@@ -200,6 +200,7 @@ int		ft_finish(char **str, char **line);
 int		get_next_line(int fd, char **line);
 int		count_redir(t_lstredir *redir, int type);
 void	ft_hd_redir(int i);
+void    exec_builtin(char **str, t_env *env, int i) ;
 /** execution **/
 
 #endif

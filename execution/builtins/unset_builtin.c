@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:29:06 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/06 12:37:34 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 15:47:29 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    unset_error(char *str)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
-void    exec_unset(char **str, t_env *env)
+void    exec_unset(char **str, t_env *env, int x)
 {
 	int     i;
 
@@ -37,4 +37,6 @@ void    exec_unset(char **str, t_env *env)
 			delete_node(&env, str[i]);
 		i++;
 	}
+	if (x == 1)
+		exit(0);
 }
