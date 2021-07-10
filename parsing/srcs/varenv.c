@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 19:24:23 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/10 21:33:31 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/10 21:53:08 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,38 +40,6 @@ int			get_env_var_token_len(t_wrapper *wrp, char *token)
 		}
 	}
 	return (len);
-}
-
-void		expand_var_env(t_wrapper *wrp, t_iofiles *iofiles, char *token, int index)
-{
-	// iofiles->tokens[index] = expand_env(wrp, token);
-	(void)iofiles;
-	(void)index;
-	printf("%s\n", expand_env(wrp, token));
-/* 	char **tab; 
-	int len;
-	int i;
-	int j;
-	char *tmp;
-	
-	tab = get_env_vars_keys(token);
-	len = get_env_var_token_len(wrp, token);
-	j = tab_len(tab) - 1;
-	i = 0;
-	if (j == -1)
-		return ;
-	iofiles->tokens[index] = malloc (sizeof(char) * len);
-	while (token[i] != '\0' && !is_dollar(token[i]))
-	{
-		iofiles->tokens[index][i] = token[i];
-		i++;
-	}
-	while (j >= 0)
-	{	
-		tmp = print_value(wrp->env, tab[j]);
-		iofiles->tokens[index] = ft_strjoin(iofiles->tokens[index], tmp);
-		j--;
-	} */
 }
 
 char 		**get_env_vars_keys(char *token)
@@ -137,7 +105,7 @@ char *expand_env(t_wrapper *wrp, char *string)
 			while (value && value[c_count] != '\0')
 				str[s_count++] = value[c_count++];
 		}
-		if (!is_dollar(string[p_count]))
+		if (!is_dollar(string[p_count]) || s_flag)
 			str[s_count++] = string[p_count++];
 	}
 	str[s_count] = '\0';
