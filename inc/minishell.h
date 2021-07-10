@@ -202,5 +202,4 @@ void			exec_builtin_redir(t_wrapper *wrp);
 void			unset_path_redir(t_wrapper *wrp);
 
 /** execution prototypes **/
-
 #endif
