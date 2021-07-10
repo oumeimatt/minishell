@@ -67,19 +67,3 @@ int		free_s_tab(char **tab)
 	}
 	return (0);
 }
-
-char		**sub_tab(char **src, int i)
-{
-	char **ret;
-	int	j;
-	
-	j = 0;
-	ret = malloc(sizeof(char *) * (tab_len(src) - 2));
-	while (j < tab_len(src) - 2)
-	{
-		if (i != j && (i + 1) != j)
-			ret[j] = ft_strdup(src[j]); 
-		j++;
-	}
-	return (ret);
-}

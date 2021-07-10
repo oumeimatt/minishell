@@ -48,3 +48,18 @@ void			destroy_tab(char **tab)
 	}
 	free(tab);
 }
+
+void		debug_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	if (tab[i + 1])
+		while (tab[i + 1] != NULL)
+		{
+			printf("[%s] - ", tab[i]);
+			i++;
+		}
+	if (tab[i] != NULL)
+		printf("[%s]\n", tab[i]);
+}
