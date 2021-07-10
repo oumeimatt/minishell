@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 17:34:09 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/10 14:19:40 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/10 17:31:48 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,6 @@ void			destroy_tab(char **tab)
 	free(tab);
 }
 
-void			ft_env_var(t_wrapper *wrp, t_iofiles *iofiles, char **tab, int i, int start)
-{
-	int	len;
-	char *first;
-	
-	len = ft_strlen(tab[i]) - start;
-	first = ft_substr(tab[i], 0, start);
-	iofiles->tokens[i] = print_value(wrp->env, ft_substr(tab[i], start + 1, len - 1));
-	if (tab[i] == NULL)
-		tab[i] = ft_strdup("");
-	iofiles->tokens[i] = ft_strjoin(first, iofiles->tokens[i]);
-	free(first);
-}
-
 void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 {
 	int	i;
@@ -101,11 +87,10 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 		else if (flag == 0)
 		{	
 			fill_tokens(iofiles, tab, &i, &j);
-			expand_var_env(wrp, iofiles, tab, i);
+			expand_var_env(wrp, iofiles, tab[i], i);
 		}	
 		
 		flag = (flag > 0 ? flag - 1 : 0);
-		//printf ("tab[%d] : %s\n", i, tab[i]);
 		i++;
 	}
 	iofiles->tokens[j] = NULL;
@@ -118,22 +103,82 @@ void		fill_tokens(t_iofiles *iofiles, char **tab, int *i, int *j)
 	*j += 1;	
 }
 
-void		expand_var_env(t_wrapper *wrp, t_iofiles *iofiles, char **tab, int index)
+char 		**get_env_vars_keys(char *token)
 {
-	int flag;
-	char *dsign;
-	int		start;
-
-	flag = 0;
-	if (is_squote(tab[index][0]))
-		flag = 1;
-	if (ft_strchr(tab[index], '$'))
+	int	i;
+	char **tab;
+	int		j;
+	
+	tab = (char **)malloc(sizeof(char *) * 20);
+	i = ft_strlen (token);
+	j = 0;
+	while (i >= 0)
 	{
-		tab_trimmer(tab);
-		dsign = ft_strchr(tab[index], '$');
-		start = dsign - tab[index];	
-		if (flag == 0)
-			ft_env_var(wrp, iofiles, tab, index, start);
-		
+		if (is_dollar(token[i]))
+		{
+			tab[j++] = ft_substr(token, i + 1, ft_strlen(token) - i - 1);
+			token = ft_substr(token, 0, i);
+		}
+		i--;
 	}
+	tab[j] = NULL;	
+	return (tab);
+}
+
+void		expand_var_env(t_wrapper *wrp, t_iofiles *iofiles, char *token, int index)
+{
+	char **tab; 
+	int len;
+	int i;
+	int j;
+	char *tmp;
+	
+	tab = get_env_vars_keys(token);
+	len = get_env_var_token_len(wrp, token);
+	j = tab_len(tab) - 1;
+	i = 0;
+	if (j == -1)
+		return ;
+	iofiles->tokens[index] = malloc (sizeof(char) * len);
+	while (token[i] != '\0' && !is_dollar(token[i]))
+	{
+		iofiles->tokens[index][i] = token[i];
+		i++;
+	}
+	while (j >= 0)
+	{	
+		tmp = print_value(wrp->env, tab[j]);
+		iofiles->tokens[index] = ft_strjoin(iofiles->tokens[index], tmp);
+		j--;
+	}
+}
+
+int			get_env_var_token_len(t_wrapper *wrp, char *token)
+{
+	char **tab; 
+	int i = 0;
+	int len = 0;
+	int j;
+	char *tmp;
+	
+	tab = get_env_vars_keys(token);
+	j = tab_len(tab) - 1;
+	if (j > -1)
+	{	
+		while (token[i])
+		{
+			if (!is_dollar(token[i]))
+				len++;
+			else
+				while (j >= 0)
+				{
+					tmp = print_value(wrp->env, tab[j]);
+					if (tmp)
+						len += ft_strlen(tmp);
+					j--;
+				}
+			i++;
+		}
+	}
+	return (len);
 }
