@@ -4,49 +4,51 @@ cc = clang
 
 NAME = minishell
 
-SRCS =	parsing/srcs/libft/ft_atoi.c\
-		parsing/srcs/libft/ft_bzero.c\
-		parsing/srcs/libft/ft_calloc.c\
-		parsing/srcs/libft/ft_isalnum.c\
-		parsing/srcs/libft/ft_isalpha.c\
-		parsing/srcs/libft/ft_isascii.c\
-		parsing/srcs/libft/ft_isdigit.c\
-		parsing/srcs/libft/ft_isprint.c\
-		parsing/srcs/libft/ft_itoa.c\
-		parsing/srcs/libft/ft_memccpy.c\
-		parsing/srcs/libft/ft_memchr.c\
-		parsing/srcs/libft/ft_memcmp.c\
-		parsing/srcs/libft/ft_memcpy.c\
-		parsing/srcs/libft/ft_memmove.c\
-		parsing/srcs/libft/ft_memset.c\
-		parsing/srcs/libft/ft_putchar_fd.c\
-		parsing/srcs/libft/ft_putendl_fd.c\
-		parsing/srcs/libft/ft_putnbr_fd.c\
-		parsing/srcs/libft/ft_putstr_fd.c\
-		parsing/srcs/libft/ft_strchr.c\
-		parsing/srcs/libft/ft_strdup.c\
-		parsing/srcs/libft/ft_strjoin.c\
-		parsing/srcs/libft/ft_strlcat.c\
-		parsing/srcs/libft/ft_strlcpy.c\
-		parsing/srcs/libft/ft_strlen.c\
-		parsing/srcs/libft/ft_strmapi.c\
-		parsing/srcs/libft/ft_strncmp.c\
-		parsing/srcs/libft/ft_strnstr.c\
-		parsing/srcs/libft/ft_strrchr.c\
-		parsing/srcs/libft/ft_strtrim.c\
-		parsing/srcs/libft/ft_substr.c\
-		parsing/srcs/libft/ft_tolower.c\
-		parsing/srcs/libft/ft_toupper.c\
-		parsing/srcs/libft/ft_split.c\
-		parsing/srcs/libft/ft_split2.c\
-		parsing/srcs/parser/mosdef.c\
-		parsing/srcs/parser/parser.c\
-		parsing/srcs/parser/utils.c\
-		parsing/srcs/parser/cmd.c\
-		parsing/srcs/parser/tab_utils.c\
-		parsing/srcs/parser/line.c\
-		parsing/srcs/parser/lstredir.c\
-		parsing/srcs/main.c\
+SRCS =	parsing/libft/ft_atoi.c\
+		parsing/libft/ft_bzero.c\
+		parsing/libft/ft_calloc.c\
+		parsing/libft/ft_isalnum.c\
+		parsing/libft/ft_isalpha.c\
+		parsing/libft/ft_isascii.c\
+		parsing/libft/ft_isdigit.c\
+		parsing/libft/ft_isprint.c\
+		parsing/libft/ft_itoa.c\
+		parsing/libft/ft_memccpy.c\
+		parsing/libft/ft_memchr.c\
+		parsing/libft/ft_memcmp.c\
+		parsing/libft/ft_memcpy.c\
+		parsing/libft/ft_memmove.c\
+		parsing/libft/ft_memset.c\
+		parsing/libft/ft_putchar_fd.c\
+		parsing/libft/ft_putendl_fd.c\
+		parsing/libft/ft_putnbr_fd.c\
+		parsing/libft/ft_putstr_fd.c\
+		parsing/libft/ft_strchr.c\
+		parsing/libft/ft_strdup.c\
+		parsing/libft/ft_strjoin.c\
+		parsing/libft/ft_strlcat.c\
+		parsing/libft/ft_strlcpy.c\
+		parsing/libft/ft_strlen.c\
+		parsing/libft/ft_strmapi.c\
+		parsing/libft/ft_strncmp.c\
+		parsing/libft/ft_strnstr.c\
+		parsing/libft/ft_strrchr.c\
+		parsing/libft/ft_strtrim.c\
+		parsing/libft/ft_substr.c\
+		parsing/libft/ft_tolower.c\
+		parsing/libft/ft_toupper.c\
+		parsing/libft/ft_split.c\
+		parsing/libft/ft_split2.c\
+		parsing/srcs/mosdef.c\
+		parsing/srcs/parser.c\
+		parsing/srcs/utils.c\
+		parsing/srcs/cmd.c\
+		parsing/srcs/tab_utils.c\
+		parsing/srcs/line.c\
+		parsing/srcs/lstredir.c\
+		parsing/srcs/parser2.c\
+		parsing/srcs/varenv.c\
+		parsing/main.c\
 		execution/builtins/*.c\
 		execution/ft_exec_cmd.c\
 		execution/get_path.c\
