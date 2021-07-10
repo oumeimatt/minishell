@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/10 17:32:17 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/10 21:11:09 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void			lstredir_addback(t_lstredir **alst, t_lstredir *lst);
 void			lstredir_debug(t_lstredir *lst);
 int			getLast_redir_type(t_lstredir *redir);
 int			getFirst_redir_type(t_lstredir *redir);
+
+
 
 
 /**/
@@ -146,7 +148,9 @@ char		**sub_tab(char **src, int i);
 int			max_v(int a, int b);
 int			min_v(int a, int b);
 
-
+int		get_env_len(char *string);
+char *expand_env(t_wrapper *wrp, char *string);
+char 		*reformat_line(t_wrapper *wrp, char *line);
 
 /** execution **/
 
@@ -206,6 +210,7 @@ void	unset_path_cmd(t_wrapper *wrp);
 void    exec_cmd_redir(t_wrapper *wrp, char **split_path);
 void    exec_builtin_redir(t_wrapper *wrp);
 void    unset_path_redir(t_wrapper *wrp);
+
 
 /** execution **/
 
