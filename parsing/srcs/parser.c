@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/10 21:11:46 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/10 21:30:21 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 
 	line = reformat_line(wrp, line);
 	tab = ft_split2(line, '|');
-//	debug_tab(tab);
 	if (!tab)
 		return ;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
@@ -51,7 +50,6 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
-	//	debug_tab(tab);
 		tab_trimmer(tmp);
 		tab_checker(wrp ,tmp, iofiles);
 		token = cmd_create(iofiles->tokens);
