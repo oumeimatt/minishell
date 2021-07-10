@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 19:24:23 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/10 21:33:31 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/10 21:51:13 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ char *expand_env(t_wrapper *wrp, char *string)
 			while (value && value[c_count] != '\0')
 				str[s_count++] = value[c_count++];
 		}
-		if (!is_dollar(string[p_count]))
+		if (!is_dollar(string[p_count]) || s_flag)
 			str[s_count++] = string[p_count++];
 	}
 	str[s_count] = '\0';
