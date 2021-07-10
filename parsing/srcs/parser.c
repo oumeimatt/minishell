@@ -19,7 +19,7 @@ void		parser(t_wrapper *wrp, char **envp)
 
 	while (1)
 	{
-		parse_line(wrp);
+		parser_line(wrp);
 		if (wrp->pipeline)
 		{
 			if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
@@ -30,7 +30,7 @@ void		parser(t_wrapper *wrp, char **envp)
 	}
 }
 
-void			parse_tokens(t_wrapper *wrp, char *line)
+void			parser_tokens(t_wrapper *wrp, char *line)
 {
 	char	**tab;
 	int		i;
@@ -51,16 +51,15 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 	{
 		tmp = ft_split(tab[i], ' ');
 		tab_trimmer(tmp);
-		tab_checker(wrp ,tmp, iofiles);
+		parser_tab_checker(wrp ,tmp, iofiles);
 		token = cmd_create(iofiles->tokens);
  		pipeline_addback(&(wrp->pipeline), pipeline_new(token, iofiles->redir));
 		i++;
 	}
 	destroy_tab(tab);
-//	cmd_destroy(&token);
 }
 
-void			parse_line(t_wrapper *wrp)
+void			parser_line(t_wrapper *wrp)
 {
 	char	*line;
 
@@ -69,11 +68,10 @@ void			parse_line(t_wrapper *wrp)
 	add_history (line);
 	if (line != NULL)
 	{
-		parse_tokens(wrp, line);
-//		pipeline_debug(wrp->pipeline); 		
-/* 		if (wrp->pipeline->redir)	
+		parser_tokens(wrp, line);
+/* 		pipeline_debug(wrp->pipeline); 		
+ 		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
-
 		free(line);
 		line = NULL;
 	}

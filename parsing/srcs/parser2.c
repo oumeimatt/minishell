@@ -12,7 +12,7 @@
 
 #include "../../inc/minishell.h"
 
-void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
+void		parser_tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 {
 	int	i;
 	int	j;
@@ -49,17 +49,12 @@ void		tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 		}
 		else if (flag == 0)
 		{
-			fill_tokens(iofiles, tab, &i, &j);
+			iofiles->tokens[j] = ft_strdup(tab[i]);
+			j++;
 		}
 		flag = (flag > 0 ? flag - 1 : 0);
 		i++;
 	}
 	iofiles->tokens[j] = NULL;
 	iofiles->redir = tmp;
-}
-
-void		fill_tokens(t_iofiles *iofiles, char **tab, int *i, int *j)
-{
-	iofiles->tokens[*j] = ft_strdup(tab[*i]);
-	*j += 1;	
 }
