@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:23:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/09 19:12:48 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/10 14:52:09 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int      word_len2(const char *str, unsigned int index, char delim)
         i++;
         len++;
     }
+    if (str[i] == delim)
+        return (len);
     return (len + 1);
 }
 
