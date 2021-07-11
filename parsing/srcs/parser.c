@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 16:51:41 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/11 17:06:35 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ int				parser_line(t_wrapper *wrp)
 	add_history (line);
 	line = reformat_line(wrp, line);
 	if (line == NULL)
+	{
+		put_err(wrp);
 		return (0);
+	}
 	else
 	{
 		parser_tokens(wrp, line);
@@ -98,12 +101,16 @@ int				parser_line(t_wrapper *wrp)
 
 char 		*reformat_line(t_wrapper *wrp, char *line)
 {
+	int flag;
+	
 	line = redirection_reformat(line);
 	line = pipes_reformat(line);
 	line = expand_env(wrp, line);
 	line = ft_strtrim(line, "\t ");
-	if (check_line_syntax(line) == 0)
+	flag = check_line_syntax(line);
+	if (flag <= 0)
 	{
+		load_msg_err(wrp, flag);
 		free(line);
 		line = NULL;
 	}
@@ -117,10 +124,10 @@ int			check_line_syntax(char *string)
 	
 	s_count = 0;
 	len = ft_strlen(string);
-	if (!ft_strncmp(string, "|", 1) || (!ft_strncmp(string, "\"", 1) && len < 2) || (!ft_strncmp(string, "\'", 1) && len < 2))
+	if ((!ft_strncmp(string, "\"", 1) && len < 2) || (!ft_strncmp(string, "\'", 1) && len < 2) || (string[len - 1] == '|' && len > 1))
 		return (0);
-	else if (string[len - 1] == '|')
-		return (0);
+	else if (!ft_strncmp(string, "|", 1))
+		return (-1);
 	while (string[s_count] != '\0')
 	{
 		s_count++;

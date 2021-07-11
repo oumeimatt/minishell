@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 16:50:30 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/11 17:04:05 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ int		g_i;
 /*********************/
 /* parsing typedefs */
 
+typedef struct		s_error
+{
+	int		num;
+	char	*errmsg;
+}					t_error;
+
 typedef struct		s_lstredir
 {
 	int		type;
@@ -83,6 +89,7 @@ typedef struct		s_wrapper
 {
 	t_pipeline	*pipeline;
 	t_env		*env;
+	t_error		*error;
 }			t_wrapper;
 
 /*parsing*/
@@ -96,34 +103,30 @@ t_lstredir		*lstredir_new(int type, char *filename);
 int			lstredir_size(t_lstredir *lst);
 void			lstredir_addback(t_lstredir **alst, t_lstredir *lst);
 void			lstredir_debug(t_lstredir *lst);
-
 /*							*/
 
+/*							*/
 t_cmd			cmd_create(char **tokens);
 void			cmd_destroy(t_cmd *cmd);
 t_wrapper		*contruct_wrapper(void);
-
 /*							*/
 
 /*							*/
-
 t_pipeline		*pipeline_last(t_pipeline *lst);
 t_pipeline		*pipeline_new(t_cmd cmd, t_lstredir *redir);
 int			pipeline_size(t_pipeline *lst);
 void			pipeline_addback(t_pipeline **alst, t_pipeline *lst);
 void			pipeline_debug(t_pipeline *lst);
-
 /*							*/
 
 /*							*/
-
 void			parser(t_wrapper *wrp, char **envp);
 int				parser_line(t_wrapper *wrp);
 void			parser_tokens(t_wrapper *wrp, char *line);
 void			parser_tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles);
-
 /*							*/
 
+/*							*/
 int				get_len_env(char *string);
 char			*expand_env(t_wrapper *wrp, char *string);
 char 			*reformat_line(t_wrapper *wrp, char *line);
@@ -133,7 +136,12 @@ char			*print_prompt(char **line);
 int				check_line_syntax(char *string);
 /*							*/
 
+/*							*/
+void			put_err(t_wrapper *wrp);
+void			load_msg_err(t_wrapper *wrp, int flag);
+/*							*/
 
+/*							*/
 void			debug_tab(char **tab);
 void			destroy_tab(char **tab);
 int			is_redir(char c);

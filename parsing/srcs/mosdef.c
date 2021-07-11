@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mosdef.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 11:01:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 16:48:33 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/11 17:01:09 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ t_wrapper		*contruct_wrapper(void)
 	t_wrapper *wrp;
 
 	if (!(wrp = (t_wrapper *)malloc(sizeof(t_wrapper))))
+		return (NULL);
+	wrp->error = (t_error *)malloc (sizeof (t_error));
+	if (!wrp->error)
 		return (NULL);
 	return (wrp);
 }
