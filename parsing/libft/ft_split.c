@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 15:48:39 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 18:13:38 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int      words_n(const char *s, char c)
 	quote = 0;
 	while (s[i])
 	{    
-		if ((is_dquote(s[i]) || is_squote(s[i])) && !quote)
+		if ((is_dquote(s[i])) && !quote)
 			quote = 1;
-		else if ((is_dquote(s[i]) || is_squote(s[i])) && quote)
+		else if ((is_dquote(s[i])) && quote)
 			quote = 0;		
 		if (s[i] != c && (s[i + 1] == c || !s[i + 1]) && !quote)
 			count++;
@@ -45,13 +45,13 @@ int      word_len(const char *str, unsigned int index, char delim)
 	i = index;
 	while (str[i] && str[i] != '\0' && str[i] != delim) 
 	{
-		if (is_dquote(str[i]) || is_squote(str[i]))
+		if (is_dquote(str[i]))
 		{
 			while (str[i] && str[i] != '\0')
 			{
 				i++;
 				len++;
-				if (is_dquote(str[i]) || is_squote(str[i]))
+				if (is_dquote(str[i]))
 					return (len + 1);
 			}
 		}
@@ -103,7 +103,6 @@ char            **ft_split(const char *str, char c)
 	int     i;
 	int     j;
 
-	str = redirection_reformat(str);
 	if (str)
 	{
 		if (!(tab = (char **)malloc(sizeof(char *) * (words_n(str, c) + 1))))
