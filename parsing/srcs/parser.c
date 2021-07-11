@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 18:24:39 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 20:01:40 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 	tab = ft_split2(line, '|');
 	if (!tab)
 		return ;
-	//debug_tab(tab);
+	debug_tab(tab);
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	wrp->pipeline = NULL;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
@@ -68,6 +68,7 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 		tmp = ft_split(tab[i], ' ');
 		if (ft_strcmp(tmp[0], "<<"))
 			tab_trimmer(tmp);
+		debug_tab(tmp);
 		parser_tab_checker(wrp ,tmp, iofiles);
 		token = cmd_create(iofiles->tokens);
  		pipeline_addback(&(wrp->pipeline), pipeline_new(token, iofiles->redir));
@@ -128,16 +129,36 @@ int			check_line_syntax(char *string)
 	s_count = 0;
 	len = ft_strlen(string);
 //	printf ("len : %d\n", len);
-//	printf ("strncmp : %d\n", ft_strncmp(string, "| |", 3));
+//	printf ("{%s}\n", string);
 	if (!ft_strncmp(string, "| |", 3))
 		return (-2);
 	else if (!ft_strncmp(string, "|", 1))
 		return (-1);
-	else if ((!ft_strncmp(string, "\"", 1) && len < 2) || (!ft_strncmp(string, "\'", 1) && len < 2) || (string[len - 1] == '|' && string[len] == '\0'))
+	else if ((!ft_strncmp(string, "\"", 1) && len < 2) || (!ft_strncmp(string, "\'", 1) && len < 2) || (string[len - 1] == '|' && string[len] == '\0') || *string == 0)
 		return (0);
-	while (string[s_count] != '\0')
+	return (check_line_syntax2(string));
+}
+
+int			check_line_syntax2(char *string)
+{
+	int 	i;
+
+	i = 0;
+	while (string[i])
 	{
-		s_count++;
+		if ((string[i] == '<' && string[i + 1] == '\0') || (string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '\0'))
+			return (-3);
+		else if ((string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '<' && string[i + 3] == '\0'))
+			return (-3);
+		else if ((string[i] == '>' && string[i + 1] == '\0') || (string[i] == '>' && string[i + 1] == '>' && string[i + 2] == '\0'))
+			return (-3);
+		else if (string[i] == '<' && string[i] == '>')
+			return (-3);
+		else if ((string[i] == '>' && string[i + 1] == '>' && string[i + 2] == '>' && string[i + 3] == '\0'))
+			return (-4);
+		else if ((string[i] == '>' && string[i + 1] == '>' && string[i + 2] == '>' && string[i + 3] == '>' && string[i + 4] == '\0'))
+			return (-5);
+		i++;
 	}
 	return (1);
 }

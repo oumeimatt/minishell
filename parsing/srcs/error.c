@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 17:01:19 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 17:23:06 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 19:47:18 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,14 @@ void			load_msg_err(t_wrapper *wrp, int flag)
 {
     wrp->error->errnum = flag;
     if (flag == -1)
-        wrp->error->errmsg = ft_strdup("bash: syntax error near unexpected token `|'\n");
+        wrp->error->errmsg = ft_strdup("minishell: syntax error near unexpected token `|'\n");
     else if (flag == -2)
-        wrp->error->errmsg = ft_strdup("bash: syntax error near unexpected token `||'\n");
+        wrp->error->errmsg = ft_strdup("minishell: syntax error near unexpected token `||'\n");
+    else if (flag == -3)
+        wrp->error->errmsg = ft_strdup("minishell: syntax error near unexpected token `newline'\n");
+    else if (flag == -4)
+        wrp->error->errmsg = ft_strdup("bash: syntax error near unexpected token `>'\n");
+    else if (flag == -5)
+        wrp->error->errmsg = ft_strdup("bash: syntax error near unexpected token `>>'\n");
+
 }

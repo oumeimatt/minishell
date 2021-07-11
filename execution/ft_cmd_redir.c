@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:53:35 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/11 16:07:49 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/11 20:38:13 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_redir_cmd(t_wrapper *wrp, int i)
 		ft_here_doc(wrp->pipeline->redir);
 	if (path != NULL)
 	{
-		split_path = ft_split_2(path, ':');
+		split_path = ft_split_2(path, ':');	
 		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
             exec_cmd_redir(wrp, split_path, i);
 		else
