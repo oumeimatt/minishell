@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 20:01:40 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 20:43:41 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,23 @@ void		parser(t_wrapper *wrp, char **envp)
 	{
 		if (parser_line(wrp))
 		{	
-			if (wrp->pipeline)
+			if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
+				ft_only_cmd(wrp, 0);	
+			else if (wrp->pipeline->next == NULL && wrp->pipeline->redir)
+				ft_redir_cmd(wrp, 0);
+			else if (wrp->pipeline->next)
 			{
-				if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
-					ft_only_cmd(wrp, 0);	
-				else if (wrp->pipeline->next == NULL && wrp->pipeline->redir)
-					ft_redir_cmd(wrp, 0);
-				else if (wrp->pipeline->next)
+				tmp = wrp->pipeline;
+				while (tmp != NULL)
 				{
-					tmp = wrp->pipeline;
-					while (tmp != NULL)
+					if (tmp->next != NULL)
 					{
-						if (tmp->next != NULL)
-						{
-							tmp->next->in = 666;
-							tmp->out = 666;
-						}
-						tmp = tmp->next;
+						tmp->next->in = 666;
+						tmp->out = 666;
 					}
-					ft_pipes_loop(wrp);
+					tmp = tmp->next;
 				}
+				ft_pipes_loop(wrp);
 			}
 		}
 	}
