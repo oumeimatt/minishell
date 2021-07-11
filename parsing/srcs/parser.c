@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 17:06:35 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 17:39:26 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char 		*reformat_line(t_wrapper *wrp, char *line)
 	line = expand_env(wrp, line);
 	line = ft_strtrim(line, "\t ");
 	flag = check_line_syntax(line);
+//	printf ("errnum : %d\n", flag);
 	if (flag <= 0)
 	{
 		load_msg_err(wrp, flag);
@@ -124,10 +125,14 @@ int			check_line_syntax(char *string)
 	
 	s_count = 0;
 	len = ft_strlen(string);
-	if ((!ft_strncmp(string, "\"", 1) && len < 2) || (!ft_strncmp(string, "\'", 1) && len < 2) || (string[len - 1] == '|' && len > 1))
-		return (0);
+//	printf ("len : %d\n", len);
+//	printf ("strncmp : %d\n", ft_strncmp(string, "| |", 3));
+	if (!ft_strncmp(string, "| |", 3))
+		return (-2);
 	else if (!ft_strncmp(string, "|", 1))
 		return (-1);
+	else if ((!ft_strncmp(string, "\"", 1) && len < 2) || (!ft_strncmp(string, "\'", 1) && len < 2) || (string[len - 1] == '|' && string[len] == '\0'))
+		return (0);
 	while (string[s_count] != '\0')
 	{
 		s_count++;
