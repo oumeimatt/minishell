@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:29:37 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/09 17:44:01 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/11 20:39:52 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int		is_builtin(char	**str)
 {
-	if (!strcmp(str[0], "echo") || !strcmp(str[0], "cd") ||
-		 !strcmp(str[0], "pwd") || !strcmp(str[0], "export") ||
-		!strcmp(str[0], "env") || !strcmp(str[0], "exit") || 
-		!strcmp(str[0], "unset"))
+	if (!str[0])
+		return (0);
+	if (!ft_strcmp(str[0], "echo") || !ft_strcmp(str[0], "cd") ||
+		 !ft_strcmp(str[0], "pwd") || !ft_strcmp(str[0], "export") ||
+		!ft_strcmp(str[0], "env") || !ft_strcmp(str[0], "exit") || 
+		!ft_strcmp(str[0], "unset"))
 		return (0);
 	return (1);
 }
