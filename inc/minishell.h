@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 17:04:05 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 17:11:46 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		g_i;
 
 typedef struct		s_error
 {
-	int		num;
+	int		errnum;
 	char	*errmsg;
 }					t_error;
 
