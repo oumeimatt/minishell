@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 19:34:20 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 21:43:32 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ char			*pipes_reformat(char *line);
 char			*print_prompt(char **line);
 int				check_line_syntax(char *string);
 int				check_line_syntax2(char *string);
+int				check_line_syntax3(char *string);
 /*							*/
 
 /*							*/

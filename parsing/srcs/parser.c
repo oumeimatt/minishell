@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 20:49:09 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 21:44:30 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int				parser_line(t_wrapper *wrp)
 	}
 	else
 	{
+		exit(0);
 		parser_tokens(wrp, line);
 //		pipeline_debug(wrp->pipeline); 		
 /*  		if (wrp->pipeline->redir)	
@@ -106,7 +107,7 @@ char 		*reformat_line(t_wrapper *wrp, char *line)
 	line = expand_env(wrp, line);
 	line = ft_strtrim(line, "\t ");
 	flag = check_line_syntax(line);
-//	printf ("errnum : %d\n", flag);
+	printf ("errnum : %d\n", flag);
 	if (flag <= 0)
 	{
 		load_msg_err(wrp, flag);
@@ -123,8 +124,8 @@ int			check_line_syntax(char *string)
 	
 	s_count = 0;
 	len = ft_strlen(string);
-//	printf ("len : %d\n", len);
-//	printf ("{%s}\n", string);
+	printf ("len : %d\n", len);
+	printf ("line > {%s}\n", string);
 	if (!ft_strncmp(string, "| |", 3))
 		return (-2);
 	else if (!ft_strncmp(string, "|", 1))
@@ -147,7 +148,7 @@ int			check_line_syntax2(char *string)
 			return (-3);
 		else if ((string[i] == '>' && string[i + 1] == '\0') || (string[i] == '>' && string[i + 1] == '>' && string[i + 2] == '\0'))
 			return (-3);
-		else if (string[i] == '<' && string[i] == '>')
+		else if (string[i] == '<' && string[i + 1] == '>')
 			return (-3);
 		else if ((string[i] == '>' && string[i + 1] == '>' && string[i + 2] == '>' && string[i + 3] == '\0'))
 			return (-4);
@@ -155,5 +156,23 @@ int			check_line_syntax2(char *string)
 			return (-5);
 		i++;
 	}
-	return (1);
+	return (check_line_syntax3(string));
+}
+
+int			check_line_syntax3(char *string)
+{
+	int i;
+
+	i = 0;
+	while (string[i])
+	{
+		if (string[i] == '>' && string[i + 1] == '<')
+			return (-6);
+		else if ((string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '<' && string[i + 3] == '<' && string[i + 4] == '\0'))
+			return (-6);
+		else if ((string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '<' && string[i + 3] == '<' && string[i + 4] == '<' && string[i + 5] == '\0'))
+			return (-7);
+		i++;
+	}
+	return (1);	
 }
