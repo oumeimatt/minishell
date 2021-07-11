@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 17:39:26 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 18:24:39 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 	tab = ft_split2(line, '|');
 	if (!tab)
 		return ;
+	//debug_tab(tab);
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	wrp->pipeline = NULL;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
-		tab_trimmer(tmp);
+		if (ft_strcmp(tmp[0], "<<"))
+			tab_trimmer(tmp);
 		parser_tab_checker(wrp ,tmp, iofiles);
 		token = cmd_create(iofiles->tokens);
  		pipeline_addback(&(wrp->pipeline), pipeline_new(token, iofiles->redir));
@@ -90,8 +92,8 @@ int				parser_line(t_wrapper *wrp)
 	else
 	{
 		parser_tokens(wrp, line);
-/* 		pipeline_debug(wrp->pipeline); 		
- 		if (wrp->pipeline->redir)	
+//		pipeline_debug(wrp->pipeline); 		
+/*  		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
 		free(line);
 		line = NULL;
