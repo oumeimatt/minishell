@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 18:22:07 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/10 20:24:52 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/06 19:35:03 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ char    *print_value(t_env *env, char *key)
             temp = temp->next;
         }
     }
+
     return (NULL);
 }

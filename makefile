@@ -56,7 +56,7 @@ SRCS =	parsing/libft/ft_atoi.c\
 		execution/ft_redirection.c\
 		execution/ft_here_doc.c\
 		execution/ft_cmd_redir.c\
-
+		execution/ft_pipes_loop.c\
 
 
 

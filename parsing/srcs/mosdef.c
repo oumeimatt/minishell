@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mosdef.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 11:01:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/10 19:38:52 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 16:48:33 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_pipeline		*pipeline_new(t_cmd cmd, t_lstredir *redir)
 		return (NULL);
 	lst->redir = redir;
 	lst->cmd = cmd;
+	lst->in = 0;
+	lst->out = 1;
 	lst->next = NULL;
 	return (lst);
 }

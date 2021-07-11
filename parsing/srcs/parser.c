@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 15:48:58 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 16:51:41 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,36 @@
 
 void		parser(t_wrapper *wrp, char **envp)
 {
+	t_pipeline *tmp;
+
 	wrp->env = NULL;
 	wrp->env = init_env(envp, wrp->env);
-	
 	while (1)
 	{
-		if (parser_line(wrp) == 1)
+		if (parser_line(wrp))
+		{	
 			if (wrp->pipeline)
 			{
 				if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
-					ft_only_cmd(wrp);	
+					ft_only_cmd(wrp, 0);	
 				else if (wrp->pipeline->next == NULL && wrp->pipeline->redir)
-					ft_redir_cmd(wrp);
+					ft_redir_cmd(wrp, 0);
+				else if (wrp->pipeline->next)
+				{
+					tmp = wrp->pipeline;
+					while (tmp != NULL)
+					{
+						if (tmp->next != NULL)
+						{
+							tmp->next->in = 666;
+							tmp->out = 666;
+						}
+						tmp = tmp->next;
+					}
+					ft_pipes_loop(wrp);
+				}
 			}
+		}
 	}
 }
 

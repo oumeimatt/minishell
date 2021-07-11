@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:09:56 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/09 17:19:39 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/11 16:04:48 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,31 @@ void    exec_cmd(char **cmd)
 	}
 }
 
-void	unset_path_cmd(t_wrapper *wrp)
+void	unset_path_cmd(t_wrapper *wrp, int i)
 {
 	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
 		ft_putendl_fd(": No such file or directory", 2);
+		if (i == 1)
+			exit(127);
 	}
 	else
-		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 0);
+	{
+		if (i == 0)
+			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 0);
+		else
+			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+	}
 }
 
-void	ft_only_cmd(t_wrapper *wrp)
+void	ft_only_cmd(t_wrapper *wrp, int i)
 {
 	char	*path;
 	char	**split_path;
 	pid_t	pid;
+	int		stats;
 
 	path = get_path(wrp->env);
 	if (path != NULL)
@@ -52,16 +60,29 @@ void	ft_only_cmd(t_wrapper *wrp)
 		{
 			wrp->pipeline->cmd.tokens[0] = 
 				absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
-			pid = fork();
-			if (pid < 0)
-				exit(1);
-			if (pid == 0)
-				exec_cmd(wrp->pipeline->cmd.tokens);
+			if (i == 0)
+			{
+				pid = fork();
+				if (pid < 0)
+					exit(1);
+				if (pid == 0)
+					exec_cmd(wrp->pipeline->cmd.tokens);
+				waitpid(pid, &stats, 0);
+			}
 		}
 		else
-			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 0);
-		free(path);
+		{
+			if ( i == 0)
+				exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 0);
+		}
 	}
 	else
-		unset_path_cmd(wrp);
+	{
+		if (i == 0)
+			unset_path_cmd(wrp, 0);
+		else
+		{
+			unset_path_cmd(wrp, 1);
+		}
+	}
 }
