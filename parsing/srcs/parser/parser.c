@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 21:23:28 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 15:38:20 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,33 @@
 
 void		parser(t_wrapper *wrp, char **envp)
 {
+	t_pipeline *tmp;
+
 	wrp->env = NULL;
 	wrp->env = init_env(envp, wrp->env);
-
 	while (1)
 	{
 		parse_line(wrp);
 		if (wrp->pipeline)
 		{
 			if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
-				ft_only_cmd(wrp);	
+				ft_only_cmd(wrp, 0);	
 			else if (wrp->pipeline->next == NULL && wrp->pipeline->redir)
-				ft_redir_cmd(wrp);
+				ft_redir_cmd(wrp, 0);
+			else if (wrp->pipeline->next)
+			{
+				tmp = wrp->pipeline;
+				while (tmp != NULL)
+				{
+					if (tmp->next != NULL)
+					{
+						tmp->next->in = 666;
+						tmp->out = 666;
+					}
+					tmp = tmp->next;
+				}
+				ft_pipes_loop(wrp);
+			}
 		}
 	}
 }
@@ -42,15 +57,18 @@ void			parse_tokens(t_wrapper *wrp, char *line)
 
 	line = ft_strtrim(line, " \t");
 	tab = ft_split2(line, '|');
+//	debug_tab(tab);
 	if (!tab)
 		return ;
+	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	wrp->pipeline = NULL;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
+	//	debug_tab(tab);
+		tab_trimmer(tmp);
 		tab_checker(wrp ,tmp, iofiles);
-		tab_trimmer(iofiles->tokens);
 		token = cmd_create(iofiles->tokens);
  		pipeline_addback(&(wrp->pipeline), pipeline_new(token, iofiles->redir));
 		i++;
@@ -72,6 +90,7 @@ void			parse_line(t_wrapper *wrp)
 		pipeline_debug(wrp->pipeline); 
 /* 		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
+
 		free(line);
 		line = NULL;
 	}

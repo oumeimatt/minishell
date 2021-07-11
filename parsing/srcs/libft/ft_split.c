@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 21:12:25 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/09 18:14:07 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,51 @@
 
 int      words_n(const char *s, char c)
 {
-    int count;
-    int i;
-//	int	dquote;
+	int count;
+	int i;
+	int quote;
 
-    i = 0;
-//	dquote = 0;
+	i = 0;
 	count = 0;
-    while (s[i])
-    {    
-/* 		if (is_dquote(s[i]))
-			dquote++; */
-		if (s[i] != c && (s[i + 1] == c || !s[i + 1]) /* && (dquote % 2 == 0) */)
-            count++;
-		if (is_redir(s[i]) && !(s[i + 1] == ' '))
-		{	
-			if (is_redir(s[i + 1]) && s[i + 2])
-				i++;
+	quote = 0;
+	while (s[i])
+	{    
+		if ((is_dquote(s[i]) || is_squote(s[i])) && !quote)
+			quote = 1;
+		else if ((is_dquote(s[i]) || is_squote(s[i])) && quote)
+			quote = 0;		
+		if (s[i] != c && (s[i + 1] == c || !s[i + 1]) && !quote)
 			count++;
-		}
 		i++;
-    }
-    return (count);
+	}
+	return (count);
 }
 
 int      word_len(const char *str, unsigned int index, char delim)
 {
-    int len;
-    int i;
+	int len;
+	int i;
+	int quote;
 	
-    len = 0;
-    i = index;
-    while (str[i] && str[i] != delim) 
-    {
-/*         if (is_dquote(str[i]))
+	len = 0;
+	quote = 0;
+	i = index;
+	while (str[i] && str[i] != '\0' && str[i] != delim) 
+	{
+		if (is_dquote(str[i]) || is_squote(str[i]))
 		{
-			while (str[i++] && (!is_dquote(str[i])))
+			while (str[i] && str[i] != '\0')
+			{
+				i++;
 				len++;
-			return (len + 2);
-		} */
-		if (is_redir(str[i]))
-		{
-			if ((str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>'))
-				return (2);
-			else if ((str[i] == '<' && str[i + 1]) || (str[i] == '>' && str[i + 1]))
-				return (1);
+				if (is_dquote(str[i]) || is_squote(str[i]))
+					return (len + 1);
+			}
 		}
 		i++;
-        len++;
-    }
-    return (len);
+		len++;
+	}
+	return (len);
 }
 
 int		is_dollar(char c)
@@ -82,49 +77,86 @@ int		is_squote(char c)
 
 int     is_dquote(char c)
 {
-    if (c == '"')
-        return (1);
-    return (0);
+	if (c == '"')
+		return (1);
+	return (0);
 }
 
 char	**free_tab(char **tab, size_t filled_elems)
 {
-    size_t     i;
+	size_t     i;
 
-    i = 0;
-    while (i < filled_elems)
-    {
-        free(tab[i]);
+	i = 0;
+	while (i < filled_elems)
+	{
+		free(tab[i]);
 		tab[i] = NULL;
-        i++;
-    }
-    free(tab);
+		i++;
+	}
+	free(tab);
 	return (0);
 }
 
 char            **ft_split(const char *str, char c)
 {
-    char    **tab;
-    int     i;
-    int     j;
+	char    **tab;
+	int     i;
+	int     j;
 
+	str = redirection_reformat(str);
 	if (str)
-    {
-        if (!(tab = (char **)malloc(sizeof(char *) * (words_n(str, c) + 1))))
-            return (0);
-        i = 0;
-        j = 0;
-        while (i < words_n(str, c))
-        {
-            while (str[j] == c)
-                j++;
-            if (!(tab[i] = ft_substr(str, j, word_len(str, j , c))))
-                return (free_tab(tab, i - 1));
-            j += word_len(str, j, c);
-            i++;
-        }
-        tab[i] = 0;
-        return (tab);
-    }
-    return (0);
+	{
+		if (!(tab = (char **)malloc(sizeof(char *) * (words_n(str, c) + 1))))
+			return (0);
+		i = 0;
+		j = 0;
+		while (i < words_n(str, c))
+		{
+			while (str[j] == c)
+				j++;
+			if (!(tab[i] = ft_substr(str, j, word_len(str, j , c))))
+				return (free_tab(tab, i - 1));
+			j += word_len(str, j, c);
+			i++;
+		}
+		tab[i] = 0;
+		return (tab);
+	}
+	return (0);
+}
+
+char 		*redirection_reformat(const char *string)
+{
+	char *str;
+	int p_count;
+	int s_count;
+	int quote;
+
+	quote = 0;
+	s_count = 0;
+	p_count = 0;
+	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 10);
+	if (!str)
+		return (NULL);
+	while (string[p_count] != '\0')
+	{
+		if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && !quote)
+			quote = 1;
+		else if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && quote)
+			quote = 0;
+		if (is_redir(string[p_count + 1]) && !is_redir(string[p_count]) && string[p_count] != ' ' && quote == 0)
+		{
+			str[s_count++] = string[p_count++];
+			str[s_count++] = ' ';
+		}
+		if (is_redir(string[p_count]) && !is_redir(string[p_count + 1]) && quote == 0)
+		{
+			str[s_count++] = string[p_count++];
+			str[s_count++] = ' ';
+		}
+		str[s_count++] = string[p_count];
+		p_count++;
+	}
+	str[s_count] = '\0';
+	return (str);
 }

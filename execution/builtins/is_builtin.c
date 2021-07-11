@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:29:37 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/09 16:15:39 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:44:01 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		is_builtin(char	**str)
 {
-	printf("str == %s\n", str[0]);
 	if (!strcmp(str[0], "echo") || !strcmp(str[0], "cd") ||
 		 !strcmp(str[0], "pwd") || !strcmp(str[0], "export") ||
 		!strcmp(str[0], "env") || !strcmp(str[0], "exit") || 

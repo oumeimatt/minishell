@@ -54,6 +54,7 @@ SRCS =	parsing/srcs/libft/ft_atoi.c\
 		execution/ft_redirection.c\
 		execution/ft_here_doc.c\
 		execution/ft_cmd_redir.c\
+		execution/ft_pipes_loop.c\
 
 
 
@@ -61,7 +62,7 @@ SRCS =	parsing/srcs/libft/ft_atoi.c\
 INCLUDES =	inc/libft.h\
 			inc/minishell.h\
 
-FLAGS = -Wall -Werror -Wextra -lreadline -g -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -lreadline -g #-fsanitize=address
 
 all:		$(NAME)
 

@@ -6,13 +6,13 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:53:35 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/09 17:08:57 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/11 16:07:49 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_redir_cmd(t_wrapper *wrp)
+void	ft_redir_cmd(t_wrapper *wrp, int i)
 {
 	char	*path;
 	char	**split_path;
@@ -24,16 +24,23 @@ void	ft_redir_cmd(t_wrapper *wrp)
 	{
 		split_path = ft_split_2(path, ':');
 		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
-            exec_cmd_redir(wrp, split_path);
+            exec_cmd_redir(wrp, split_path, i);
 		else
-            exec_builtin_redir(wrp);
-		free(path);
+		{
+			if (i == 0)
+           		exec_builtin_redir(wrp);
+		}
 	}
 	else
-        unset_path_redir(wrp);
+	{
+		if (i == 0)
+        	unset_path_redir(wrp, 0);
+		else
+			unset_path_redir(wrp, 1);
+	}
 }
 
-void    unset_path_redir(t_wrapper *wrp)
+void    unset_path_redir(t_wrapper *wrp, int i)
 {
     pid_t   pid;
 
@@ -43,13 +50,23 @@ void    unset_path_redir(t_wrapper *wrp)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
 		ft_putendl_fd(": No such file or directory", 2);
+		if (i == 1)
+			exit(127);
 	}
 	else
-	{	
-		pid = fork();
-		if (pid < 0)
-			exit(1);
-		if (pid == 0)
+	{
+		if (i == 0)
+		{
+			pid = fork();
+			if (pid < 0)
+				exit(1);
+			if (pid == 0)
+			{
+				ft_is_redirection(wrp->pipeline->redir, 0);
+				exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+			}
+		}
+		else
 		{
 			ft_is_redirection(wrp->pipeline->redir, 0);
 			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
@@ -57,25 +74,31 @@ void    unset_path_redir(t_wrapper *wrp)
 	}
 }
 
-void    exec_cmd_redir(t_wrapper *wrp, char **split_path)
+void    exec_cmd_redir(t_wrapper *wrp, char **split_path, int i)
 {
 	pid_t	pid;
+	int		stats;
 
     wrp->pipeline->cmd.tokens[0] = 
 		absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
-	pid = fork();
-	if (pid < 0)
-		exit(1);
-	if (pid == 0)
+	if (i == 0)
 	{
-		ft_is_redirection(wrp->pipeline->redir, 0);
-		exec_cmd(wrp->pipeline->cmd.tokens);
+		pid = fork();
+		if (pid < 0)
+			exit(1);
+		if (pid == 0)
+		{
+			ft_is_redirection(wrp->pipeline->redir, 0);
+			exec_cmd(wrp->pipeline->cmd.tokens);
+		}
+		waitpid(pid, &stats, 0);
 	}
 }
 
 void    exec_builtin_redir(t_wrapper *wrp)
 {
     pid_t   pid;
+	int		stats;
 
 	pid = fork();
 	if (pid < 0)
@@ -85,4 +108,5 @@ void    exec_builtin_redir(t_wrapper *wrp)
 		ft_is_redirection(wrp->pipeline->redir, 0);
 		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
 	}
+	waitpid(pid, &stats, 0);
 }

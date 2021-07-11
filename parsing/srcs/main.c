@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 17:08:13 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/08 20:52:36 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/09 19:13:22 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,28 @@ void		debug_tab(char **tab)
 int         main(int argc, char **argv, char **envp)
 {
 	t_wrapper *wrp;
-	
 	(void)argc;
 	(void)argv;
 	wrp = contruct_wrapper();
-//	(void)envp;
 
 	parser(wrp, envp);
 
-/* 	char *str = ft_strdup("\"");
-	char **tab = ft_split2(str, '|');
-	printf ("%s\n", tab[0]);
-	printf ("%s\n", str);
-	write (1, "HEHE", 5);
- */
 
+/* 	while (1)
+	{
+		char *str = readline("> ");
+		add_history(str);
+		char **tab = ft_split2(str, '|');
+		debug_tab(tab);
+		printf ("\n");
+		while (tab[i] != NULL)
+		{
+			tmp = ft_split (tab[i], ' ');
+			debug_tab(tmp);
+			destroy_tab(tmp);
+			i++;
+		}
+	} */
 	return (0);
 }
 
