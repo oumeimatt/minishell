@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/10 21:11:09 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/11 15:36:17 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,18 +114,19 @@ void			pipeline_debug(t_pipeline *lst);
 /*							*/
 
 void			parser(t_wrapper *wrp, char **envp);
-void			parser_line(t_wrapper *wrp);
+int				parser_line(t_wrapper *wrp);
 void			parser_tokens(t_wrapper *wrp, char *line);
 void			parser_tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles);
 
 /*							*/
 
-int			get_len_env(char *string);
+int				get_len_env(char *string);
 char			*expand_env(t_wrapper *wrp, char *string);
 char 			*reformat_line(t_wrapper *wrp, char *line);
 char 			*redirection_reformat(const char *string);
+char			*pipes_reformat(char *line);
 char			*print_prompt(char **line);
-
+int				check_line_syntax(char *string);
 /*							*/
 
 
