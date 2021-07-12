@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 20:49:09 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 14:09:58 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 int				parser_line(t_wrapper *wrp)
 {
 	char	*line;
+	const char *prompt;
 
 	usleep (100000);
-	line = readline(">$ ");
+	prompt = get_prompt(wrp);	
+	line = readline(prompt);
 	add_history (line);
 	line = reformat_line(wrp, line);
 	if (line == NULL)
@@ -87,6 +89,7 @@ int				parser_line(t_wrapper *wrp)
 	}
 	else
 	{
+	//	exit(0);
 		parser_tokens(wrp, line);
 //		pipeline_debug(wrp->pipeline); 		
 /*  		if (wrp->pipeline->redir)	
@@ -97,63 +100,13 @@ int				parser_line(t_wrapper *wrp)
 	}
 }
 
-char 		*reformat_line(t_wrapper *wrp, char *line)
+const char 			*get_prompt(t_wrapper *wrp)
 {
-	int flag;
-	
-	line = redirection_reformat(line);
-	line = pipes_reformat(line);
-	line = expand_env(wrp, line);
-	line = ft_strtrim(line, "\t ");
-	flag = check_line_syntax(line);
-//	printf ("errnum : %d\n", flag);
-	if (flag <= 0)
-	{
-		load_msg_err(wrp, flag);
-		free(line);
-		line = NULL;
-	}
-	return (line);
-}
-
-int			check_line_syntax(char *string)
-{
-	int	s_count;
-	int len;
-	
-	s_count = 0;
-	len = ft_strlen(string);
-//	printf ("len : %d\n", len);
-//	printf ("{%s}\n", string);
-	if (!ft_strncmp(string, "| |", 3))
-		return (-2);
-	else if (!ft_strncmp(string, "|", 1))
-		return (-1);
-	else if ((!ft_strncmp(string, "\"", 1) && len < 2) || (!ft_strncmp(string, "\'", 1) && len < 2) || (string[len - 1] == '|' && string[len] == '\0') || *string == 0)
-		return (0);
-	return (check_line_syntax2(string));
-}
-
-int			check_line_syntax2(char *string)
-{
-	int 	i;
-
-	i = 0;
-	while (string[i])
-	{
-		if ((string[i] == '<' && string[i + 1] == '\0') || (string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '\0'))
-			return (-3);
-		else if ((string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '<' && string[i + 3] == '\0'))
-			return (-3);
-		else if ((string[i] == '>' && string[i + 1] == '\0') || (string[i] == '>' && string[i + 1] == '>' && string[i + 2] == '\0'))
-			return (-3);
-		else if (string[i] == '<' && string[i] == '>')
-			return (-3);
-		else if ((string[i] == '>' && string[i + 1] == '>' && string[i + 2] == '>' && string[i + 3] == '\0'))
-			return (-4);
-		else if ((string[i] == '>' && string[i + 1] == '>' && string[i + 2] == '>' && string[i + 3] == '>' && string[i + 4] == '\0'))
-			return (-5);
-		i++;
-	}
-	return (1);
+	char *pwd = print_value(wrp->env, "PWD");
+	const char *prompt = ft_strjoin(BHGRN, pwd);
+	prompt = ft_strjoin(prompt, reset);
+	prompt = ft_strjoin(prompt, BHRED);
+	prompt = ft_strjoin(prompt, " >$ ");
+	prompt = ft_strjoin(prompt, reset);
+	return (prompt);
 }
