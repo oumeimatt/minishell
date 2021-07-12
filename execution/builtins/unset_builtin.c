@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:29:06 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/09 15:47:29 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:00:41 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void    unset_error(char *str)
 	ft_putstr_fd("minish: unset: '", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
+	g_i = 1;
 }
 
 void    exec_unset(char **str, t_env *env, int x)
