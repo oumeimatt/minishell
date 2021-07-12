@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 17:34:09 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 18:20:01 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 17:16:44 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			tab_trimmer(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		tab[i] = ft_strtrim(tab[i], "\" \t");
+		tab[i] = ft_strtrim(tab[i], "\"");
 		i++;
 	}		
 }
