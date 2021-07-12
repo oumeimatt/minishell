@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 17:01:19 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 21:43:02 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 14:24:41 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void			load_msg_err(t_wrapper *wrp, int flag)
     else if (flag == -3)
         wrp->error->errmsg = ft_strdup("minishell: syntax error near unexpected token `newline'\n");
     else if (flag == -4)
-        wrp->error->errmsg = ft_strdup("bash: syntax error near unexpected token `>'\n");
+        wrp->error->errmsg = ft_strdup("minishell: syntax error near unexpected token `>'\n");
     else if (flag == -5)
-        wrp->error->errmsg = ft_strdup("bash: syntax error near unexpected token `>>'\n");
+        wrp->error->errmsg = ft_strdup("minishell: syntax error near unexpected token `>>'\n");
     else if (flag == -6)
-        wrp->error->errmsg = ft_strdup("bash: syntax error near unexpected token `<'\n");
+        wrp->error->errmsg = ft_strdup("minishell: syntax error near unexpected token `<'\n");
     else if (flag == -7)
-        wrp->error->errmsg = ft_strdup("bash: syntax error near unexpected token `<<'\n");
+        wrp->error->errmsg = ft_strdup("minishell: syntax error near unexpected token `<<'\n");
 
 }

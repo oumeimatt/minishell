@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:53:35 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/11 20:38:13 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 16:19:13 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,25 @@ void	ft_redir_cmd(t_wrapper *wrp, int i)
 void    unset_path_redir(t_wrapper *wrp, int i)
 {
     pid_t   pid;
+	int		stats;
 
 	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 	{
-		ft_is_redirection(wrp->pipeline->redir, 1);
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
-		ft_putendl_fd(": No such file or directory", 2);
-		if (i == 1)
-			exit(127);
+		pid = fork();
+		if (pid < 0)
+			exit(1);
+		if (pid == 0)
+		{
+			ft_is_redirection(wrp->pipeline->redir, 0);
+			if (execve(wrp->pipeline->cmd.tokens[0], wrp->pipeline->cmd.tokens, NULL) == -1)
+			{
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
+				ft_putendl_fd(": No such file or directory", 2);
+				exit(127);
+			}
+		}
+		waitpid(pid, &stats, 0);
 	}
 	else
 	{

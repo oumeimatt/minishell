@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 13:51:29 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/12 14:00:03 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 14:15:29 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,10 @@ void	echo_option_exist(char **str)
 	}
 	while (str[i] != NULL)
 	{
-		
-		// printf("%s", str[i]);
 		ft_putstr_fd(str[i], 1);
 		i++;
 		if (str[i] != NULL)
 			ft_putstr_fd(" ", 1);
-			// printf(" ");
 	}
 }
 
@@ -60,7 +57,6 @@ void   exec_echo(char **str, int x)
 
 	if (str[1] == NULL)
 		ft_putstr_fd("\n", 1);
-		// printf("\n");
 	else
 	{
 		if (echo_valid_option(str[1]) == TRUE)
@@ -70,12 +66,11 @@ void   exec_echo(char **str, int x)
 			j = 1;
 			while (str[j] != NULL)
 			{
-				// printf("%s ", str[j]);
 				ft_putstr_fd(str[j], 1);
-				ft_putstr_fd(" ", 1);
+				if (str[j + 1] != NULL)
+					ft_putstr_fd(" ", 1);
 				j++;
 			}
-			// printf("\n");
 			ft_putstr_fd("\n", 1);
 		}
 	}

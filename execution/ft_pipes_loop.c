@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 18:34:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/11 15:47:44 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/12 14:22:44 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ void	ft_pipe_cmd_redir(t_wrapper *wrp)
 			close(wrp->pipeline->next->in);
 		}
 		if (wrp->pipeline->in != 0)
-		{
 			dup2(wrp->pipeline->in, 0);
-		}
 		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 		{
 			ft_redir_cmd(wrp, 1);

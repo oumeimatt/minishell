@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:09:56 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/11 16:04:48 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/12 15:42:56 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,25 @@ void    exec_cmd(char **cmd)
 
 void	unset_path_cmd(t_wrapper *wrp, int i)
 {
+	pid_t	pid;
+	int		stats;
+
 	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
-		ft_putendl_fd(": No such file or directory", 2);
-		if (i == 1)
-			exit(127);
+		pid = fork();
+		if (pid < 0)
+			exit(1);
+		if (pid == 0)
+		{
+			if (execve(wrp->pipeline->cmd.tokens[0], wrp->pipeline->cmd.tokens, NULL) == -1)
+			{
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
+				ft_putendl_fd(": No such file or directory", 2);
+				exit(127);
+			}
+		}
+		waitpid(pid, &stats, 0);
 	}
 	else
 	{
