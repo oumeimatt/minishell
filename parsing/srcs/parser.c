@@ -57,16 +57,16 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 	tab = ft_split2(line, '|');
 	if (!tab)
 		return ;
-//	printf("debug_tab(tab) :"); debug_tab(tab);
+	printf("Debug_tab(tab) :"); debug_tab(tab);
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	wrp->pipeline = NULL;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
-//		printf ("deub_tab(tmp) : ");debug_tab(tmp);
-/* 		if (ft_strcmp(tmp[0], "<<"))
-			tab_trimmer(tmp); */
+		printf ("Debug_tab(tmp) : ");debug_tab(tmp);
+		if (ft_strcmp(tmp[0], "<<"))
+			tab_trimmer(tmp);
 		parser_tab_checker(wrp ,tmp, iofiles);
 		token = cmd_create(iofiles->tokens);
  		pipeline_addback(&(wrp->pipeline), pipeline_new(token, iofiles->redir));
@@ -78,14 +78,12 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 int				parser_line(t_wrapper *wrp)
 {
 	char	*line;
-	const char *prompt;
 
 	usleep (100000);
-	prompt = get_prompt(wrp);	
-	line = readline(prompt);
+	line = readline(BHBLU "petitshell-1.0$ " reset BHWHT);
 	add_history (line);
-//	printf ("Line : %s\n", line);
-	line = reformat_line(wrp, line);//printf("Reformatted line : %s\n", line);
+	printf ("Line : %s\n", line);
+	line = reformat_line(wrp, line);printf("Reformatted line : %s\n", line);
 	if (line == NULL)
 	{
 		put_err(wrp);
@@ -95,22 +93,11 @@ int				parser_line(t_wrapper *wrp)
 	{
 	//	exit(0);
 		parser_tokens(wrp, line);
-//		printf("pipeline_debug : ");pipeline_debug(wrp->pipeline);printf ("\n");
+		printf("Pipeline_debug : ");pipeline_debug(wrp->pipeline);printf ("\n");
 /*  		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
 		free(line);
 		line = NULL;
 		return (1);
 	}
-}
-
-const char 			*get_prompt(t_wrapper *wrp)
-{
-	char *pwd = print_value(wrp->env, "PWD");
-	const char *prompt = ft_strjoin(BHGRN, pwd);
-	prompt = ft_strjoin(prompt, reset);
-	prompt = ft_strjoin(prompt, BHRED);
-	prompt = ft_strjoin(prompt, " >$ ");
-	prompt = ft_strjoin(prompt, reset);
-	return (prompt);
 }

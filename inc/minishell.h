@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 15:49:33 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 19:36:06 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,9 @@ char			*expand_env(t_wrapper *wrp, char *string);
 char 			*reformat_line(t_wrapper *wrp, char *line);
 char 			*redirection_reformat(const char *string);
 char			*pipes_reformat(char *line);
-char			*dquotes_reformat(char *line);	
+char			*dquotes_reformat(char *line);
+char			*spaces_dquotes_reformat(char *line);
+char			*spaces_dquotes_reformat2(char *line);
 char			*print_prompt(char **line);
 int				check_line_syntax(char *string);
 int				check_line_syntax2(char *string);
@@ -152,7 +154,7 @@ int				check_line_syntax3(char *string);
 /*							*/
 void			put_err(t_wrapper *wrp);
 void			load_msg_err(t_wrapper *wrp, int flag);
-const char 			*get_prompt(t_wrapper *wrp);
+const char 			*get_prompt(void);
 /*							*/
 
 /*							*/

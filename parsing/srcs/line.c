@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 16:36:27 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 17:21:54 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,64 @@ char		*dquotes_reformat(char *line)
 	return (str);
 }
 
+char		*spaces_dquotes_reformat(char *line)
+{
+	int	i;
+	int dquote;
+	int j;
+	char *str;
+
+	i = 0;
+	j = 0;	
+	dquote = 0;
+	str = (char *)malloc(sizeof(char) * ft_strlen(line) * 2);
+	if (!str)
+		return (0);
+	while (line[i] != '\0')
+	{
+		if (is_dquote(line[i]))
+			dquote++;
+		if (dquote == 2)
+		{
+			str[j++] = line[i++];
+			str[j++] = ' ';
+			dquote = 0;
+		}
+		str[j++] = line[i++];
+	}
+	str[j] = '\0';
+	return (str);
+}
+
+char		*spaces_dquotes_reformat2(char *line)
+{
+	int	i;
+	int dquote;
+	int j;
+	char *str;
+
+	i = 0;
+	j = 0;	
+	dquote = 0;
+	str = (char *)malloc(sizeof(char) * ft_strlen(line) * 2);
+	if (!str)
+		return (0);
+	while (line[i] != '\0')
+	{
+		if (is_dquote(line[i]))
+			dquote++;
+		if (dquote == 3)
+		{
+			str[j++] = ' ';
+			str[j++] = line[i++];
+			dquote = 1;
+		}
+		str[j++] = line[i++];
+	}
+	str[j] = '\0';
+	return (str);
+}
+
 char 		*reformat_line(t_wrapper *wrp, char *line)
 {
 	int flag;
@@ -120,6 +178,8 @@ char 		*reformat_line(t_wrapper *wrp, char *line)
 	line = pipes_reformat(line);
 	line = expand_env(wrp, line);
 	line = dquotes_reformat(line);
+	line = spaces_dquotes_reformat(line);
+	line = spaces_dquotes_reformat2(line);
 	line = ft_strtrim(line, "\t ");
 	flag = check_line_syntax(line);
 //	printf ("errnum : %d\n", flag);
