@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 21:43:32 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 14:10:16 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@
 # define STDIN 0
 # define STDERR 2
 # define MAX_INT 2147483647
+# define BHBLK "\e[1;90m"
+# define BHRED "\e[1;91m"
+# define BHGRN "\e[1;92m"
+# define BHYEL "\e[1;93m"
+# define BHBLU "\e[1;94m"
+# define BHMAG "\e[1;95m"
+# define BHCYN "\e[1;96m"
+# define BHWHT "\e[1;97m"
+# define reset "\e[0m"
 
 
 /** execution typedefs**/
@@ -141,6 +150,7 @@ int				check_line_syntax3(char *string);
 /*							*/
 void			put_err(t_wrapper *wrp);
 void			load_msg_err(t_wrapper *wrp, int flag);
+const char 			*get_prompt(t_wrapper *wrp);
 /*							*/
 
 /*							*/
