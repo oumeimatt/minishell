@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 14:03:30 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 16:24:28 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,25 @@ char		*pipes_reformat(char *line)
 	return (str);
 }
 
+char		*dquotes_reformat(char *line)
+{	
+	int i;
+	int j;
+	char *str;
+
+	i = 0;
+	j = 0;
+	str = (char *)malloc(sizeof(char) * ft_strlen(line));
+	while (line[i] != '\0')
+	{
+		if (is_dquote(line[i]) && is_dquote(line[i + 1]))
+			i += 2;
+		str[j++] = line[i++];	
+	}
+	str[j] = '\0';
+	return (str);
+}
+
 char 		*reformat_line(t_wrapper *wrp, char *line)
 {
 	int flag;
@@ -100,6 +119,7 @@ char 		*reformat_line(t_wrapper *wrp, char *line)
 	line = redirection_reformat(line);
 	line = pipes_reformat(line);
 	line = expand_env(wrp, line);
+	line = dquotes_reformat(line);
 	line = ft_strtrim(line, "\t ");
 	flag = check_line_syntax(line);
 //	printf ("errnum : %d\n", flag);

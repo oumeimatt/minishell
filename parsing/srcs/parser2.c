@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 19:27:17 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 18:15:45 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 15:42:11 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		parser_tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 	
 	while (tab[i])
 	{
+		//flag = parser_tab_dquotes(tab[i]);
 		if (!ft_strcmp(tab[i] , "<") || !ft_strcmp(tab[i], "<<"))
 		{
 			if (!ft_strcmp(tab[i], "<"))	
@@ -58,3 +59,10 @@ void		parser_tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
 	iofiles->tokens[j] = NULL;
 	iofiles->redir = tmp;
 }
+
+/* int			parser_tab_dquotes(char *string)
+{
+	if (!ft_strcmp(string, "\"\""))
+		return (1);
+	return (0);
+} */
