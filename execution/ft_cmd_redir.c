@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:53:35 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/12 16:19:13 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:01:31 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void    unset_path_redir(t_wrapper *wrp, int i)
 			}
 		}
 		waitpid(pid, &stats, 0);
+		if (WIFEXITED(stats))
+			g_i = WEXITSTATUS(stats);
 	}
 	else
 	{
@@ -102,6 +104,8 @@ void    exec_cmd_redir(t_wrapper *wrp, char **split_path, int i)
 			exec_cmd(wrp->pipeline->cmd.tokens);
 		}
 		waitpid(pid, &stats, 0);
+		if (WIFEXITED(stats))
+			g_i = WEXITSTATUS(stats);
 	}
 }
 
@@ -119,4 +123,6 @@ void    exec_builtin_redir(t_wrapper *wrp)
 		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
 	}
 	waitpid(pid, &stats, 0);
+	if (WIFEXITED(stats))
+		g_i = WEXITSTATUS(stats);
 }

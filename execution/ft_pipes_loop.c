@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 18:34:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/12 14:22:44 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:02:58 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ void	ft_pipes_loop(t_wrapper *wrp)
 	while (waitpid(wrp->pipeline->cmd.pid, &stats, 0)> 0)
 	{
 		if (WIFEXITED(stats))
-			g_i = stats;
+			g_i = WEXITSTATUS(stats);
 	}
 }

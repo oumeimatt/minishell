@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:02:40 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/12 15:28:46 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:00:36 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	export_error(char *str)
 	ft_putstr_fd("minishell: export: '", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
+	g_i = 1;
 }
 
 void	export_builtin(char **str, t_env *env, int i)
