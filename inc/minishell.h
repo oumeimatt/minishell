@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 17:21:34 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 19:36:06 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int				check_line_syntax3(char *string);
 /*							*/
 void			put_err(t_wrapper *wrp);
 void			load_msg_err(t_wrapper *wrp, int flag);
-const char 			*get_prompt(t_wrapper *wrp);
+const char 			*get_prompt(void);
 /*							*/
 
 /*							*/
