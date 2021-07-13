@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/13 16:15:03 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/13 17:11:09 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int				parser_line(t_wrapper *wrp)
 	char	*line;
 
 	usleep (100000);
-	line = readline(BHBLU "petitshell-1.0$ " reset BHWHT);
+	line = readline(BHBLU "petitshell-1.0" reset BHWHT "$ " reset);
 	add_history (line);
 	printf ("Line : %s\n", line);
 	line = reformat_line(wrp, line);
