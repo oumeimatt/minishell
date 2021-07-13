@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/13 17:51:47 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/13 18:15:26 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int				parser_line(t_wrapper *wrp)
 
 	usleep (100000);
 	line = readline(BHBLU "petitshell-1.0" reset BHWHT "$ " reset);
-	add_history (line);
+	if (line && *line)
+		add_history (line);
 	printf ("Line : %s\n", line);
 	line = reformat_line(wrp, line);
 	printf("Reformatted line : %s\n", line);

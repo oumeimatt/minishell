@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/13 17:15:30 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/13 18:11:47 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ char			*quotes_reformat(char *line);
 /*							*/
 void			put_err(t_wrapper *wrp);
 void			load_msg_err(t_wrapper *wrp, int flag);
-void			sigint_handler(int signum);
+void			signal_handler(int signum);
 /*							*/
 
 /*							*/
