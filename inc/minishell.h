@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/13 16:15:42 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/13 17:15:30 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ char			*quotes_reformat(char *line);
 /*							*/
 void			put_err(t_wrapper *wrp);
 void			load_msg_err(t_wrapper *wrp, int flag);
-const char 			*get_prompt(void);
+void			sigint_handler(int signum);
 /*							*/
 
 /*							*/

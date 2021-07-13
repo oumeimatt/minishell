@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/13 17:11:09 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/13 17:51:47 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void		parser(t_wrapper *wrp, char **envp)
 				}
 				ft_pipes_loop(wrp);
 			}
+			printf("%d\n", g_i);
 		}
 	}
 }
@@ -106,3 +107,4 @@ int				parser_line(t_wrapper *wrp)
 		return (1);
 	}
 }
+
