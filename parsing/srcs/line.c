@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 17:21:54 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/13 16:36:39 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,36 @@ char		*spaces_dquotes_reformat2(char *line)
 	return (str);
 }
 
+char		*quotes_reformat(char *line)
+{
+	int p_count;
+	int s_count;
+	int d_quote;
+	int s_quote;
+	char *string;
+
+
+	d_quote = 0;
+	s_quote = 0;
+	p_count = 0;
+	s_count = 0;
+	string = (char *)malloc(sizeof(char) * ft_strlen(line));
+	if (!string)
+		return (NULL);
+	while (line[p_count] != '\0')
+	{
+		if (is_dquote(line[p_count]) && !d_quote && !s_quote && p_count++)
+			d_quote = 1;
+		else if (is_dquote(line[p_count]) && d_quote && p_count++)
+			d_quote = 0;
+		if (is_squote(line[p_count]) && !d_quote && !s_quote && ++p_count)
+			s_quote = 1;
+		else if ( is_squote(line[p_count]) && s_quote && ++p_count)
+			s_quote = 0;
+		string[s_count++] = line[p_count++];
+	}
+	return (string);
+}
 char 		*reformat_line(t_wrapper *wrp, char *line)
 {
 	int flag;
@@ -177,9 +207,10 @@ char 		*reformat_line(t_wrapper *wrp, char *line)
 	line = redirection_reformat(line);
 	line = pipes_reformat(line);
 	line = expand_env(wrp, line);
-	line = dquotes_reformat(line);
-	line = spaces_dquotes_reformat(line);
-	line = spaces_dquotes_reformat2(line);
+	// line = dquotes_reformat(line);
+	// line = spaces_dquotes_reformat(line);
+	// line = spaces_dquotes_reformat2(line);
+	
 	line = ft_strtrim(line, "\t ");
 	flag = check_line_syntax(line);
 //	printf ("errnum : %d\n", flag);
@@ -191,3 +222,4 @@ char 		*reformat_line(t_wrapper *wrp, char *line)
 	}
 	return (line);
 }
+

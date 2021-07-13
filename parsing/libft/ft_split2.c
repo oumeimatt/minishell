@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:23:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 17:24:21 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/13 16:33:16 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,21 @@ static int      words_n2(const char *s, char c)
     int count;
     int i;
 	int	dquote;
+    int squote;
 
     i = 0;
 	dquote = 2;
+    squote = 2;
 	count = 0;
     while (s[i])
     {    
 		if (is_dquote(s[i]))
 			dquote++;
-		if (s[i] != c && (s[i + 1] == c || !s[i + 1]) && (dquote % 2 == 0))
-            count++;
-		i++;
+		else if (is_squote(s[i]))
+            squote++;
+		if ((s[i] != c) && (s[i + 1] == c || !s[i + 1]) && ((dquote % 2 == 0) && (squote % 2 == 0)))
+                count++;
+        i++;
     }
     return (count);
 }
@@ -44,6 +48,9 @@ static int      word_len2(const char *str, unsigned int index, char delim)
 		if (is_dquote(str[i]))
 		    while (str[++i] && !is_dquote(str[i]))
 				len++;
+        else if (is_squote(str[i]))
+            while (str[++i] && !is_squote(str[i]))
+                len++;
         i++;
         len++;
     }

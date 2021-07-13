@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 18:13:38 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/13 16:12:03 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int      words_n(const char *s, char c)
 	quote = 0;
 	while (s[i])
 	{    
-		if ((is_dquote(s[i])) && !quote)
+/* 		if ((is_dquote(s[i])) && !quote)
 			quote = 1;
 		else if ((is_dquote(s[i])) && quote)
-			quote = 0;		
-		if (s[i] != c && (s[i + 1] == c || !s[i + 1]) && !quote)
+			quote = 0;	 */	
+		if (s[i] != c && (s[i + 1] == c || !s[i + 1]))
 			count++;
 		i++;
 	}
@@ -45,7 +45,7 @@ int      word_len(const char *str, unsigned int index, char delim)
 	i = index;
 	while (str[i] && str[i] != '\0' && str[i] != delim) 
 	{
-		if (is_dquote(str[i]))
+/* 		if (is_dquote(str[i]))
 		{
 			while (str[i] && str[i] != '\0')
 			{
@@ -54,7 +54,7 @@ int      word_len(const char *str, unsigned int index, char delim)
 				if (is_dquote(str[i]))
 					return (len + 1);
 			}
-		}
+		} */
 		i++;
 		len++;
 	}

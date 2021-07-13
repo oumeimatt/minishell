@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 19:36:06 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/13 16:15:42 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ char			*print_prompt(char **line);
 int				check_line_syntax(char *string);
 int				check_line_syntax2(char *string);
 int				check_line_syntax3(char *string);
+char			*quotes_reformat(char *line);
 /*							*/
 
 /*							*/

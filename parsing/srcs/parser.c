@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 18:05:17 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/13 16:15:03 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 	tab = ft_split2(line, '|');
 	if (!tab)
 		return ;
-	printf("Debug_tab(tab) :"); debug_tab(tab);
+	printf("Debug_tab(tab) :");
+	debug_tab(tab);
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	wrp->pipeline = NULL;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	while (tab[i])
 	{
+		tab[i] = quotes_reformat(tab[i]);
 		tmp = ft_split(tab[i], ' ');
 		printf ("Debug_tab(tmp) : ");debug_tab(tmp);
 		if (ft_strcmp(tmp[0], "<<"))
@@ -83,7 +85,8 @@ int				parser_line(t_wrapper *wrp)
 	line = readline(BHBLU "petitshell-1.0$ " reset BHWHT);
 	add_history (line);
 	printf ("Line : %s\n", line);
-	line = reformat_line(wrp, line);printf("Reformatted line : %s\n", line);
+	line = reformat_line(wrp, line);
+	printf("Reformatted line : %s\n", line);
 	if (line == NULL)
 	{
 		put_err(wrp);
@@ -93,7 +96,9 @@ int				parser_line(t_wrapper *wrp)
 	{
 	//	exit(0);
 		parser_tokens(wrp, line);
-		printf("Pipeline_debug : ");pipeline_debug(wrp->pipeline);printf ("\n");
+		printf("Pipeline_debug : ");
+		pipeline_debug(wrp->pipeline);
+		printf ("\n");
 /*  		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
 		free(line);
