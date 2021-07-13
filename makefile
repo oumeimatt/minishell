@@ -50,6 +50,7 @@ SRCS =	parsing/libft/ft_atoi.c\
 		parsing/srcs/varenv.c\
 		parsing/srcs/error.c\
 		parsing/srcs/line2.c\
+		parsing/srcs/sigint.c\
 		parsing/main.c\
 		execution/builtins/*.c\
 		execution/ft_exec_cmd.c\
