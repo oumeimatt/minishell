@@ -50,7 +50,7 @@ SRCS =	parsing/libft/ft_atoi.c\
 		parsing/srcs/varenv.c\
 		parsing/srcs/error.c\
 		parsing/srcs/line2.c\
-		parsing/srcs/sigint.c\
+		parsing/srcs/sighandler.c\
 		parsing/main.c\
 		execution/builtins/*.c\
 		execution/ft_exec_cmd.c\
@@ -66,7 +66,7 @@ SRCS =	parsing/libft/ft_atoi.c\
 INCLUDES =	inc/libft.h\
 			inc/minishell.h\
 
-FLAGS = -Wall -Werror -Wextra -lreadline -g #-fsanitize=address
+FLAGS = -g -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
 
 all:		$(NAME)
 
