@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:49:13 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 14:03:48 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/14 17:50:50 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,31 @@ int			check_line_syntax3(char *string)
 		i++;
 	}
 	return (1);	
+}
+
+char		*expand_exit_code(t_wrapper *wrp, char *string)
+{
+	int i;
+	int j;
+	char *str;
+
+	(void)wrp;
+	i = 0;
+	j = 0;
+	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 2);
+	if (!str)
+		return (NULL);
+	while (string[i] != '\0')
+	{
+		if (is_dollar(string[i]) && string[i + 1] == '?')
+		{
+			str = ft_strjoin(str, ft_itoa(g_i));
+			j += ft_strlen(ft_itoa(g_i));
+			i += 2;
+		}
+		if (string[i] != '\0')
+			str[j++] = string[i++];
+	}
+	str[j] = '\0';
+	return (str);	
 }

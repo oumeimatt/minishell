@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/13 19:23:08 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/14 21:01:29 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,15 +204,16 @@ char 		*reformat_line(t_wrapper *wrp, char *line)
 {
 	int flag;
 	
+	flag = 0;
 	line = redirection_reformat(line);
 	line = pipes_reformat(line);
+	line = expand_exit_code(wrp, line);
 	line = expand_env(wrp, line);
-	// line = dquotes_reformat(line);
-	// line = spaces_dquotes_reformat(line);
-	// line = spaces_dquotes_reformat2(line);
-	
 	line = ft_strtrim(line, "\t ");
-	flag = check_line_syntax(line);
+	if (ft_strncmp(line, "export", 6))
+		flag = check_line_syntax(line);
+	else if (!ft_strncmp(line, "export", 6))
+		flag = export_check_quotes(line);
 //	printf ("errnum : %d\n", flag);
 	if (flag <= 0)
 	{
@@ -223,3 +224,26 @@ char 		*reformat_line(t_wrapper *wrp, char *line)
 	return (line);
 }
 
+int			export_check_quotes(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (is_dquote(line[i]) || is_squote(line[i]))
+		{
+			char tmp = line[i];
+			i++;
+			while (line[i] != '\0')
+			{
+				if (tmp == line[i] && (line[i + 1] == '\0' || line[i + 1] == ' ' || !is_dquote(line[i + 1] || !is_squote(line[i + 1]))))
+					return (1);
+				i++;
+			}
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}

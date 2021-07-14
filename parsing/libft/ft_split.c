@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/13 16:12:03 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/14 20:49:02 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,47 @@ int      words_n(const char *s, char c)
 {
 	int count;
 	int i;
-	int quote;
+	int dquote;
+	int squote;
 
 	i = 0;
 	count = 0;
-	quote = 0;
+	dquote = 2;
+	squote = 2;
+	if (!ft_strncmp(s, "export", 6))
+	{
+/* 		while (s[i])
+		{
+			if (is_dquote(s[i]))
+				dquote++;
+			else if (is_squote(s[i]))
+				squote++;
+			if (s[i] != c && (s[i + 1] == c || !s[i + 1]) && !(dquote % 2) && !(squote % 2))
+				count++;
+			i++;
+		}
+		return (count); */
+		while (s[i])
+		{
+			if ((s[i] != c) && (s[i + 1] == c || !s[i + 1]))
+				count++;
+			if (is_dquote(s[i]) || is_squote(s[i]))
+			{
+				char tmp = s[i];
+				while (s[i] != '\0')
+				{
+					if ((s[i] != c) && (tmp == s[i]) && (s[i + 1] == c || !s[i + 1]))
+						count++;
+					i++;
+				}
+				return (count);
+			}
+			i++;
+		}
+	}
 	while (s[i])
 	{    
-/* 		if ((is_dquote(s[i])) && !quote)
-			quote = 1;
-		else if ((is_dquote(s[i])) && quote)
-			quote = 0;	 */	
+	
 		if (s[i] != c && (s[i + 1] == c || !s[i + 1]))
 			count++;
 		i++;
@@ -45,16 +75,38 @@ int      word_len(const char *str, unsigned int index, char delim)
 	i = index;
 	while (str[i] && str[i] != '\0' && str[i] != delim) 
 	{
-/* 		if (is_dquote(str[i]))
+		if (!ft_strncmp(str, "export", 6))
 		{
-			while (str[i] && str[i] != '\0')
+/* 			if (is_dquote(str[i]) || is_squote(str[i]))
 			{
+				while (str[i] && str[i] != '\0')
+				{
+					i++;
+					len++;
+					if (is_dquote(str[i]) || is_squote(str[i]))
+						return (len + 1);
+				}
+			} */
+			while (str[i] != '\0')
+			{
+				if (str[i] == delim)
+					return (len);
+				if (is_dquote(str[i]) || is_squote(str[i]))
+				{
+					char tmp = str[i];
+					i++;
+					while (str[i] != '\0')
+					{
+						if (tmp == str[i] && str[i + 1] == delim)
+							return (len);
+						i++;
+						len++;
+					}
+				}
 				i++;
 				len++;
-				if (is_dquote(str[i]))
-					return (len + 1);
 			}
-		} */
+		}
 		i++;
 		len++;
 	}
