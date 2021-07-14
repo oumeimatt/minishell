@@ -150,6 +150,7 @@ int				check_line_syntax(char *string);
 int				check_line_syntax2(char *string);
 int				check_line_syntax3(char *string);
 char			*quotes_reformat(char *line);
+char			**fix_tmp(char **tmp);
 /*							*/
 
 /*							*/
