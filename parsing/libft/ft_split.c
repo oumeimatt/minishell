@@ -16,17 +16,30 @@ int      words_n(const char *s, char c)
 {
 	int count;
 	int i;
-	int quote;
+	int dquote;
+	int squote;
 
 	i = 0;
 	count = 0;
-	quote = 0;
+	dquote = 2;
+	squote = 2;
+	if (!ft_strncmp(s, "export", 6))
+	{
+		while (s[i])
+		{
+			if (is_dquote(s[i]))
+				dquote++;
+			else if (is_squote(s[i]))
+				squote++;
+			if (s[i] != c && (s[i + 1] == c || !s[i + 1]) && !(dquote % 2) && !(squote % 2))
+				count++;
+			i++;
+		}
+		return (count);
+	}
 	while (s[i])
 	{    
-/* 		if ((is_dquote(s[i])) && !quote)
-			quote = 1;
-		else if ((is_dquote(s[i])) && quote)
-			quote = 0;	 */	
+	
 		if (s[i] != c && (s[i + 1] == c || !s[i + 1]))
 			count++;
 		i++;
@@ -45,16 +58,19 @@ int      word_len(const char *str, unsigned int index, char delim)
 	i = index;
 	while (str[i] && str[i] != '\0' && str[i] != delim) 
 	{
-/* 		if (is_dquote(str[i]))
+		if (!ft_strncmp(str, "export", 6))
 		{
-			while (str[i] && str[i] != '\0')
+			if (is_dquote(str[i]))
 			{
-				i++;
-				len++;
-				if (is_dquote(str[i]))
-					return (len + 1);
+				while (str[i] && str[i] != '\0')
+				{
+					i++;
+					len++;
+					if (is_dquote(str[i]))
+						return (len + 1);
+				}
 			}
-		} */
+		}
 		i++;
 		len++;
 	}

@@ -67,21 +67,3 @@ int		free_s_tab(char **tab)
 	}
 	return (0);
 }
-
-char	**fix_tmp(char **tmp)
-{
-	if (ft_strcmp(tmp[0], "export"))
-		return (tmp);
-	else
-	{
-		char **tmp2 = (char **)malloc(sizeof(char *) * 3);
-		tmp2[0] = ft_strdup("export");
-		tmp2[1] = ft_strdup(tmp[1]);
-		for (int i = 2; i < tab_len(tmp); i++)
-		{	
-			tmp2[1] = ft_strjoin(tmp2[1], ft_strdup(" "));
-			tmp2[1] = ft_strjoin(tmp2[1], tmp[i]);
-		}
-		return (tmp2);
-	}
-}

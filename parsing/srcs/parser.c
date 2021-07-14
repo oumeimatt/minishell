@@ -65,11 +65,11 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	while (tab[i])
 	{
-		tab[i] = quotes_reformat(tab[i]);
+		if (ft_strncmp(tab[i], "export", 6))
+			tab[i] = quotes_reformat(tab[i]);
 		tmp = ft_split(tab[i], ' ');
-		tmp = fix_tmp(tmp);
  		printf ("Debug_tab(tmp) : ");debug_tab(tmp);
-		if (ft_strcmp(tmp[0], "<<"))
+		if (ft_strcmp(tmp[0], "<<") && ft_strcmp(tmp[0], "export"))
 			tab_trimmer(tmp);
 		parser_tab_checker(wrp ,tmp, iofiles);
 		token = cmd_create(iofiles->tokens);
