@@ -88,8 +88,8 @@ int				parser_line(t_wrapper *wrp)
 	if (line && *line)
 		add_history (line);
  	printf ("Line : %s\n", line);
-	printf("Reformatted line : %s\n", line);
 	line = reformat_line(wrp, line);
+	printf("Reformatted line : %s\n", line);
 	if (line == NULL)
 	{
 		put_err(wrp);

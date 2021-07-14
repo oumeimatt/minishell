@@ -16,16 +16,16 @@ void			signal_handler(int signum)
 {    
 	if (signum == SIGINT)
 	{
+		ft_putchar_fd('\n', 2);
 		rl_on_new_line();
-		//rl_replace_line();
-		ft_putstr_fd("\n", 2);
-		ft_putstr_fd(BHBLU "petitshell-1.0" reset BHWHT "$ " reset, 2);
+		rl_replace_line("", 0);
 		rl_redisplay(); 
 	}
 	else if (signum == SIGQUIT)
 	{
-		ft_putstr_fd("\n", 2);
-		ft_putstr_fd(BHBLU "petitshell-1.0" reset BHWHT "$ " reset, 2);
+		ft_putchar_fd('\r', 2);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	return ;
 }
