@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/13 16:12:03 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/14 18:34:58 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ int      word_len(const char *str, unsigned int index, char delim)
 	{
 		if (!ft_strncmp(str, "export", 6))
 		{
-			if (is_dquote(str[i]))
+			if (is_dquote(str[i]) || is_squote(str[i]))
 			{
 				while (str[i] && str[i] != '\0')
 				{
 					i++;
 					len++;
-					if (is_dquote(str[i]))
+					if (is_dquote(str[i]) || is_squote(str[i]))
 						return (len + 1);
 				}
 			}

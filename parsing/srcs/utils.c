@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 17:34:09 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 17:16:44 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/14 18:10:25 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,12 @@ void		debug_tab(char **tab)
 	if (tab[i] != NULL)
 		printf("[%s]\n", tab[i]);
 }
+
+/* int		a(int *new_val)
+{
+	static int *a;
+	
+	if (a)
+		a = new_val;
+	return (*a); 	
+} */
