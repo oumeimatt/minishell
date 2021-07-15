@@ -48,6 +48,7 @@ SRCS =	libft/ft_atoi.c\
 		parsing/srcs/line.c\
 		parsing/srcs/lstredir.c\
 		parsing/srcs/parser2.c\
+		parsing/srcs/parser3.c\
 		parsing/srcs/varenv.c\
 		parsing/srcs/error.c\
 		parsing/srcs/line2.c\

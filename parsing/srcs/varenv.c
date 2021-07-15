@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   varenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 19:24:23 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/13 16:42:52 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/15 19:54:59 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ char *expand_env(t_wrapper *wrp, char *string)
 	while (string[p_count] != '\0')
 	{
 		if (is_dquote(string[p_count]) && !d_flag)
-			d_flag = 0;
-		else if (is_dquote(string[p_count] && d_flag))
 			d_flag = 1;
-		if (string[p_count] == '\'' && !s_flag && string[p_count - 1] != '\'')
+		else if (is_dquote(string[p_count] && d_flag))
+			d_flag = 0;
+		if (string[p_count] == '\'' && !s_flag)
 			s_flag = 1;
 		else if (string[p_count] == '\'' && s_flag)
 			s_flag = 0;
@@ -64,6 +64,8 @@ char *expand_env(t_wrapper *wrp, char *string)
 			c_count = 0;
 			while (value && value[c_count] != '\0')
 				str[s_count++] = value[c_count++];
+			if (is_dquote(string[p_count]) || is_squote(string[p_count]))
+				continue;
 		}
 		if (string[p_count] != '$'|| (is_dollar(string[p_count]) && dollar_valid(string[p_count + 1])) || (is_dollar(string[p_count]) && s_flag))
 			str[s_count++] = string[p_count++];

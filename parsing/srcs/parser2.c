@@ -6,63 +6,50 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 19:27:17 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/12 15:42:11 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 18:18:32 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void		parser_tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles)
+static void	norme3_parser_tab_checker(t_iofiles *iofiles,
+char **tab, int i, int *j)
 {
-	int	i;
-	int	j;
-	int flag;
-	t_lstredir *tmp;
+	iofiles->tokens[*j] = ft_strdup(tab[i]);
+	(*j)++;
+}
+
+static void	norme4_parser_tab_checker(int *flag, int *i)
+{
+	if (*flag >= 1)
+		*flag = *flag - 1;
+	else if (*flag == 0)
+		*flag = 0;
+	(*i)++;
+}
+
+void	parser_tab_checker(char **tab, t_iofiles *iofiles)
+{
+	int			i;
+	int			j;
+	int			flag;
+	t_lstredir	*tmp;
 
 	j = 0;
 	i = 0;
 	flag = 0;
-	(void)wrp;
 	tmp = NULL;
 	iofiles->tokens = NULL;
 	iofiles->redir = NULL;
+	tmp = NULL;
 	iofiles->redir = malloc (sizeof (t_lstredir));
+	tmp = malloc(sizeof(t_lstredir));
 	iofiles->tokens = (char **) malloc (sizeof(char *) * 1024);
-	
 	while (tab[i])
 	{
-		//flag = parser_tab_dquotes(tab[i]);
-		if (!ft_strcmp(tab[i] , "<") || !ft_strcmp(tab[i], "<<"))
-		{
-			if (!ft_strcmp(tab[i], "<"))	
-				lstredir_addback(&tmp, lstredir_new(1, tab[i + 1]));
-			else if (!ft_strcmp(tab[i], "<<"))
-				lstredir_addback(&tmp, lstredir_new(2, tab[i + 1]));
-			flag = 2;
-		}	
-		else if (!ft_strcmp(tab[i], ">") || !ft_strcmp(tab[i], ">>"))
-		{
-			if (!ft_strcmp(tab[i], ">"))
-				lstredir_addback(&tmp, lstredir_new(3, tab[i + 1]));
-			if (!ft_strcmp(tab[i], ">>"))
-				lstredir_addback(&tmp, lstredir_new(4, tab[i + 1]));
-			flag = 2;
-		}
-		else if (flag == 0)
-		{
-			iofiles->tokens[j] = ft_strdup(tab[i]);
-			j++;
-		}
-		flag = (flag > 0 ? flag - 1 : 0);
-		i++;
+		if (flag == 0 && !norme6_parser_tab_checker(tab, i, tmp, &flag))
+			norme3_parser_tab_checker(iofiles, tab, i, &j);
+		norme4_parser_tab_checker(&flag, &i);
 	}
-	iofiles->tokens[j] = NULL;
-	iofiles->redir = tmp;
+	norme5_parser_tab_checker(iofiles, tmp, j);
 }
-
-/* int			parser_tab_dquotes(char *string)
-{
-	if (!ft_strcmp(string, "\"\""))
-		return (1);
-	return (0);
-} */

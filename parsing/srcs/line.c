@@ -6,23 +6,23 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 12:41:29 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 19:49:56 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int			is_redir(char c)
+int	is_redir(char c)
 {
 	if (c == '<')
 		return (1);
-	else if (c == '>')	
+	else if (c == '>')
 		return (2);
 	else
 		return (0);
 }
 
-char 		*redirection_reformat(const char *string)
+char	*redirection_reformat(const char *string)
 {
 	char *str;
 	int p_count;
@@ -58,7 +58,7 @@ char 		*redirection_reformat(const char *string)
 	return (str);
 }
 
-char		*pipes_reformat(char *line)
+char	*pipes_reformat(char *line)
 {
 	char *str;
 	int p_count;
@@ -93,7 +93,7 @@ char		*pipes_reformat(char *line)
 	return (str);
 }
 
-char		*dquotes_reformat(char *line)
+char	*dquotes_reformat(char *line)
 {	
 	int i;
 	int j;
@@ -141,7 +141,7 @@ char		*spaces_dquotes_reformat(char *line)
 	return (str);
 }
 
-char		*spaces_dquotes_reformat2(char *line)
+char	*spaces_dquotes_reformat2(char *line)
 {
 	int	i;
 	int dquote;
@@ -170,14 +170,25 @@ char		*spaces_dquotes_reformat2(char *line)
 	return (str);
 }
 
-char		*quotes_reformat(char *line)
+static void	norme_quotes_reformat(char *line, int *p_count, int *s_quote, int *d_quote)
 {
-	int p_count;
-	int s_count;
-	int d_quote;
-	int s_quote;
-	char *string;
+	if (is_dquote(line[*p_count]) && !*d_quote && !*s_quote && (*p_count)++)
+		*d_quote = 1;
+	else if (is_dquote(line[*p_count]) && *d_quote && (*p_count)++)
+		*d_quote = 0;
+	if (is_squote(line[*p_count]) && !*d_quote && !*s_quote && ++(*p_count))
+		*s_quote = 1;
+	else if (is_squote(line[*p_count]) && *s_quote && ++(*p_count))
+		*s_quote = 0;
+}
 
+char	*quotes_reformat(char *line)
+{
+	int		p_count;
+	int		s_count;
+	int		d_quote;
+	int		s_quote;
+	char	*string;
 
 	d_quote = 0;
 	s_quote = 0;
@@ -188,33 +199,28 @@ char		*quotes_reformat(char *line)
 		return (NULL);
 	while (line[p_count] != '\0')
 	{
-		if (is_dquote(line[p_count]) && !d_quote && !s_quote && p_count++)
-			d_quote = 1;
-		else if (is_dquote(line[p_count]) && d_quote && p_count++)
-			d_quote = 0;
-		if (is_squote(line[p_count]) && !d_quote && !s_quote && ++p_count)
-			s_quote = 1;
-		else if ( is_squote(line[p_count]) && s_quote && ++p_count)
-			s_quote = 0;
+		norme_quotes_reformat(line, &p_count, &s_quote, &d_quote);
 		string[s_count++] = line[p_count++];
 	}
 	return (string);
 }
-char 		*reformat_line(t_wrapper *wrp, char *line)
+
+char	*reformat_line(t_wrapper *wrp, char *line)
 {
-	int flag;
-	
+	int	flag;
+
 	flag = 0;
 	line = redirection_reformat(line);
 	line = pipes_reformat(line);
 	line = expand_exit_code(wrp, line);
 	line = expand_env(wrp, line);
+	printf("%s\n", line);
+	return (line);
 	line = ft_strtrim(line, "\t ");
 	if (ft_strncmp(line, "export", 6))
 		flag = check_line_syntax(line);
 	else if (!ft_strncmp(line, "export", 6))
 		flag = export_check_quotes(line);
-//	printf ("errnum : %d\n", flag);
 	if (flag <= 0)
 	{
 		load_msg_err(wrp, flag);
@@ -224,20 +230,24 @@ char 		*reformat_line(t_wrapper *wrp, char *line)
 	return (line);
 }
 
-int			export_check_quotes(char *line)
+int	export_check_quotes(char *line)
 {
-	int i;
+	int		i;
+	char	tmp;
 
+	tmp = 0;
 	i = 0;
 	while (line[i] != '\0')
 	{
 		if (is_dquote(line[i]) || is_squote(line[i]))
 		{
-			char tmp = line[i];
+			tmp = line[i];
 			i++;
 			while (line[i] != '\0')
 			{
-				if (tmp == line[i] && (line[i + 1] == '\0' || line[i + 1] == ' ' || !is_dquote(line[i + 1] || !is_squote(line[i + 1]))))
+				if (tmp == line[i] && (line[i + 1] == '\0' || line[i + 1]
+						== ' ' || !is_dquote(line[i + 1]
+							|| !is_squote(line[i + 1]))))
 					return (1);
 				i++;
 			}

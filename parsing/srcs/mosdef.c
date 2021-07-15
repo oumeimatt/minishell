@@ -6,13 +6,13 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 11:01:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/11 17:01:09 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 15:07:05 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_pipeline		*pipeline_last(t_pipeline *lst)
+t_pipeline	*pipeline_last(t_pipeline *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -21,11 +21,12 @@ t_pipeline		*pipeline_last(t_pipeline *lst)
 	return (lst);
 }
 
-t_pipeline		*pipeline_new(t_cmd cmd, t_lstredir *redir)
+t_pipeline	*pipeline_new(t_cmd cmd, t_lstredir *redir)
 {
 	t_pipeline	*lst;
 
-	if (!(lst = malloc(sizeof(t_pipeline))))
+	lst = malloc(sizeof(t_pipeline));
+	if (!lst)
 		return (NULL);
 	lst->redir = redir;
 	lst->cmd = cmd;
@@ -35,7 +36,7 @@ t_pipeline		*pipeline_new(t_cmd cmd, t_lstredir *redir)
 	return (lst);
 }
 
-int				pipeline_size(t_pipeline *lst)
+int	pipeline_size(t_pipeline *lst)
 {
 	size_t	i;
 
@@ -45,12 +46,13 @@ int				pipeline_size(t_pipeline *lst)
 		i++;
 		lst = lst->next;
 	}
-	return (i);	
+	return (i);
 }
-void			pipeline_addback(t_pipeline **alst, t_pipeline *lst)
+
+void	pipeline_addback(t_pipeline **alst, t_pipeline *lst)
 {
 	t_pipeline	*tmp;
-	
+
 	if (!*alst)
 	{	
 		*alst = lst;
@@ -62,11 +64,12 @@ void			pipeline_addback(t_pipeline **alst, t_pipeline *lst)
 	}
 }
 
-t_wrapper		*contruct_wrapper(void)
+t_wrapper	*contruct_wrapper(void)
 {
-	t_wrapper *wrp;
+	t_wrapper	*wrp;
 
-	if (!(wrp = (t_wrapper *)malloc(sizeof(t_wrapper))))
+	wrp = (t_wrapper *)malloc(sizeof(t_wrapper));
+	if (!wrp)
 		return (NULL);
 	wrp->error = (t_error *)malloc (sizeof (t_error));
 	if (!wrp->error)
@@ -74,7 +77,7 @@ t_wrapper		*contruct_wrapper(void)
 	return (wrp);
 }
 
-void			pipeline_debug(t_pipeline *lst)
+void	pipeline_debug(t_pipeline *lst)
 {
 	if (lst && lst->cmd.tokens)
 	{	
