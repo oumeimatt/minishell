@@ -152,6 +152,7 @@ int				check_line_syntax3(char *string);
 char			*quotes_reformat(char *line);
 char			*expand_exit_code(t_wrapper *wrp, char *string);
 int				export_check_quotes(char *line);
+
 /*							*/
 
 /*							*/
