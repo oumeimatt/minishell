@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/14 19:37:12 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 18:17:14 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct		s_wrapper
 
 t_lstredir		*lstredir_last(t_lstredir *lst);
 t_lstredir		*lstredir_new(int type, char *filename);
-int			lstredir_size(t_lstredir *lst);
+int				lstredir_size(t_lstredir *lst);
 void			lstredir_addback(t_lstredir **alst, t_lstredir *lst);
 void			lstredir_debug(t_lstredir *lst);
 /*							*/
@@ -132,8 +132,10 @@ void			pipeline_debug(t_pipeline *lst);
 void			parser(t_wrapper *wrp, char **envp);
 int				parser_line(t_wrapper *wrp);
 void			parser_tokens(t_wrapper *wrp, char *line);
-void			parser_tab_checker(t_wrapper *wrp, char **tab, t_iofiles *iofiles);
+void			parser_tab_checker(char **tab, t_iofiles *iofiles);
 int				parser_tab_dquotes(char *string);
+int				norme6_parser_tab_checker(char **tab, int i, t_lstredir *tmp, int *flag);
+void			norme5_parser_tab_checker(t_iofiles *iofiles, t_lstredir *tmp, int j);
 /*							*/
 
 /*							*/

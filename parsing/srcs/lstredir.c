@@ -6,26 +6,27 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 15:41:48 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/10 19:38:52 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 15:04:44 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_lstredir		*lstredir_last(t_lstredir *lst)
+t_lstredir	*lstredir_last(t_lstredir *lst)
 {
 	if (!lst)
 		return (NULL);
 	while (lst->next)
 		lst = lst->next;
-	return (lst);	
+	return (lst);
 }
 
-t_lstredir		*lstredir_new(int type, char *filename)
+t_lstredir	*lstredir_new(int type, char *filename)
 {
 	t_lstredir	*lst;
 
-	if (!(lst = malloc (sizeof(t_lstredir))))
+	lst = malloc (sizeof(t_lstredir));
+	if (!lst)
 		return (NULL);
 	lst->type = type;
 	lst->filename = filename;
@@ -33,7 +34,7 @@ t_lstredir		*lstredir_new(int type, char *filename)
 	return (lst);
 }
 
-int				lstredir_size(t_lstredir *lst)
+int	lstredir_size(t_lstredir *lst)
 {
 	size_t	i;
 
@@ -46,7 +47,7 @@ int				lstredir_size(t_lstredir *lst)
 	return (i);
 }
 
-void			lstredir_addback(t_lstredir **alst, t_lstredir *lst)
+void	lstredir_addback(t_lstredir **alst, t_lstredir *lst)
 {
 	t_lstredir	*tmp;
 
@@ -61,7 +62,7 @@ void			lstredir_addback(t_lstredir **alst, t_lstredir *lst)
 	}
 }
 
-void			lstredir_debug(t_lstredir *lst)
+void	lstredir_debug(t_lstredir *lst)
 {
 	if (lst)
 	{
