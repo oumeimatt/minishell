@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:23:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 12:43:09 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 13:12:11 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int      words_n2(const char *s, char c)
 	{
 		while (s[i])
 		{
+			if ((s[i] != c) && ((s[i + 1] == c) || !s[i + 1]))
+				count++;
 			if (is_dquote(s[i]) || is_squote(s[i]))
 			{
 				char tmp = s[i];
@@ -42,6 +44,7 @@ static int      words_n2(const char *s, char c)
 			}
 			i++;
 		}
+		return (count);
 	}
 	while (s[i])
 	{    

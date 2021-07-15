@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 11:31:15 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 13:12:26 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 
 	i = 0;
 	tab = ft_split2(line, '|');
-	if (!tab && *tab == NULL)
+	if (!tab || *tab == NULL)
 		return ;
  	printf("Debug_tab(tab) :");
 	debug_tab(tab);
@@ -89,9 +89,9 @@ int				parser_line(t_wrapper *wrp)
 		add_history (line);
 /* 	if (!line)
 		printf("here!"); */
-	printf("Reformatted line : %s\n", line);
  	printf ("Line : %s\n", line);
 	line = reformat_line(wrp, line);
+	printf("Reformatted line : %s\n", line);
 	if (line == NULL)
 	{
 		put_err(wrp);
@@ -101,7 +101,7 @@ int				parser_line(t_wrapper *wrp)
 	{
 	//	exit(0);
 		parser_tokens(wrp, line);
- 		printf("Pipeline_debug : ");
+		printf("Pipeline_debug : ");
 		pipeline_debug(wrp->pipeline);
 /*  		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
