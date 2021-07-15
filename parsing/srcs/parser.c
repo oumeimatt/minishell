@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 11:31:15 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 13:15:02 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 
 	i = 0;
 	tab = ft_split2(line, '|');
-	if (!tab && *tab == NULL)
+	if (!tab || *tab == NULL)
 		return ;
- 	printf("Debug_tab(tab) :");
-	debug_tab(tab);
+ 	//printf("Debug_tab(tab) :");
+	//debug_tab(tab);
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	wrp->pipeline = NULL;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
@@ -68,7 +68,7 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 		if (ft_strncmp(tab[i], "export", 6) && ft_strncmp(tab[i], "<<", 2))
 			tab[i] = quotes_reformat(tab[i]);
 		tmp = ft_split(tab[i], ' ');
- 		printf ("Debug_tab(tmp) : ");debug_tab(tmp);
+ 		//printf ("Debug_tab(tmp) : ");debug_tab(tmp);
 		if (ft_strcmp(tmp[0], "<<") && ft_strcmp(tmp[0], "export"))
 			tab_trimmer(tmp);
 		parser_tab_checker(wrp ,tmp, iofiles);
@@ -89,9 +89,9 @@ int				parser_line(t_wrapper *wrp)
 		add_history (line);
 /* 	if (!line)
 		printf("here!"); */
-	printf("Reformatted line : %s\n", line);
- 	printf ("Line : %s\n", line);
+ //	printf ("Line : %s\n", line);
 	line = reformat_line(wrp, line);
+//	printf("Reformatted line : %s\n", line);
 	if (line == NULL)
 	{
 		put_err(wrp);
@@ -101,8 +101,8 @@ int				parser_line(t_wrapper *wrp)
 	{
 	//	exit(0);
 		parser_tokens(wrp, line);
- 		printf("Pipeline_debug : ");
-		pipeline_debug(wrp->pipeline);
+//		printf("Pipeline_debug : ");
+//		pipeline_debug(wrp->pipeline);
 /*  		if (wrp->pipeline->redir)	
 			lstredir_debug(wrp->pipeline->redir); */
 		free(line);
