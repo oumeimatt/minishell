@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/14 18:34:58 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 12:45:28 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int      words_n(const char *s, char c)
 	squote = 2;
 	if (!ft_strncmp(s, "export", 6))
 	{
-		while (s[i])
+/* 		while (s[i])
 		{
 			if (is_dquote(s[i]))
 				dquote++;
@@ -35,7 +35,26 @@ int      words_n(const char *s, char c)
 				count++;
 			i++;
 		}
-		return (count);
+		return (count); */
+		while (s[i])
+		{
+			if ((s[i] != c) && (s[i + 1] == c || !s[i + 1]))
+				count++;
+			if (is_dquote(s[i]) || is_squote(s[i]))
+			{
+				char tmp = s[i];
+				while (s[i] != '\0')
+				{
+					if (s[i + 1] == tmp)
+						dquote = 4;
+					if ((s[i] != c) && (dquote == 4) && (s[i + 1] == c || !s[i + 1]))
+						count++;
+					i++;
+				}
+				return (count);
+			}
+			i++;
+		}
 	}
 	while (s[i])
 	{    
@@ -60,7 +79,7 @@ int      word_len(const char *str, unsigned int index, char delim)
 	{
 		if (!ft_strncmp(str, "export", 6))
 		{
-			if (is_dquote(str[i]) || is_squote(str[i]))
+/* 			if (is_dquote(str[i]) || is_squote(str[i]))
 			{
 				while (str[i] && str[i] != '\0')
 				{
@@ -69,6 +88,25 @@ int      word_len(const char *str, unsigned int index, char delim)
 					if (is_dquote(str[i]) || is_squote(str[i]))
 						return (len + 1);
 				}
+			} */
+			while (str[i] != '\0')
+			{
+				if (str[i] == delim)
+					return (len);
+				if (is_dquote(str[i]) || is_squote(str[i]))
+				{
+					char tmp = str[i];
+					i++;
+					while (str[i] != '\0')
+					{
+						if (tmp == str[i] && str[i + 1] == delim)
+							return (len);
+						i++;
+						len++;
+					}
+				}
+				i++;
+				len++;
 			}
 		}
 		i++;
@@ -121,6 +159,7 @@ char            **ft_split(const char *str, char c)
 
 	if (str)
 	{
+		printf ("words_n() : %d\n", words_n(str, c));
 		if (!(tab = (char **)malloc(sizeof(char *) * (words_n(str, c) + 1))))
 			return (0);
 		i = 0;

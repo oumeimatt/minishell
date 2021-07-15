@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/14 18:22:35 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 11:31:15 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 
 	i = 0;
 	tab = ft_split2(line, '|');
-	if (!tab)
+	if (!tab && *tab == NULL)
 		return ;
  	printf("Debug_tab(tab) :");
 	debug_tab(tab);
@@ -65,7 +65,7 @@ void			parser_tokens(t_wrapper *wrp, char *line)
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
 	while (tab[i])
 	{
-		if (ft_strncmp(tab[i], "export", 6))
+		if (ft_strncmp(tab[i], "export", 6) && ft_strncmp(tab[i], "<<", 2))
 			tab[i] = quotes_reformat(tab[i]);
 		tmp = ft_split(tab[i], ' ');
  		printf ("Debug_tab(tmp) : ");debug_tab(tmp);
