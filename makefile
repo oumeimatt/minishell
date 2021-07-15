@@ -4,41 +4,42 @@ cc = clang
 
 NAME = minishell
 
-SRCS =	parsing/libft/ft_atoi.c\
-		parsing/libft/ft_bzero.c\
-		parsing/libft/ft_calloc.c\
-		parsing/libft/ft_isalnum.c\
-		parsing/libft/ft_isalpha.c\
-		parsing/libft/ft_isascii.c\
-		parsing/libft/ft_isdigit.c\
-		parsing/libft/ft_isprint.c\
-		parsing/libft/ft_itoa.c\
-		parsing/libft/ft_memccpy.c\
-		parsing/libft/ft_memchr.c\
-		parsing/libft/ft_memcmp.c\
-		parsing/libft/ft_memcpy.c\
-		parsing/libft/ft_memmove.c\
-		parsing/libft/ft_memset.c\
-		parsing/libft/ft_putchar_fd.c\
-		parsing/libft/ft_putendl_fd.c\
-		parsing/libft/ft_putnbr_fd.c\
-		parsing/libft/ft_putstr_fd.c\
-		parsing/libft/ft_strchr.c\
-		parsing/libft/ft_strdup.c\
-		parsing/libft/ft_strjoin.c\
-		parsing/libft/ft_strlcat.c\
-		parsing/libft/ft_strlcpy.c\
-		parsing/libft/ft_strlen.c\
-		parsing/libft/ft_strmapi.c\
-		parsing/libft/ft_strncmp.c\
-		parsing/libft/ft_strnstr.c\
-		parsing/libft/ft_strrchr.c\
-		parsing/libft/ft_strtrim.c\
-		parsing/libft/ft_substr.c\
-		parsing/libft/ft_tolower.c\
-		parsing/libft/ft_toupper.c\
-		parsing/libft/ft_split.c\
-		parsing/libft/ft_split2.c\
+SRCS =	libft/ft_atoi.c\
+		libft/ft_bzero.c\
+		libft/ft_calloc.c\
+		libft/ft_isalnum.c\
+		libft/ft_isalpha.c\
+		libft/ft_isascii.c\
+		libft/ft_isdigit.c\
+		libft/ft_isprint.c\
+		libft/ft_itoa.c\
+		libft/ft_memccpy.c\
+		libft/ft_memchr.c\
+		libft/ft_memcmp.c\
+		libft/ft_memcpy.c\
+		libft/ft_memmove.c\
+		libft/ft_memset.c\
+		libft/ft_putchar_fd.c\
+		libft/ft_putendl_fd.c\
+		libft/ft_putnbr_fd.c\
+		libft/ft_putstr_fd.c\
+		libft/ft_strchr.c\
+		libft/ft_strdup.c\
+		libft/ft_strjoin.c\
+		libft/ft_strlcat.c\
+		libft/ft_strlcpy.c\
+		libft/ft_strlen.c\
+		libft/ft_strmapi.c\
+		libft/ft_strncmp.c\
+		libft/ft_strnstr.c\
+		libft/ft_strrchr.c\
+		libft/ft_strtrim.c\
+		libft/ft_substr.c\
+		libft/ft_tolower.c\
+		libft/ft_toupper.c\
+		libft/ft_split.c\
+		libft/ft_split2.c\
+		\
 		parsing/srcs/mosdef.c\
 		parsing/srcs/parser.c\
 		parsing/srcs/utils.c\
@@ -52,6 +53,7 @@ SRCS =	parsing/libft/ft_atoi.c\
 		parsing/srcs/line2.c\
 		parsing/srcs/sighandler.c\
 		parsing/main.c\
+		\
 		execution/builtins/*.c\
 		execution/ft_exec_cmd.c\
 		execution/get_path.c\
