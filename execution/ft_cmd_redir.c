@@ -6,54 +6,65 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:53:35 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/12 18:01:31 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/15 19:39:30 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+t_lstredir	*ft_hook(t_lstredir *redir)
+{
+	while (redir != NULL)
+	{
+		if (redir->type == 1)
+			ft_in_redir(redir);
+		else if (redir->type == 3)
+			ft_out_redir(redir);
+		else if (redir->type == 4)
+			ft_append_redir(redir);
+		if (redir->next != NULL)
+			redir = redir->next;
+		else
+			break;
+	}
+	return (redir);
+}
+
 void	ft_redir_cmd(t_wrapper *wrp, int i)
 {
-	char	*path;
-	char	**split_path;
-
+	char		*path;
+	char		**split_path;
+	
 	path = get_path(wrp->env);
-    if (wrp->pipeline->redir->type == 2)
-		ft_here_doc(wrp->pipeline->redir);
+	wrp->pipeline->redir = ft_hook(wrp->pipeline->redir);
 	if (path != NULL)
 	{
 		split_path = ft_split_2(path, ':');	
 		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
             exec_cmd_redir(wrp, split_path, i);
 		else
-		{
-			if (i == 0)
-           		exec_builtin_redir(wrp);
-		}
+           	exec_builtin_redir(wrp);
 	}
 	else
-	{
-		if (i == 0)
-        	unset_path_redir(wrp, 0);
-		else
-			unset_path_redir(wrp, 1);
-	}
+        unset_path_redir(wrp);
 }
 
-void    unset_path_redir(t_wrapper *wrp, int i)
+void    unset_path_redir(t_wrapper *wrp)
 {
-    pid_t   pid;
 	int		stats;
 
+	stats = 0;
+	wrp->pipeline->redir = ft_hook(wrp->pipeline->redir);
 	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 	{
-		pid = fork();
-		if (pid < 0)
+		wrp->pipeline->cmd.pid = fork();
+		if (wrp->pipeline->cmd.pid < 0)
 			exit(1);
-		if (pid == 0)
+		if (wrp->pipeline->cmd.pid == 0)
 		{
-			ft_is_redirection(wrp->pipeline->redir, 0);
-			if (execve(wrp->pipeline->cmd.tokens[0], wrp->pipeline->cmd.tokens, NULL) == -1)
+			ft_is_redirection(wrp->pipeline->redir);
+			if (execve(wrp->pipeline->cmd.tokens[0],
+				wrp->pipeline->cmd.tokens, NULL) == -1)
 			{
 				ft_putstr_fd("minishell: ", 2);
 				ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
@@ -61,29 +72,27 @@ void    unset_path_redir(t_wrapper *wrp, int i)
 				exit(127);
 			}
 		}
-		waitpid(pid, &stats, 0);
+		waitpid(wrp->pipeline->cmd.pid, &stats, 0);
 		if (WIFEXITED(stats))
 			g_i = WEXITSTATUS(stats);
 	}
 	else
+		ft_unset_path_builtin(wrp, stats);
+}
+
+void	ft_unset_path_builtin(t_wrapper *wrp, int stats)
+{
+	wrp->pipeline->cmd.pid = fork();
+	if (wrp->pipeline->cmd.pid < 0)
+		exit(1);
+	if (wrp->pipeline->cmd.pid == 0)
 	{
-		if (i == 0)
-		{
-			pid = fork();
-			if (pid < 0)
-				exit(1);
-			if (pid == 0)
-			{
-				ft_is_redirection(wrp->pipeline->redir, 0);
-				exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
-			}
-		}
-		else
-		{
-			ft_is_redirection(wrp->pipeline->redir, 0);
-			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
-		}
+		ft_is_redirection(wrp->pipeline->redir);
+		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
 	}
+	waitpid(wrp->pipeline->cmd.pid, &stats, 0);
+	if (WIFEXITED(stats))
+		g_i = WEXITSTATUS(stats);
 }
 
 void    exec_cmd_redir(t_wrapper *wrp, char **split_path, int i)
@@ -100,13 +109,15 @@ void    exec_cmd_redir(t_wrapper *wrp, char **split_path, int i)
 			exit(1);
 		if (pid == 0)
 		{
-			ft_is_redirection(wrp->pipeline->redir, 0);
+			ft_is_redirection(wrp->pipeline->redir);
 			exec_cmd(wrp->pipeline->cmd.tokens);
 		}
 		waitpid(pid, &stats, 0);
 		if (WIFEXITED(stats))
 			g_i = WEXITSTATUS(stats);
 	}
+	else
+		exec_cmd(wrp->pipeline->cmd.tokens);
 }
 
 void    exec_builtin_redir(t_wrapper *wrp)
@@ -119,7 +130,7 @@ void    exec_builtin_redir(t_wrapper *wrp)
 		exit(1);
 	if (pid == 0)
 	{
-		ft_is_redirection(wrp->pipeline->redir, 0);
+		ft_is_redirection(wrp->pipeline->redir);
 		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
 	}
 	waitpid(pid, &stats, 0);

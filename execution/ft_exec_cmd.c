@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:09:56 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/14 18:09:50 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/12 18:02:24 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
 
 void    exec_cmd(char **cmd)
 {

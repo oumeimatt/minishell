@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:02:40 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/12 18:00:36 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/14 11:08:18 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,19 +143,32 @@ void	export_builtin(char **str, t_env *env, int i)
 {
 	int		j;
 	char	*line;
+	char	*string;
 	char	*key;
+	int 	egal;
 
 	j = 0;
-	line = str[i];
+	egal = 0;
+	string = str[i];
+	line = ft_strdup("");
 	key = ft_strdup("");
-	while (line[j] != '=' && line[j] != '\0')
-		key = ft_charjoin(key, line[j++]);
-	if (is_key_exist(env, key) == TRUE)
+	while (string[j] != '=' && string[j] != '\0')
+		key = ft_charjoin(key, string[j++]);
+	while (string[j] != '\0')
+	{
+		if (string[j] == '=')
+			egal = 1;
+		line = ft_charjoin(line, string[j++]);
+	}
+	line = ft_strjoin(key, line);
+	if (is_key_exist(env, key) == TRUE && egal == 1)
 	{
 		delete_node(&env, key);
 		ft_add_node(&env, line, key);
 	}
-	else
+	else if (is_key_exist(env, key) == TRUE && egal == 0)
+		return ;
+	else if (is_key_exist(env, key) == FALSE)
 		ft_add_node(&env, line, key);
 	free(key);
 	key = NULL;

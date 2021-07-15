@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 18:17:14 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 19:59:21 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,33 +213,37 @@ char	*get_path(t_env *env);
 char	**ft_split_2(char const *str, char c);
 char	**ft_return(char **tab, int number_words);
 void	initial(int *i, int *j);
-int	ft_add_word(char **tab, char const *str, int *nb_word, int c);
-int	ft_word(char const *str, int i, int *nb_word, int c);
+int		ft_add_word(char **tab, char const *str, int *nb_word, int c);
+int		ft_word(char const *str, int i, int *nb_word, int c);
 char	*free_ret(char *str1, char *str2, char *to_ret);
-int	check_first(char **s_path, char *cmd);
+int		check_first(char **s_path, char *cmd);
 char	*absolute_path(char *cmd, char **s_path);
 void	ft_only_cmd(t_wrapper *wrp, int i);
-void	ft_is_redirection(t_lstredir *redir, int i);
-void	ft_in_redir(t_lstredir *redir, int i);
-void	ft_here_doc(t_lstredir *redir);
+void	ft_is_redirection(t_lstredir *redir);
+void	ft_in_redir(t_lstredir *redir);
+void	ft_here_doc(t_wrapper *wrp);
 void	ft_redir_cmd(t_wrapper *wrp, int i);
-void	ft_out_redir(t_lstredir *redir, int i);
-void	ft_append_redir(t_lstredir *redir, int i);
+void	ft_out_redir(t_lstredir *redir);
+void	ft_append_redir(t_lstredir *redir);
 int		ft_read(int fd, char **str);
 int		ft_remplissage(char **str, char **line, int len);
 int		ft_finish(char **str, char **line);
 int		get_next_line(int fd, char **line);
 int		count_redir(t_lstredir *redir, int type);
-void	ft_hd_redir(int i);
+void	ft_hd_redir();
 void    exec_builtin(char **str, t_env *env, int i) ;
 void	unset_path_cmd(t_wrapper *wrp, int i);
 void    exec_cmd_redir(t_wrapper *wrp, char **split_path, int i);
 void    exec_builtin_redir(t_wrapper *wrp);
-void    unset_path_redir(t_wrapper *wrp, int i);
+void    unset_path_redir(t_wrapper *wrp);
 void	ft_pipes_loop(t_wrapper *wrp);
 void    ft_pipe_cmd_only(t_wrapper *wrp);
 void	ft_pipe_cmd_redir(t_wrapper *wrp);
 void	ft_pipe(t_wrapper *wrp);
+t_lstredir	*ft_hook(t_lstredir *redir);
+void	ft_unset_path_builtin(t_wrapper *wrp, int stats);
+void	ft_exec_pipe_redir(t_wrapper *wrp);
+
 
 /** execution prototypes **/
 #endif

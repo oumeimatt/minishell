@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:29:37 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/15 19:14:13 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/14 10:05:56 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ void    exec_builtin(char **str, t_env *env, int i)
 	else if (strcmp(str[0], "env") == 0)	
 		exec_env(env, i);
 	else if (strcmp(str[0], "exit") == 0)
-		exec_exit();
+		exec_exit(str);
 }

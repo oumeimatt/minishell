@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:29:06 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/12 18:00:41 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/14 11:10:22 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void    exec_unset(char **str, t_env *env, int x)
 			i++;
 		}
 		else
+		{
 			delete_node(&env, str[i]);
-		i++;
+			i++;
+		}
 	}
 	if (x == 1)
 		exit(0);

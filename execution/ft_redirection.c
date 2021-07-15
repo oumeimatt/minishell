@@ -6,105 +6,86 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:58:12 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/09 16:50:24 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/15 18:20:49 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_is_redirection(t_lstredir *redir, int i)
+void	ft_is_redirection(t_lstredir *redir)
 {
-	t_lstredir *tmp;
+	int		file;
 
-	tmp = redir;
-	while (tmp != NULL)
+	if (redir->type == 1)
 	{
-		if (tmp->next == NULL)
-		{
-			if (tmp->type == 1)
-				ft_in_redir(tmp, i);
-			else if (tmp->type == 2)
-				ft_hd_redir(i);
-			else if (tmp->type == 3)
-				ft_out_redir(tmp, i);
-			else if (tmp->type == 4)
-				ft_append_redir(tmp, i);
-			break;
-		}
-		if (tmp->type == 1)
-			ft_in_redir(tmp, i);
-		else if (tmp->type == 2)
-			ft_hd_redir(i);
-		else if (tmp->type == 3)
-			ft_out_redir(tmp, i);
-		else if (tmp->type == 4)
-			ft_append_redir(tmp, i);
-		tmp = tmp->next;
+		file = open(redir->filename, O_RDONLY);
+		dup2(file, 0);
+		close(file);
+		if (g_i == 123)
+			exit(1);
+	}
+	else if (redir->type == 2)
+	{
+		file = open("/tmp/helper", O_RDONLY);
+		dup2(file, 0);
+		close(file);
+	}
+	else if (redir->type == 3)
+	{
+		file = open(redir->filename, O_WRONLY | O_TRUNC);
+		dup2(file, 1);
+		close (file);
+		if (g_i == 123)
+			exit(1);
+	}
+	else if (redir->type == 4)
+	{
+		file = open(redir->filename, O_WRONLY | O_APPEND, 0644);
+		dup2(file, 1);
+		close (file);
+		if (g_i == 123)
+			exit(1);
 	}
 }
 
-void	ft_in_redir(t_lstredir *redir, int i)
+void	ft_in_redir(t_lstredir *redir)
 {
 	int			in;
-	t_lstredir	*tmp;
 
-	tmp = redir;
-	in = open(tmp->filename, O_RDONLY);
+	in = open(redir->filename, O_RDONLY);
 	if (in == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		perror(tmp->filename);
-		exit(1);
+		perror(redir->filename);
+		g_i = 123;
 	}
-	if (i == 0)
-	{
-		dup2(in, 0);
-		close(in);
-	}
-	else
-		close(in);
+	close(in);
 }
 
-void	ft_out_redir(t_lstredir *redir, int i)
+void	ft_out_redir(t_lstredir *redir)
 {
 	int			out;
-	t_lstredir	*tmp;
 
-	tmp = redir;
-	out = open(tmp->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	out = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (out == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		perror(tmp->filename);
-		exit(1);
+		perror(redir->filename);
+		g_i = 123;
 	}
-	if (i == 0)
-	{
-		dup2(out, 1);
-		close (out);
-	}
-	else
-		close(out);
+	close (out);
 }
 
-void	ft_append_redir(t_lstredir *redir, int i)
+void	ft_append_redir(t_lstredir *redir)
 {
 	int			out;
-	t_lstredir *tmp;
 
-	tmp = redir;
-	out = open(tmp->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	out = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (out == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		perror(tmp->filename);
-		exit(1);
+		perror(redir->filename);
+		g_i = 123;
 	}
-	if (i == 0)
-	{
-		dup2(out, 1);
-		close(out);
-	}
-	else
-		close(out);
+	close(out);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipes_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 18:34:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/13 18:06:42 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/15 19:39:38 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,7 @@ void	ft_pipe_cmd_redir(t_wrapper *wrp)
 		}
 		if (wrp->pipeline->in != 0)
 			dup2(wrp->pipeline->in, 0);
-		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
-		{
-			ft_redir_cmd(wrp, 1);
-			ft_is_redirection(wrp->pipeline->redir, 0);
-			exec_cmd(wrp->pipeline->cmd.tokens);
-		}
-		else
-		{
-			ft_is_redirection(wrp->pipeline->redir, 0);
-			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
-		}
+		ft_exec_pipe_redir(wrp);
 	}
 	if (wrp->pipeline->out != 1)
 		close(wrp->pipeline->out);
@@ -74,6 +64,28 @@ void	ft_pipe_cmd_redir(t_wrapper *wrp)
 		close(wrp->pipeline->in);
 }
 
+void	ft_exec_pipe_redir(t_wrapper *wrp)
+{
+	char		*path;
+	char		**split_path;
+
+	path = get_path(wrp->env);
+	split_path = ft_split_2(path, ':');	
+	wrp->pipeline->redir = ft_hook(wrp->pipeline->redir);
+	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
+	{
+		ft_is_redirection(wrp->pipeline->redir);
+		wrp->pipeline->cmd.tokens[0] = 
+			absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
+		ft_putendl_fd(wrp->pipeline->cmd.tokens[0], 2);
+		exec_cmd(wrp->pipeline->cmd.tokens);
+	}
+	else
+	{
+		ft_is_redirection(wrp->pipeline->redir);
+		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+	}
+}
 void	ft_pipe(t_wrapper *wrp)
 {
 	int		pipes[2];
@@ -102,7 +114,7 @@ void	ft_pipes_loop(t_wrapper *wrp)
 			break;
 		wrp->pipeline = wrp->pipeline->next;
 	}
-	while (waitpid(-1 , &stats, 0)> 0)
+	while (waitpid(-1, &stats, 0)> 0)
 	{
 		if (WIFEXITED(stats))
 			g_i = WEXITSTATUS(stats);
