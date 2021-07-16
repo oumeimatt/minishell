@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 18:06:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/06 19:07:21 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/16 17:50:35 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*absolute_path(char *cmd, char **s_path)
 	int		acc;
 	char	*failed;
 
-	if (cmd[0] == '/')
+	if (cmd[0] == '/' || cmd[0] == '.')
 		return (cmd);
 	failed = ft_strdup(cmd);
 	i = 0;

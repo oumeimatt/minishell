@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 18:34:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/15 19:39:38 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/16 16:49:38 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,46 @@ void	ft_exec_pipe_redir(t_wrapper *wrp)
 	char		**split_path;
 
 	path = get_path(wrp->env);
-	split_path = ft_split_2(path, ':');	
+	split_path = ft_split_2(path, ':');
 	wrp->pipeline->redir = ft_hook(wrp->pipeline->redir);
-	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
+	if (path)
 	{
-		ft_is_redirection(wrp->pipeline->redir);
-		wrp->pipeline->cmd.tokens[0] = 
-			absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
-		ft_putendl_fd(wrp->pipeline->cmd.tokens[0], 2);
-		exec_cmd(wrp->pipeline->cmd.tokens);
+		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
+		{
+			ft_is_redirection(wrp->pipeline->redir);
+			wrp->pipeline->cmd.tokens[0] = 
+				absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
+			ft_putendl_fd(wrp->pipeline->cmd.tokens[0], 2);
+			exec_cmd(wrp->pipeline->cmd.tokens);
+		}
+		else
+		{
+			ft_is_redirection(wrp->pipeline->redir);
+			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+		}
 	}
 	else
-	{
-		ft_is_redirection(wrp->pipeline->redir);
-		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
-	}
+		ft_exec_pipe_redir_2(wrp);
 }
+
+void	ft_exec_pipe_redir_2(t_wrapper *wrp)
+{
+	ft_is_redirection(wrp->pipeline->redir);
+	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
+	{
+		if (execve(wrp->pipeline->cmd.tokens[0], wrp->pipeline->cmd.tokens, NULL) == -1)
+		{
+			ft_putstr_fd("petitshell: ", 2);
+			ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
+			ft_putendl_fd(": No such file or directory", 2);
+			exit(127);
+		}
+	}
+	else
+		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+	
+}
+
 void	ft_pipe(t_wrapper *wrp)
 {
 	int		pipes[2];
