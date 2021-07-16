@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:49:13 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/14 17:50:50 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 15:26:55 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int			check_line_syntax(char *string)
 	len = ft_strlen(string);
 //	printf ("len : %d\n", len);
 //	printf ("line > {%s}\n", string);
+	if (!ft_strcmp(string, "\n"))
+		return (0);
 	if (!ft_strncmp(string, "| |", 3))
 		return (-2);
 	else if (!ft_strncmp(string, "|", 1))

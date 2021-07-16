@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 20:13:47 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/16 15:28:30 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	parser(t_wrapper *wrp, char **envp)
 {
 	t_pipeline	*tmp;
+	int 		tmpi;
 
 	wrp->env = NULL;
 	wrp->env = init_env(envp, wrp->env);
 	while (1)
 	{
-		if (parser_line(wrp))
+		tmpi = parser_line(wrp);
+		if (tmpi == 1)
 		{	
 			g_i = 0;
 			if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
@@ -101,6 +103,7 @@ int	parser_line(t_wrapper *wrp)
 	else
 	{
 		parser_tokens(wrp, line);
+	//	lstredir_debug(wrp->pipeline->redir);
 		free(line);
 		line = NULL;
 		return (1);

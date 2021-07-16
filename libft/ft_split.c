@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 14:43:35 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 15:27:43 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,6 @@ int      words_n(const char *s, char c)
 	squote = 2;
 	if (!ft_strncmp(s, "export", 6))
 	{
-/* 		while (s[i])
-		{
-			if (is_dquote(s[i]))
-				dquote++;
-			else if (is_squote(s[i]))
-				squote++;
-			if (s[i] != c && (s[i + 1] == c || !s[i + 1]) && !(dquote % 2) && !(squote % 2))
-				count++;
-			i++;
-		}
-		return (count); */
 		while (s[i])
 		{
 			if ((s[i] != c) && (s[i + 1] == c || !s[i + 1]))

@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 19:49:56 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 15:24:30 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,13 +210,6 @@ char	*reformat_line(t_wrapper *wrp, char *line)
 	int	flag;
 
 	flag = 0;
-	line = redirection_reformat(line);
-	line = pipes_reformat(line);
-	line = expand_exit_code(wrp, line);
-	line = expand_env(wrp, line);
-	printf("%s\n", line);
-	return (line);
-	line = ft_strtrim(line, "\t ");
 	if (ft_strncmp(line, "export", 6))
 		flag = check_line_syntax(line);
 	else if (!ft_strncmp(line, "export", 6))
@@ -226,7 +219,13 @@ char	*reformat_line(t_wrapper *wrp, char *line)
 		load_msg_err(wrp, flag);
 		free(line);
 		line = NULL;
+		return (NULL);
 	}
+	line = redirection_reformat(line);
+	line = pipes_reformat(line);
+	line = expand_exit_code(wrp, line);
+	line = expand_env(wrp, line);
+	line = ft_strtrim(line, "\t ");
 	return (line);
 }
 

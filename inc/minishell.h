@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 19:59:21 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/16 15:01:49 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int				parser_line(t_wrapper *wrp);
 void			parser_tokens(t_wrapper *wrp, char *line);
 void			parser_tab_checker(char **tab, t_iofiles *iofiles);
 int				parser_tab_dquotes(char *string);
-int				norme6_parser_tab_checker(char **tab, int i, t_lstredir *tmp, int *flag);
+int				norme6_parser_tab_checker(char **tab, int i, t_lstredir **tmp, int *flag);
 void			norme5_parser_tab_checker(t_iofiles *iofiles, t_lstredir *tmp, int j);
 /*							*/
 
