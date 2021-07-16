@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 15:24:30 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 16:53:50 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ char	*quotes_reformat(char *line)
 	s_quote = 0;
 	p_count = 0;
 	s_count = 0;
-	string = (char *)malloc(sizeof(char) * ft_strlen(line));
+	string = (char *)malloc(sizeof(char) * ( ft_strlen(line) + 1));
 	if (!string)
 		return (NULL);
 	while (line[p_count] != '\0')
@@ -202,6 +202,7 @@ char	*quotes_reformat(char *line)
 		norme_quotes_reformat(line, &p_count, &s_quote, &d_quote);
 		string[s_count++] = line[p_count++];
 	}
+	string[s_count] = 0;
 	return (string);
 }
 
@@ -228,7 +229,6 @@ char	*reformat_line(t_wrapper *wrp, char *line)
 	line = ft_strtrim(line, "\t ");
 	return (line);
 }
-
 int	export_check_quotes(char *line)
 {
 	int		i;

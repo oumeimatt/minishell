@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 10:56:52 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/15 14:43:35 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 16:54:09 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char			*ft_strtrim(char const *s1, const char *set)
 
 	if (set == NULL)
 		return ((char*)s1);
+	
 	while (s1[begin] != '\0' && ft_set(s1[begin], set))
 		begin++;
 	end = ft_strlen((char*)s1);

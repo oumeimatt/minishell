@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 15:28:30 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 16:54:42 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	parser_tokens(t_wrapper *wrp, char *line)
 
 	i = 0;
 	tab = ft_split2(line, '|');
+	
 	if (!tab || *tab == NULL)
 		return ;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
@@ -90,12 +91,13 @@ int	parser_line(t_wrapper *wrp)
 
 	usleep (100000);
 	line = readline(BHBLU "petitshell-1.0" reset BHWHT "$ " reset);
+	
 	if (line && *line)
 		add_history (line);
-/* 	if (!line)
-		printf("here!"); */
+ 	if (line && line[0] == 0)
+	 	return (0);
 	line = reformat_line(wrp, line);
-	if (line == NULL)
+	if (line == NULL || line[0] == 0)
 	{
 		put_err(wrp);
 		return (0);
@@ -103,7 +105,6 @@ int	parser_line(t_wrapper *wrp)
 	else
 	{
 		parser_tokens(wrp, line);
-	//	lstredir_debug(wrp->pipeline->redir);
 		free(line);
 		line = NULL;
 		return (1);
