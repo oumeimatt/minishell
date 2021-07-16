@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 16:03:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 18:01:43 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/16 15:01:49 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,6 @@ void	ft_pipe(t_wrapper *wrp);
 t_lstredir	*ft_hook(t_lstredir *redir);
 void	ft_unset_path_builtin(t_wrapper *wrp, int stats);
 void	ft_exec_pipe_redir(t_wrapper *wrp);
-void	ft_exec_pipe_redir_2(t_wrapper *wrp);
 
 
 /** execution prototypes **/

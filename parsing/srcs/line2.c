@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:49:13 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 17:58:42 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 17:59:39 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int			check_line_syntax(char *string)
 	d_quote = 2;
 	s_count = 0;
 	len = ft_strlen(string);
-//	printf ("len : %d\n", len);
-//	printf ("line > {%s}\n", string);
 	if (!ft_strcmp(string, "\n"))
 		return (0);
 	if (!ft_strncmp(string, "| |", 3))
@@ -37,7 +35,6 @@ int			check_line_syntax(char *string)
 			d_quote++;
 		s_count++;
 	}
-//	printf ("d_quote : %d\n", d_quote);
 	if (!(d_quote % 2 == 0))
 		return (0);
 	return (check_line_syntax2(string));

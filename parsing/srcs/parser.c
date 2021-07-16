@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 17:16:24 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 18:26:32 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	parser(t_wrapper *wrp, char **envp)
 	while (1)
 	{
 		tmpi = parser_line(wrp);
+		
 		if (tmpi == 1)
 		{	
 			g_i = 0;
@@ -43,7 +44,7 @@ void	parser(t_wrapper *wrp, char **envp)
 				}
 				ft_pipes_loop(wrp);
 			}
-		}
+		}	
 	}
 }
 
@@ -96,6 +97,8 @@ int	parser_line(t_wrapper *wrp)
 		add_history (line);
  	if (line && line[0] == 0)
 	 	return (0);
+	if (!line)
+		exit(0);
 	line = reformat_line(wrp, line);
 	if (line == NULL)
 	{
@@ -110,3 +113,4 @@ int	parser_line(t_wrapper *wrp)
 		return (1);
 	}
 }
+

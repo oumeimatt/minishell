@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:58:12 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/16 16:50:04 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/07/15 18:20:49 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_in_redir(t_lstredir *redir)
 	in = open(redir->filename, O_RDONLY);
 	if (in == -1)
 	{
-		ft_putstr_fd("petitshell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		perror(redir->filename);
 		g_i = 123;
 	}
@@ -69,7 +69,7 @@ void	ft_out_redir(t_lstredir *redir)
 	out = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (out == -1)
 	{
-		ft_putstr_fd("petitshell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		perror(redir->filename);
 		g_i = 123;
 	}
@@ -83,7 +83,7 @@ void	ft_append_redir(t_lstredir *redir)
 	out = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (out == -1)
 	{
-		ft_putstr_fd("petitshell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		perror(redir->filename);
 		g_i = 123;
 	}
