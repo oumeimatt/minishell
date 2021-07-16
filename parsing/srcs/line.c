@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 17:58:23 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 19:43:09 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,17 +170,17 @@ char	*spaces_dquotes_reformat2(char *line)
 	return (str);
 }
 
-static void	norme_quotes_reformat(char *line, int *p_count, int *s_quote, int *d_quote)
-{
-	if (is_dquote(line[*p_count]) && !*d_quote && !*s_quote && (*p_count)++)
-		*d_quote = 1;
-	else if (is_dquote(line[*p_count]) && *d_quote && (*p_count)++)
-		*d_quote = 0;
-	if (is_squote(line[*p_count]) && !*d_quote && !*s_quote && ++(*p_count))
-		*s_quote = 1;
-	else if (is_squote(line[*p_count]) && *s_quote && ++(*p_count))
-		*s_quote = 0;
-}
+// static void	norme_quotes_reformat(char *line, int *p_count, int *s_quote, int *d_quote)
+// {
+// 	if (is_dquote(line[*p_count]) && !*d_quote && !*s_quote && (*p_count)++)
+// 		*d_quote = 1;
+// 	else if (is_dquote(line[*p_count]) && *d_quote && (*p_count)++)
+// 		*d_quote = 0;
+// 	if (is_squote(line[*p_count]) && !*d_quote && !*s_quote && ++(*p_count))
+// 		*s_quote = 1;
+// 	else if (is_squote(line[*p_count]) && *s_quote && ++(*p_count))
+// 		*s_quote = 0;
+// }
 
 char	*quotes_reformat(char *line)
 {
@@ -199,7 +199,16 @@ char	*quotes_reformat(char *line)
 		return (NULL);
 	while (line[p_count] != '\0')
 	{
-		norme_quotes_reformat(line, &p_count, &s_quote, &d_quote);
+		if (is_dquote(line[p_count]) && !d_quote && !s_quote && p_count++)
+			d_quote = 1;
+		else if (is_dquote(line[p_count]) && d_quote)
+			d_quote = 0;
+		if (is_squote(line[p_count]) && !s_quote && !d_quote && p_count++)
+			s_quote = 1;
+		else if (is_squote(line[p_count]) && s_quote)
+			s_quote = 0;
+		if (is_squote(line[p_count]) || is_dquote(line[p_count]))
+			continue;
 		string[s_count++] = line[p_count++];
 	}
 	string[s_count] = 0;

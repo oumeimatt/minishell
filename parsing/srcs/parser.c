@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 10:30:12 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 18:44:14 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 19:46:23 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	norme_parser_tokens(t_wrapper *wrp, char
 		if (ft_strncmp(tab[i], "export", 6) && ft_strncmp(tab[i], "<<", 2))
 			tab[i] = quotes_reformat(tab[i]);
 		tmp = ft_split(tab[i], ' ');
+		debug_tab(tmp);
 		if (ft_strcmp(tmp[0], "<<") && ft_strcmp(tmp[0], "export"))
 			tab_trimmer(tmp);
 		parser_tab_checker(tmp, iofiles);
@@ -75,7 +76,7 @@ void	parser_tokens(t_wrapper *wrp, char *line)
 
 	i = 0;
 	tab = ft_split2(line, '|');
-	
+	debug_tab(tab);
 	if (!tab || *tab == NULL)
 		return ;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));
