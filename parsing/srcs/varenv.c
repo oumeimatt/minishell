@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 19:24:23 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/15 19:54:59 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 17:57:35 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char *expand_env(t_wrapper *wrp, char *string)
 	d_flag = 0;
 	p_count = 0;
 	s_count = 0;
-	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 100);
+	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 200);
 	if (!str)
 		return (NULL);
 	while (string[p_count] != '\0')
@@ -67,8 +67,9 @@ char *expand_env(t_wrapper *wrp, char *string)
 			if (is_dquote(string[p_count]) || is_squote(string[p_count]))
 				continue;
 		}
-		if (string[p_count] != '$'|| (is_dollar(string[p_count]) && dollar_valid(string[p_count + 1])) || (is_dollar(string[p_count]) && s_flag))
-			str[s_count++] = string[p_count++];
+		if (string[p_count])
+			if (string[p_count] != '$'|| (is_dollar(string[p_count]) && dollar_valid(string[p_count + 1])) || (is_dollar(string[p_count]) && s_flag))
+				str[s_count++] = string[p_count++];
 	}
 	str[s_count] = '\0';
 	return (str);

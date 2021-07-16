@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 16:53:50 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 17:58:23 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,7 @@ char	*reformat_line(t_wrapper *wrp, char *line)
 	line = ft_strtrim(line, "\t ");
 	return (line);
 }
+
 int	export_check_quotes(char *line)
 {
 	int		i;
