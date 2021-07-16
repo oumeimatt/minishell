@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:49:13 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 17:58:42 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/16 19:10:30 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,22 @@ char		*expand_exit_code(t_wrapper *wrp, char *string)
 	int i;
 	int j;
 	char *str;
+	int c_count;
 
 	(void)wrp;
 	i = 0;
 	j = 0;
-	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 2);
+	c_count = 0;
+	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 5);
 	if (!str)
 		return (NULL);
 	while (string[i] != '\0')
 	{
 		if (is_dollar(string[i]) && string[i + 1] == '?')
 		{
-			str = ft_strjoin(str, ft_itoa(g_i));
-			j += ft_strlen(ft_itoa(g_i));
+			char *tmp = ft_itoa(g_i);
+			while (tmp[c_count] != '\0')
+				str[j++] = tmp[c_count++];
 			i += 2;
 		}
 		if (string[i] != '\0')
