@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 19:43:09 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/17 17:28:43 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,16 +207,18 @@ char	*quotes_reformat(char *line)
 			s_quote = 1;
 		else if (is_squote(line[p_count]) && s_quote)
 			s_quote = 0;
+		if (line[p_count] && (!is_squote(line[p_count] || !is_dquote(line[p_count]))))
+			string[s_count++] = line[p_count++];
 		if (is_squote(line[p_count]) || is_dquote(line[p_count]))
 			continue;
-		if (line[p_count])
-			string[s_count++] = line[p_count++];
 //		printf ("quotesreformat	done0,0		%d,%d		%s\n", p_count, s_count, line);
 	}
 	string[s_count] = 0;
 //	printf ("quotesreformat	done0,1		%d,%d		%s\n", p_count, s_count, line);
 	return (string);
 }
+
+/*	echo "Hello, '' World!" */
 
 char	*reformat_line(t_wrapper *wrp, char *line)
 {
