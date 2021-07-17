@@ -17,6 +17,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*newstr;
 	size_t	i;
 
+//	printf("ftsubstr done0,0\n");
 	i = 0;
 	newstr = (char*)malloc(sizeof(char) * (len + 1));
 	if (newstr == NULL)
@@ -28,5 +29,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		start++;
 	}
 	newstr[i] = '\0';
+//	printf("ftsubstr done0,1\n");
 	return (newstr);
 }

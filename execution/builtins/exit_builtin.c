@@ -26,7 +26,7 @@ void    exec_exit(char **str)
 			g_i = 1;
 			return ;
 		}
-		while (str[1] != '\0')
+		while (str[1][i] != '\0')
 		{
 			if (str[1][0] == '-' || str[1][0] == '+')
 				i++;

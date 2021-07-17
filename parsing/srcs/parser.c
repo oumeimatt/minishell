@@ -58,7 +58,6 @@ static void	norme_parser_tokens(t_wrapper *wrp, char
 		if (ft_strncmp(tab[i], "export", 6) && ft_strncmp(tab[i], "<<", 2))
 			tab[i] = quotes_reformat(tab[i]);
 		tmp = ft_split(tab[i], ' ');
-		debug_tab(tmp);
 		if (ft_strcmp(tmp[0], "<<") && ft_strcmp(tmp[0], "export"))
 			tab_trimmer(tmp);
 		parser_tab_checker(tmp, iofiles);
@@ -76,7 +75,7 @@ void	parser_tokens(t_wrapper *wrp, char *line)
 
 	i = 0;
 	tab = ft_split2(line, '|');
-	debug_tab(tab);
+	//debug_tab(tab);
 	if (!tab || *tab == NULL)
 		return ;
 	iofiles = (t_iofiles *)malloc(sizeof(t_iofiles));

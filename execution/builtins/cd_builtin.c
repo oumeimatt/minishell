@@ -88,10 +88,12 @@ void    exec_cd(char **str, t_env *env, int x)
 			env = change_value(env, "PWD", buff);
 		}
 		else
+		{
 			ft_putstr_fd("petitshell: cd: ", 2);
 			ft_putstr_fd(str[1], 2);
 			ft_putendl_fd(": No such file or directory", 2);
 			g_i = 1;
+		}
 	}
 	free(buff);
 	if (x == 1)

@@ -209,9 +209,12 @@ char	*quotes_reformat(char *line)
 			s_quote = 0;
 		if (is_squote(line[p_count]) || is_dquote(line[p_count]))
 			continue;
-		string[s_count++] = line[p_count++];
+		if (line[p_count])
+			string[s_count++] = line[p_count++];
+//		printf ("quotesreformat	done0,0		%d,%d		%s\n", p_count, s_count, line);
 	}
 	string[s_count] = 0;
+//	printf ("quotesreformat	done0,1		%d,%d		%s\n", p_count, s_count, line);
 	return (string);
 }
 

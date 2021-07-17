@@ -64,45 +64,41 @@ int      word_len(const char *str, unsigned int index, char delim)
 	len = 0;
 	quote = 0;
 	i = index;
+//	printf("WordLen done0,0		%s	%d	[%c]\n", str, index, delim);
 	while (str[i] && str[i] != '\0' && str[i] != delim) 
 	{
-		if (!ft_strncmp(str, "export", 6))
+		if (!ft_strncmp(str, "export", 6) && index == 7)
 		{
-/* 			if (is_dquote(str[i]) || is_squote(str[i]))
-			{
-				while (str[i] && str[i] != '\0')
-				{
-					i++;
-					len++;
-					if (is_dquote(str[i]) || is_squote(str[i]))
-						return (len + 1);
-				}
-			} */
-			while (str[i] != '\0')
+			while (str[i] && str[i] != '\0' && str[i] != delim)
 			{
 				if (str[i] == delim)
 					return (len);
 				if (is_dquote(str[i]) || is_squote(str[i]))
 				{
 					char tmp = str[i];
-					i++;
-					while (str[i] != '\0')
+					while (str[++i] != '\0' && len++)
 					{
 						if (tmp == str[i] && str[i + 1] == delim)
 							return (len);
-						i++;
-						len++;
 					}
 				}
-				i++;
+				if (str[i])
+					i++;
 				len++;
+//				printf("wordLen done0,0		%s	%d		%d\n", str, i, len);
 			}
 		}
-		i++;
+		if (str[i])
+			i++;
 		len++;
 	}
+//	printf("WordLen done0,1		%s	%d	%d\n\n", str, i, len);
 	return (len);
 }
+
+/*
+	export a="ls -la"
+*/
 
 int		is_dollar(char c)
 {
