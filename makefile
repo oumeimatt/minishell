@@ -1,4 +1,3 @@
-QUIET = @
 
 cc = clang
 
@@ -63,19 +62,19 @@ SRCS =	libft/ft_atoi.c\
 		execution/ft_here_doc.c\
 		execution/ft_cmd_redir.c\
 		execution/ft_pipes_loop.c\
-
+		execution/utils_list.c\
 
 
 INCLUDES =	inc/libft.h\
 			inc/minishell.h\
 
-FLAGS = -g -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
+FLAGS = -g -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 
 all:		$(NAME)
 
 $(NAME):	$(SRCS)
 		@echo "Compiling..."
-		$(QUIET)$(cc) $(FLAGS) $(SRCS) -I $(INCLUDES) 
+		$(cc) $(FLAGS) $(SRCS) -I $(INCLUDES) 
 		@echo "Done."
 
 clean:

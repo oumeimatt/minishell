@@ -110,14 +110,14 @@ void    exec_cmd_redir(t_wrapper *wrp, char **split_path, int i)
 		if (pid == 0)
 		{
 			ft_is_redirection(wrp->pipeline->redir);
-			exec_cmd(wrp->pipeline->cmd.tokens);
+			exec_cmd(wrp->pipeline->cmd.tokens, wrp);
 		}
 		waitpid(pid, &stats, 0);
 		if (WIFEXITED(stats))
 			g_i = WEXITSTATUS(stats);
 	}
 	else
-		exec_cmd(wrp->pipeline->cmd.tokens);
+		exec_cmd(wrp->pipeline->cmd.tokens, wrp);
 }
 
 void    exec_builtin_redir(t_wrapper *wrp)

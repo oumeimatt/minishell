@@ -53,6 +53,7 @@ typedef struct 		s_env
 }			t_env;
 
 int		g_i;
+
 /** execution **/
 /*********************/
 /* parsing typedefs */
@@ -208,7 +209,7 @@ char    *print_value(t_env *env, char *key);
 int		ft_strcmp(const char *s1, const char *s2);
 char    *ft_charjoin(char *str, char c);
 void    exec_exit();
-void    exec_cmd(char **str);
+void    exec_cmd(char **str, t_wrapper *wrp);
 char	*get_path(t_env *env);
 char	**ft_split_2(char const *str, char c);
 char	**ft_return(char **tab, int number_words);
@@ -245,6 +246,7 @@ void	ft_unset_path_builtin(t_wrapper *wrp, int stats);
 void	ft_exec_pipe_redir(t_wrapper *wrp);
 void	ft_exec_pipe_redir_2(t_wrapper *wrp);
 
-
+char	**list_to_arr(t_env *head);
+int	find_length(t_env    *head);
 /** execution prototypes **/
 #endif

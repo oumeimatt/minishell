@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **env)
 {
 	t_wrapper	*wrp;
 
@@ -21,6 +21,6 @@ int	main(int argc, char **argv, char **envp)
 	wrp = contruct_wrapper();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	parser(wrp, envp);
+	parser(wrp, env);
 	return (EXIT_SUCCESS);
 }

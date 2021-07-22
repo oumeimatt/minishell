@@ -31,7 +31,7 @@ void    ft_pipe_cmd_only(t_wrapper *wrp)
 		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 		{
 			ft_only_cmd(wrp, 1);
-			exec_cmd(wrp->pipeline->cmd.tokens);
+			exec_cmd(wrp->pipeline->cmd.tokens, wrp);
 		}
 		else
 			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
@@ -80,7 +80,7 @@ void	ft_exec_pipe_redir(t_wrapper *wrp)
 			wrp->pipeline->cmd.tokens[0] = 
 				absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
 			ft_putendl_fd(wrp->pipeline->cmd.tokens[0], 2);
-			exec_cmd(wrp->pipeline->cmd.tokens);
+			exec_cmd(wrp->pipeline->cmd.tokens, wrp);
 		}
 		else
 		{

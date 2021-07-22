@@ -12,11 +12,13 @@
 
 #include "../inc/minishell.h"
 
-void    exec_cmd(char **cmd)
+void    exec_cmd(char **cmd, t_wrapper *wrp)
 {
 	char	**wrng_cmd;
+	char	**arr;
 
-	if (execve(cmd[0], cmd, NULL) == -1)
+	arr = list_to_arr(wrp->env);
+	if (execve(cmd[0], cmd, arr) == -1)
 	{
 		wrng_cmd = ft_split_2(cmd[0], ' ');
 		ft_putstr_fd("minishell: ", 2);
@@ -67,8 +69,7 @@ void	ft_only_cmd(t_wrapper *wrp, int i)
 	char	**split_path;
 	int		stats;
 
-	if (wrp->pipeline->cmd.tokens[0][0] != '.')
-		path = get_path(wrp->env);
+	path = get_path(wrp->env);
 	if (path != NULL)
 	{
 		split_path = ft_split_2(path, ':');
@@ -82,7 +83,7 @@ void	ft_only_cmd(t_wrapper *wrp, int i)
 				if (wrp->pipeline->cmd.pid < 0)
 					exit(1);
 				if (wrp->pipeline->cmd.pid == 0)
-					exec_cmd(wrp->pipeline->cmd.tokens);
+					exec_cmd(wrp->pipeline->cmd.tokens, wrp);
 				waitpid(wrp->pipeline->cmd.pid, &stats, 0);
 				if (WIFEXITED(stats))
 					g_i = WEXITSTATUS(stats);

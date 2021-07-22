@@ -76,7 +76,6 @@ t_env	*init_env(char **envp, t_env *list)
 	char	*line;
     char    *key;
 
-   
 	i = 0;
 	while (envp[i] != NULL)
 	{
