@@ -136,7 +136,7 @@ void	export_error(char *str)
 	ft_putstr_fd("petitshell: export: '", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
-	g_i = 1;
+	g_variables.i = 1;
 }
 
 void	export_builtin(char **str, t_env *env, int i)
@@ -160,6 +160,7 @@ void	export_builtin(char **str, t_env *env, int i)
 			egal = 1;
 		line = ft_charjoin(line, string[j++]);
 	}
+	line = check_quotes(line);
 	line = ft_strjoin(key, line);
 	if (is_key_exist(env, key) == TRUE && egal == 1)
 	{

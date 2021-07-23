@@ -103,7 +103,7 @@ char		*expand_exit_code(t_wrapper *wrp, char *string)
 	{
 		if (is_dollar(string[i]) && string[i + 1] == '?')
 		{
-			char *tmp = ft_itoa(g_i);
+			char *tmp = ft_itoa(g_variables.i);
 			while (tmp[c_count] != '\0')
 				str[j++] = tmp[c_count++];
 			i += 2;

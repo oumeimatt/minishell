@@ -57,10 +57,10 @@ void    unset_path_redir(t_wrapper *wrp)
 	wrp->pipeline->redir = ft_hook(wrp->pipeline->redir);
 	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 	{
-		wrp->pipeline->cmd.pid = fork();
-		if (wrp->pipeline->cmd.pid < 0)
+		g_variables.pid = fork();
+		if (g_variables.pid < 0)
 			exit(1);
-		if (wrp->pipeline->cmd.pid == 0)
+		if (g_variables.pid == 0)
 		{
 			ft_is_redirection(wrp->pipeline->redir);
 			if (execve(wrp->pipeline->cmd.tokens[0],
@@ -72,9 +72,9 @@ void    unset_path_redir(t_wrapper *wrp)
 				exit(127);
 			}
 		}
-		waitpid(wrp->pipeline->cmd.pid, &stats, 0);
+		waitpid(g_variables.pid, &stats, 0);
 		if (WIFEXITED(stats))
-			g_i = WEXITSTATUS(stats);
+			g_variables.i = WEXITSTATUS(stats);
 	}
 	else
 		ft_unset_path_builtin(wrp, stats);
@@ -82,39 +82,38 @@ void    unset_path_redir(t_wrapper *wrp)
 
 void	ft_unset_path_builtin(t_wrapper *wrp, int stats)
 {
-	wrp->pipeline->cmd.pid = fork();
-	if (wrp->pipeline->cmd.pid < 0)
+	g_variables.pid = fork();
+	if (g_variables.pid < 0)
 		exit(1);
-	if (wrp->pipeline->cmd.pid == 0)
+	if (g_variables.pid == 0)
 	{
 		ft_is_redirection(wrp->pipeline->redir);
 		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
 	}
-	waitpid(wrp->pipeline->cmd.pid, &stats, 0);
+	waitpid(g_variables.pid, &stats, 0);
 	if (WIFEXITED(stats))
-		g_i = WEXITSTATUS(stats);
+		g_variables.i = WEXITSTATUS(stats);
 }
 
 void    exec_cmd_redir(t_wrapper *wrp, char **split_path, int i)
 {
-	pid_t	pid;
 	int		stats;
 
     wrp->pipeline->cmd.tokens[0] = 
 		absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
 	if (i == 0)
 	{
-		pid = fork();
-		if (pid < 0)
+		g_variables.pid = fork();
+		if (g_variables.pid  < 0)
 			exit(1);
-		if (pid == 0)
+		if (g_variables.pid  == 0)
 		{
 			ft_is_redirection(wrp->pipeline->redir);
 			exec_cmd(wrp->pipeline->cmd.tokens, wrp);
 		}
-		waitpid(pid, &stats, 0);
+		waitpid(g_variables.pid , &stats, 0);
 		if (WIFEXITED(stats))
-			g_i = WEXITSTATUS(stats);
+			g_variables.i = WEXITSTATUS(stats);
 	}
 	else
 		exec_cmd(wrp->pipeline->cmd.tokens, wrp);
@@ -122,18 +121,17 @@ void    exec_cmd_redir(t_wrapper *wrp, char **split_path, int i)
 
 void    exec_builtin_redir(t_wrapper *wrp)
 {
-    pid_t   pid;
 	int		stats;
 
-	pid = fork();
-	if (pid < 0)
+	g_variables.pid  = fork();
+	if (g_variables.pid  < 0)
 		exit(1);
-	if (pid == 0)
+	if (g_variables.pid  == 0)
 	{
 		ft_is_redirection(wrp->pipeline->redir);
 		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
 	}
-	waitpid(pid, &stats, 0);
+	waitpid(g_variables.pid , &stats, 0);
 	if (WIFEXITED(stats))
-		g_i = WEXITSTATUS(stats);
+		g_variables.i = WEXITSTATUS(stats);
 }

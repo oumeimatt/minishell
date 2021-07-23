@@ -36,10 +36,10 @@ void	unset_path_cmd(t_wrapper *wrp, int i)
 	{
 		if (i == 0)
 		{
-			wrp->pipeline->cmd.pid = fork();
-			if (wrp->pipeline->cmd.pid < 0)
+			g_variables.pid = fork();
+			if (g_variables.pid < 0)
 				exit(1);
-			if (wrp->pipeline->cmd.pid == 0)
+			if (g_variables.pid == 0)
 			{
 				if (execve(wrp->pipeline->cmd.tokens[0], wrp->pipeline->cmd.tokens, NULL) == -1)
 				{
@@ -49,9 +49,9 @@ void	unset_path_cmd(t_wrapper *wrp, int i)
 					exit(127);
 				}
 			}
-			waitpid(wrp->pipeline->cmd.pid, &stats, 0);
+			waitpid(g_variables.pid, &stats, 0);
 			if (WIFEXITED(stats))
-				g_i = WEXITSTATUS(stats);
+				g_variables.i = WEXITSTATUS(stats);
 		}
 	}
 	else
@@ -79,14 +79,14 @@ void	ft_only_cmd(t_wrapper *wrp, int i)
 				absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
 			if (i == 0)
 			{
-				wrp->pipeline->cmd.pid = fork();
-				if (wrp->pipeline->cmd.pid < 0)
+				g_variables.pid = fork();
+				if (g_variables.pid < 0)
 					exit(1);
-				if (wrp->pipeline->cmd.pid == 0)
+				if (g_variables.pid == 0)
 					exec_cmd(wrp->pipeline->cmd.tokens, wrp);
-				waitpid(wrp->pipeline->cmd.pid, &stats, 0);
+				waitpid(g_variables.pid, &stats, 0);
 				if (WIFEXITED(stats))
-					g_i = WEXITSTATUS(stats);
+					g_variables.i = WEXITSTATUS(stats);
 			}
 		}
 		else

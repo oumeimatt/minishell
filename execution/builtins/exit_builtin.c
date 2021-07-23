@@ -23,7 +23,7 @@ void    exec_exit(char **str)
 		{
 			ft_putendl_fd("exit", 1);
 			ft_putendl_fd("petitshell: exit: too many arguments", 2);
-			g_i = 1;
+			g_variables.i = 1;
 			return ;
 		}
 		while (str[1][i] != '\0')

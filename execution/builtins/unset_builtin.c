@@ -17,7 +17,7 @@ void    unset_error(char *str)
 	ft_putstr_fd("petitshell: unset: '", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
-	g_i = 1;
+	g_variables.i = 1;
 }
 
 void    exec_unset(char **str, t_env *env, int x)

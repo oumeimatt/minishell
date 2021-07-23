@@ -12,32 +12,20 @@
 
 #include "../inc/minishell.h"
 
-void	ft_hd_redir()
-{
-	int 		in;
-
-	in = open("/tmp/helper", O_RDONLY);
-	dup2(in, 0);
-	close(in);
-	unlink("/tmp/helper");
-}
-
-void	ft_here_doc(t_wrapper *wrp)
+void	ft_here_doc(t_wrapper *wrp, char *filename)
 {
 	int			in;
 	char		*delimiter;
 	char		*line;
 	int			expand;
 
-	unlink("/tmp/helper");
-	in = open("/tmp/helper", O_RDONLY | O_WRONLY | O_CREAT, 0644);
-	delimiter = ft_strdup(wrp->pipeline->redir->filename);
+	unlink(filename);
+	in = open(filename, O_RDONLY | O_WRONLY | O_CREAT, 0644);
+	delimiter = check_quotes(wrp->pipeline->redir->filename);
 	expand = 1;
-	if (delimiter[0] == '\'' || delimiter[0] == '"')
-	{
-		delimiter = quotes_reformat(delimiter);
+	if (ft_strcmp(delimiter, wrp->pipeline->redir->filename))
 		expand = 0;
-	}
+	ft_putendl_fd(delimiter, 2);
 	while (1)
 	{
 		line  = readline(">");
@@ -56,4 +44,54 @@ void	ft_here_doc(t_wrapper *wrp)
 	free(line);
 	line = NULL;
 	close(in);
+}
+
+void	ft_open_heredoc(t_wrapper *wrp)
+{
+	t_wrapper	*tmp;
+	char		*filename;
+
+	tmp = wrp;
+	while (tmp->pipeline)
+	{
+		filename = ft_random_name();
+		while (tmp->pipeline->redir != NULL)
+		{
+			if (tmp->pipeline->redir->type == 2)
+			{
+				ft_here_doc(tmp, filename);
+				tmp->pipeline->redir->type = 1;
+				tmp->pipeline->redir->filename = ft_strdup(filename);
+				free(filename);
+				filename = NULL;
+			}
+			if (tmp->pipeline->redir->next != NULL)
+				tmp->pipeline->redir = tmp->pipeline->redir->next;
+			else
+				break;
+		}
+		if (tmp->pipeline->next != NULL)
+			tmp->pipeline = tmp->pipeline->next;
+		else
+			break;
+	}
+}
+
+char	*ft_random_name(void)
+{
+	static int	nb = 0;
+	char		*name;
+	char		*str_nb;
+	char		*str_modulo;
+	char		*tmp;
+
+	nb++;
+	str_nb = ft_itoa(nb);
+	str_modulo = ft_itoa(nb % 3);
+	tmp = ft_strdup("/tmp/");
+	tmp = ft_strjoin(tmp, str_nb);
+	name = ft_strjoin(tmp, str_modulo);
+	free(str_nb);
+	free(str_modulo);
+	return (name);
 }

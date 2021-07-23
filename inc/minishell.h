@@ -52,7 +52,13 @@ typedef struct 		s_env
 	struct s_env    *next;
 }			t_env;
 
-int		g_i;
+typedef	struct		s_variables
+{
+	int		i;
+	pid_t	pid;
+}					t_variables;
+
+t_variables	g_variables;
 
 /** execution **/
 /*********************/
@@ -82,7 +88,6 @@ typedef struct		iofiles
 typedef struct 		s_cmd
 {
     char    **tokens;
-	pid_t	pid;
 	int		redir;
 }              		t_cmd;
 
@@ -222,7 +227,7 @@ char	*absolute_path(char *cmd, char **s_path);
 void	ft_only_cmd(t_wrapper *wrp, int i);
 void	ft_is_redirection(t_lstredir *redir);
 void	ft_in_redir(t_lstredir *redir);
-void	ft_here_doc(t_wrapper *wrp);
+void	ft_here_doc(t_wrapper *wrp, char *filename);
 void	ft_redir_cmd(t_wrapper *wrp, int i);
 void	ft_out_redir(t_lstredir *redir);
 void	ft_append_redir(t_lstredir *redir);
@@ -248,5 +253,11 @@ void	ft_exec_pipe_redir_2(t_wrapper *wrp);
 
 char	**list_to_arr(t_env *head);
 int	find_length(t_env    *head);
+void	ft_open_heredoc(t_wrapper *wrp);
+char	*ft_random_name(void);
+char	*ft_double_quotes(char *line);
+char	*ft_single_quotes(char *line);
+char	*check_quotes(char *line);
+
 /** execution prototypes **/
 #endif

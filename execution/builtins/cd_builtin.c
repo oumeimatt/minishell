@@ -50,7 +50,7 @@ void    cd_only(char *buff, t_env *env, char *oldpwd)
 	if (is_key_exist(env, "HOME") == FALSE)
 	{
 		ft_putendl_fd("petitshell: cd: HOME not set\n", 2);
-		g_i = 1;
+		g_variables.i = 1;
 	}
 	else
 	{
@@ -92,7 +92,7 @@ void    exec_cd(char **str, t_env *env, int x)
 			ft_putstr_fd("petitshell: cd: ", 2);
 			ft_putstr_fd(str[1], 2);
 			ft_putendl_fd(": No such file or directory", 2);
-			g_i = 1;
+			g_variables.i = 1;
 		}
 	}
 	free(buff);

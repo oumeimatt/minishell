@@ -14,10 +14,10 @@
 
 void    ft_pipe_cmd_only(t_wrapper *wrp)
 {
-	wrp->pipeline->cmd.pid = fork();
-	if (wrp->pipeline->cmd.pid < 0)
+	g_variables.pid = fork();
+	if (g_variables.pid < 0)
 		exit(1);
-	if (wrp->pipeline->cmd.pid == 0)
+	if (g_variables.pid == 0)
 	{
 		if (wrp->pipeline->out != 1)
 		{
@@ -25,9 +25,7 @@ void    ft_pipe_cmd_only(t_wrapper *wrp)
 			close(wrp->pipeline->next->in);
 		}
 		if (wrp->pipeline->in != 0)
-		{
 			dup2(wrp->pipeline->in, 0);
-		}
 		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
 		{
 			ft_only_cmd(wrp, 1);
@@ -44,10 +42,10 @@ void    ft_pipe_cmd_only(t_wrapper *wrp)
 
 void	ft_pipe_cmd_redir(t_wrapper *wrp)
 {
-	wrp->pipeline->cmd.pid = fork();
-	if (wrp->pipeline->cmd.pid < 0)
+	g_variables.pid = fork();
+	if (g_variables.pid < 0)
 		exit(1);
-	if (wrp->pipeline->cmd.pid == 0)
+	if (g_variables.pid == 0)
 	{
 		if (wrp->pipeline->out != 1)
 		{
@@ -141,6 +139,6 @@ void	ft_pipes_loop(t_wrapper *wrp)
 	while (waitpid(-1, &stats, 0)> 0)
 	{
 		if (WIFEXITED(stats))
-			g_i = WEXITSTATUS(stats);
+			g_variables.i = WEXITSTATUS(stats);
 	}
 }

@@ -22,9 +22,11 @@ void	parser(t_wrapper *wrp, char **envp)
 	while (1)
 	{
 		tmpi = parser_line(wrp);
+		
+		ft_open_heredoc(wrp);
 		if (tmpi == 1)
 		{	
-			g_i = 0;
+			g_variables.i = 0;
 			if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
 				ft_only_cmd(wrp, 0);
 			else if (wrp->pipeline->next == NULL && wrp->pipeline->redir)
@@ -89,6 +91,7 @@ int	parser_line(t_wrapper *wrp)
 {
 	char	*line;
 
+	(void)wrp;
 	usleep (100000);
 	line = readline(BHBLU "petitshell-1.0" reset BHWHT "$ " reset);
 	if (line && *line)

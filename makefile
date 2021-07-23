@@ -63,6 +63,7 @@ SRCS =	libft/ft_atoi.c\
 		execution/ft_cmd_redir.c\
 		execution/ft_pipes_loop.c\
 		execution/utils_list.c\
+		execution/handle_quotes.c\
 
 
 INCLUDES =	inc/libft.h\

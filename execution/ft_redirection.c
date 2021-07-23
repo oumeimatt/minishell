@@ -21,7 +21,7 @@ void	ft_is_redirection(t_lstredir *redir)
 		file = open(redir->filename, O_RDONLY);
 		dup2(file, 0);
 		close(file);
-		if (g_i == 123)
+		if (g_variables.i == 123)
 			exit(1);
 	}
 	else if (redir->type == 2)
@@ -35,7 +35,7 @@ void	ft_is_redirection(t_lstredir *redir)
 		file = open(redir->filename, O_WRONLY | O_TRUNC);
 		dup2(file, 1);
 		close (file);
-		if (g_i == 123)
+		if (g_variables.i == 123)
 			exit(1);
 	}
 	else if (redir->type == 4)
@@ -43,7 +43,7 @@ void	ft_is_redirection(t_lstredir *redir)
 		file = open(redir->filename, O_WRONLY | O_APPEND, 0644);
 		dup2(file, 1);
 		close (file);
-		if (g_i == 123)
+		if (g_variables.i == 123)
 			exit(1);
 	}
 }
@@ -57,9 +57,11 @@ void	ft_in_redir(t_lstredir *redir)
 	{
 		ft_putstr_fd("petitshell: ", 2);
 		perror(redir->filename);
-		g_i = 123;
+		g_variables.i = 123;
 	}
 	close(in);
+	if (ft_strncmp(redir->filename, "/tmp/", 5))
+		unlink(redir->filename);
 }
 
 void	ft_out_redir(t_lstredir *redir)
@@ -71,7 +73,7 @@ void	ft_out_redir(t_lstredir *redir)
 	{
 		ft_putstr_fd("petitshell: ", 2);
 		perror(redir->filename);
-		g_i = 123;
+		g_variables.i = 123;
 	}
 	close (out);
 }
@@ -85,7 +87,7 @@ void	ft_append_redir(t_lstredir *redir)
 	{
 		ft_putstr_fd("petitshell: ", 2);
 		perror(redir->filename);
-		g_i = 123;
+		g_variables.i = 123;
 	}
 	close(out);
 }

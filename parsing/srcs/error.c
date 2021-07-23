@@ -43,6 +43,6 @@ void            fill_exit_code(t_wrapper *wrp)
 {
 	if (wrp->error->errnum >= -7 && wrp->error->errnum <= -1)
 	{
-		g_i = 258;
+		g_variables.i = 258;
 	}
 }
