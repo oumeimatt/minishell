@@ -1,5 +1,4 @@
-
-cc = clang
+CC = clang
 
 NAME = minishell
 
@@ -69,13 +68,13 @@ SRCS =	libft/ft_atoi.c\
 INCLUDES =	inc/libft.h\
 			inc/minishell.h\
 
-FLAGS = -g -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 
 all:		$(NAME)
 
 $(NAME):	$(SRCS)
 		@echo "Compiling..."
-		$(cc) $(FLAGS) $(SRCS) -I $(INCLUDES) 
+		@$(CC) $(FLAGS) $(SRCS) -I $(INCLUDES)
 		@echo "Done."
 
 clean:

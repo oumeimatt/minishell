@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 13:57:18 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/17 17:28:43 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/07/28 15:17:15 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,8 @@ char	*quotes_reformat(char *line)
 			continue;
 //		printf ("quotesreformat	done0,0		%d,%d		%s\n", p_count, s_count, line);
 	}
+	if (string[s_count - 1] == '\'')
+		string[s_count - 1] = 0;
 	string[s_count] = 0;
 //	printf ("quotesreformat	done0,1		%d,%d		%s\n", p_count, s_count, line);
 	return (string);
