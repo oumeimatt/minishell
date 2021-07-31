@@ -1,5 +1,6 @@
+QUIET = @
 
-cc = clang
+CC = clang
 
 NAME = minishell
 
@@ -75,7 +76,7 @@ all:		$(NAME)
 
 $(NAME):	$(SRCS)
 		@echo "Compiling..."
-		$(cc) $(FLAGS) $(SRCS) -I $(INCLUDES) 
+		$(QUIET) $(CC) $(FLAGS) $(SRCS) -I $(INCLUDES) 
 		@echo "Done."
 
 clean:

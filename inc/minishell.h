@@ -168,6 +168,7 @@ void			put_err(t_wrapper *wrp);
 void			load_msg_err(t_wrapper *wrp, int flag);
 void            fill_exit_code(t_wrapper *wrp);
 void			signal_handler(int signum);
+void			child_process(int signum);
 /*							*/
 
 /*							*/
