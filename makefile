@@ -74,16 +74,15 @@ all:		$(NAME)
 
 $(NAME):	$(SRCS)
 		@echo "Compiling..."
-		@$(CC) $(FLAGS) $(SRCS) -I $(INCLUDES)
+		@$(CC) $(FLAGS) $(SRCS) -o minishell
 		@echo "Done."
 
 clean:
 			@rm -rf *.o
-
+			@rm -rf ./inc/*.gch
+			
 fclean: clean
 			@rm -rf $(NAME)
-			@rm -rf ./inc/*.gch
-			@rm -rf a.out
 
 re:		fclean all
 
