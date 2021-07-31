@@ -62,5 +62,4 @@ void			signal_handler(int signum)
 			rl_redisplay();
 		}
 	}
-	return ;
 }
