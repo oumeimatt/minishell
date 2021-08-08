@@ -12,6 +12,29 @@
 
 #include "../inc/minishell.h"
 
+int		check_for_heredoc(t_wrapper *wrp)
+{
+	t_pipeline	*tmp;
+
+	tmp = wrp->pipeline;
+	while(tmp != NULL)
+	{
+		while (tmp->redir != NULL)
+		{
+			if (tmp->redir->type == 2)
+				return (1);
+			if (tmp->redir->next != NULL)
+				tmp->redir = tmp->redir->next;
+			else
+				break;
+		}
+		if (tmp->next != NULL)
+			tmp = tmp->next;
+		else
+			break;
+	}
+	return (0);
+}
 void	ft_here_doc(t_wrapper *wrp, char *filename)
 {
 	int			in;
@@ -25,7 +48,6 @@ void	ft_here_doc(t_wrapper *wrp, char *filename)
 	expand = 1;
 	if (ft_strcmp(delimiter, wrp->pipeline->redir->filename))
 		expand = 0;
-	ft_putendl_fd(delimiter, 2);
 	while (1)
 	{
 		line  = readline(">");
@@ -52,28 +74,31 @@ void	ft_open_heredoc(t_wrapper *wrp)
 	char		*filename;
 
 	tmp = wrp;
-	while (tmp->pipeline)
+	if (check_for_heredoc(tmp) == 1)
 	{
-		filename = ft_random_name();
-		while (tmp->pipeline->redir != NULL)
+		while (tmp->pipeline)
 		{
-			if (tmp->pipeline->redir->type == 2)
+			while (tmp->pipeline->redir != NULL)
 			{
-				ft_here_doc(tmp, filename);
-				tmp->pipeline->redir->type = 1;
-				tmp->pipeline->redir->filename = ft_strdup(filename);
-				free(filename);
-				filename = NULL;
+				filename = ft_random_name();
+				if (tmp->pipeline->redir->type == 2)
+				{
+					ft_here_doc(tmp, filename);
+					tmp->pipeline->redir->type = 1;
+					tmp->pipeline->redir->filename = ft_strdup(filename);
+					free(filename);
+					filename = NULL;
+				}
+				if (tmp->pipeline->redir->next != NULL)
+					tmp->pipeline->redir = tmp->pipeline->redir->next;
+				else
+					break;
 			}
-			if (tmp->pipeline->redir->next != NULL)
-				tmp->pipeline->redir = tmp->pipeline->redir->next;
+			if (tmp->pipeline->next != NULL)
+				tmp->pipeline = tmp->pipeline->next;
 			else
 				break;
 		}
-		if (tmp->pipeline->next != NULL)
-			tmp->pipeline = tmp->pipeline->next;
-		else
-			break;
 	}
 }
 

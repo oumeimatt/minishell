@@ -24,12 +24,6 @@ void	ft_is_redirection(t_lstredir *redir)
 		if (g_variables.i == 123)
 			exit(1);
 	}
-	else if (redir->type == 2)
-	{
-		file = open("/tmp/helper", O_RDONLY);
-		dup2(file, 0);
-		close(file);
-	}
 	else if (redir->type == 3)
 	{
 		file = open(redir->filename, O_WRONLY | O_TRUNC);

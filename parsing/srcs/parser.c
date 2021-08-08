@@ -25,7 +25,7 @@ void	parser(t_wrapper *wrp, char **envp)
 		
 		ft_open_heredoc(wrp);
 		if (tmpi == 1)
-		{	
+		{
 			g_variables.i = 0;
 			if (wrp->pipeline->next == NULL && !wrp->pipeline->redir)
 				ft_only_cmd(wrp, 0);
