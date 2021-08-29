@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:09:56 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/16 17:57:17 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/29 16:26:34 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,22 @@ void    exec_cmd(char **cmd, t_wrapper *wrp)
 	char	**arr;
 
 	arr = list_to_arr(wrp->env);
-	if (execve(cmd[0], cmd, arr) == -1)
+	if (execve(cmd[0], cmd, arr) == -1 && (ft_strncmp(cmd[0], "./", 2) &&
+		ft_strncmp(cmd[0], "../", 2)))
 	{
 		wrng_cmd = ft_split_2(cmd[0], ' ');
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("petitshell: ", 2);
 		ft_putstr_fd(wrng_cmd[0], 2);
 		ft_putendl_fd(": command not found", 2);
 		exit(127);
+	}
+	else
+	{
+		wrng_cmd = ft_split_2(cmd[0], ' ');
+		ft_putstr_fd("petitshell: ", 2);
+		ft_putstr_fd(wrng_cmd[0], 2);
+		ft_putendl_fd(": permission denied", 2);
+		exit(126);
 	}
 }
 

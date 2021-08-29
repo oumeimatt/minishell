@@ -55,7 +55,7 @@ char		*expand_exit_code(char *string)
 	{
 		if (is_dollar(string[i]) && string[i + 1] == '?')
 		{
-			char *tmp = ft_itoa(666);//
+			char *tmp = ft_itoa(g_vars.i);//
 			while (tmp[c_count] != '\0')
 				str[j++] = tmp[c_count++];
 			free (tmp);
