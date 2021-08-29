@@ -23,7 +23,7 @@ void		execution_loop(t_wrapper *wrp)
 			/*hello oum*/
 			/*execution*/
 			execute(wrp);
-			debug_pipeline(wrp->pipeline);
+			//debug_pipeline(wrp->pipeline);
 			destroy_lcommand(wrp->pipeline);
 		}
 	}
