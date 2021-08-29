@@ -35,28 +35,52 @@ char	*redirection_reformat(const char *string)
 	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 10);
 	if (!str)
 		return (NULL);
-    while (string[p_count] != '\0')
-    {
-        if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && !quote)
-            quote = 1;
-        else if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && quote)
-            quote = 0;
-        if (is_redir(string[p_count + 1]) && !is_redir(string[p_count]) && string[p_count] != ' ' && quote == 0)
-        {
-            str[s_count++] = string[p_count++];
-            str[s_count++] = ' ';
-        }
-        if (is_redir(string[p_count]) && !is_redir(string[p_count + 1]) && quote == 0)
-        {
-            str[s_count++] = string[p_count++];
-            str[s_count++] = ' ';
-        }
-        if (is_redir(string[p_count]) && !is_redir(string[p_count - 1]) && string[p_count - 1] != ' ')
-            str[s_count++] = ' ';
-        str[s_count++] = string[p_count++];
-        if (is_redir(string[p_count]) && !is_redir(string[p_count + 1]) && !is_redir(string[p_count - 1]))
-            str[s_count++] = ' ';
-    }
+	//printf ("redir		0,0		%s\n", string);
+	while (string[p_count] != '\0')
+	{
+		if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && !quote)
+			quote = 1;
+		else if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && quote)
+			quote = 0;
+		if (is_redir(string[p_count + 1]) && !is_redir(string[p_count]) && string[p_count] != ' ' && quote == 0)
+		{
+			str[s_count++] = string[p_count++];
+			str[s_count++] = ' ';
+		}
+		if (is_redir(string[p_count]) && !is_redir(string[p_count + 1]) && quote == 0 && !is_redir(p_count - 1))
+		{
+			str[s_count++] = string[p_count++];
+			str[s_count++] = ' ';
+		}
+		str[s_count++] = string[p_count++];
+	}
+	str[s_count] = '\0';
+	free ((void *)string);
+	str = ext_redir(str);
+	//printf ("redir		0,1		%s\n", str);
+	return (str);
+}
+
+char		*ext_redir(const char *string)
+{
+	char	*str;
+	int		p_count;
+	int		s_count;
+
+	s_count = 0;
+	p_count = 0;
+	str = malloc(sizeof(char) * ft_strlen(string) * 10);
+	if (!str)
+		return (NULL);
+	while (string[p_count] != '\0')
+	{
+		if (p_count >= 1 && is_redir(string[p_count + 1]) && !is_redir(string[p_count]))
+		{
+			str[s_count++] = string[p_count++];
+			str[s_count++] = ' ';
+		}
+		str[s_count++] = string[p_count++];
+	}
 	str[s_count] = '\0';
 	free ((void *)string);
 	return (str);

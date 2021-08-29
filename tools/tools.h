@@ -13,6 +13,7 @@ void			debug_tab(char **tab);
 
 int			is_line(char *line);
 char 			*redirection_reformat(const char *string);
+char		*ext_redir(const char *string);
 int			get_len_env(char *string);
 char			*pipes_reformat(char *line);
 char			*dquotes_reformat(char *line);
