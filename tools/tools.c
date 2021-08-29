@@ -66,15 +66,21 @@ char		*ext_redir(const char *string)
 	char	*str;
 	int		p_count;
 	int		s_count;
+	int		quote;
 
 	s_count = 0;
 	p_count = 0;
+	quote = 0;
 	str = malloc(sizeof(char) * ft_strlen(string) * 10);
 	if (!str)
 		return (NULL);
 	while (string[p_count] != '\0')
 	{
-		if (p_count >= 1 && is_redir(string[p_count + 1]) && !is_redir(string[p_count]))
+		if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && !quote)
+			quote = 1;
+		else if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && quote)
+			quote = 0;
+		if (p_count >= 1 && is_redir(string[p_count + 1]) && !is_redir(string[p_count]) && !quote)
 		{
 			str[s_count++] = string[p_count++];
 			str[s_count++] = ' ';

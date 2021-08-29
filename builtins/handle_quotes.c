@@ -70,5 +70,5 @@ char	*ft_double_quotes(char *line)
 			i++;
 		}
 	}
-	return(quoted);	
+	return(quoted);
 }

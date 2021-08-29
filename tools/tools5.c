@@ -14,8 +14,11 @@ void			tab_trimmer(char **tab)
 
 void			debug_tab(char **tab)
 {
-	int i;
-	for (i = 0; tab[i + 1]; i++)
-		printf (" [%s] -", tab[i]);
-	printf (" [%s]", tab[i]);
+	if (*tab)
+	{
+		int i;
+		for (i = 0; tab[i + 1]; i++)
+			printf (" [%s] -", tab[i]);
+		printf (" [%s]", tab[i]);
+	}
 }
