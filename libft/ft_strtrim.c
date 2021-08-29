@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft.h"
+#include "libft.h"
 
 static int		ft_set(char c, const char *str)
 {
@@ -45,5 +45,6 @@ char			*ft_strtrim(char const *s1, const char *set)
 	char *s2 = ft_substr(s1, begin, len);
 	if (!s2)
 		return (NULL);
+	free ((void *)s1);
 	return (s2);
 }

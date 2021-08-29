@@ -6,28 +6,105 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:53:35 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/15 19:39:30 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/29 11:32:19 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "execution.h"
 
-t_lstredir	*ft_hook(t_lstredir *redir)
+t_redir		*ft_hook_in(t_list *redir)
 {
-	while (redir != NULL)
+	t_list		*tmp;
+	int			type;
+	char		*filename;
+
+	tmp = redir;
+	type = 0;
+	filename = ft_strdup("");
+	while (tmp != NULL)
 	{
-		if (redir->type == 1)
-			ft_in_redir(redir);
-		else if (redir->type == 3)
-			ft_out_redir(redir);
-		else if (redir->type == 4)
-			ft_append_redir(redir);
-		if (redir->next != NULL)
-			redir = redir->next;
+		if (((t_redir *)tmp->data)->type == 1)
+		{
+			free(filename);
+			type = ((t_redir *)tmp->data)->type;
+			filename = ft_strdup(((t_redir *)tmp->data)->filename);
+			ft_in_redir(tmp);
+		}
+		if (tmp->next != NULL)
+			tmp = tmp->next;
 		else
 			break;
 	}
-	return (redir);
+	if (type != 0)
+		return (new_redir(type, filename));
+	else
+		return (NULL);
+}
+
+t_redir		*ft_hook_out(t_list *redir)
+{
+	t_list		*tmp;
+	int			type;
+	char		*filename;	
+
+	tmp = redir;
+	type = 0;
+	filename = ft_strdup("");
+	while (tmp != NULL)
+	{
+		if (((t_redir *)tmp->data)->type== 3)
+		{
+			free(filename);
+			type = ((t_redir *)tmp->data)->type;
+			filename = ft_strdup(((t_redir *)tmp->data)->filename);
+			ft_out_redir(tmp);
+		}
+		else if (((t_redir *)tmp->data)->type == 4)
+		{
+			free(filename);
+			type = ((t_redir *)tmp->data)->type;
+			filename = ft_strdup(((t_redir *)tmp->data)->filename);
+			ft_append_redir(tmp);
+		}
+		if (tmp->next != NULL)
+			tmp = tmp->next;
+		else
+			break;
+	}
+	if (type != 0)
+		return (new_redir(type, filename));
+	else
+		return (NULL);
+}
+
+t_redir		*same_redir(t_list *redir)
+{
+	if (!ft_hook_in(redir) && ft_hook_out(redir))
+		return (ft_hook_out(redir));
+	else if (!ft_hook_out(redir) && ft_hook_in(redir))
+		return (ft_hook_in(redir));
+	else
+		return (NULL);
+}
+
+t_list	*ft_hook(t_list *redir)
+{
+	t_list	*tmp;
+
+	tmp = NULL;
+	if (redir->next != NULL)
+	{
+		if (!same_redir(redir))
+		{
+			tmp = new_list((void*)ft_hook_in(redir));
+			addback_list(&tmp, new_list((void*)ft_hook_out(redir)));
+		}
+		else
+			tmp = new_list((void *)same_redir(redir));
+	}
+	else
+		tmp = new_list((void *)same_redir(redir));
+	return (tmp);
 }
 
 void	ft_redir_cmd(t_wrapper *wrp, int i)
@@ -36,11 +113,12 @@ void	ft_redir_cmd(t_wrapper *wrp, int i)
 	char		**split_path;
 	
 	path = get_path(wrp->env);
-	wrp->pipeline->redir = ft_hook(wrp->pipeline->redir);
+	((t_command *)wrp->pipeline->data)->redir = 
+		ft_hook((((t_command *)(wrp->pipeline->data))->redir));
 	if (path != NULL)
 	{
 		split_path = ft_split_2(path, ':');	
-		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
+		if (is_builtin(((t_command *)wrp->pipeline->data)->tokens) == 1)
             exec_cmd_redir(wrp, split_path, i);
 		else
            	exec_builtin_redir(wrp);
@@ -54,27 +132,28 @@ void    unset_path_redir(t_wrapper *wrp)
 	int		stats;
 
 	stats = 0;
-	wrp->pipeline->redir = ft_hook(wrp->pipeline->redir);
-	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
+	((t_command *)wrp->pipeline->data)->redir = 
+		ft_hook((((t_command *)(wrp->pipeline->data))->redir));
+	if (is_builtin(((t_command *)wrp->pipeline->data)->tokens) == 1)
 	{
-		g_variables.pid = fork();
-		if (g_variables.pid < 0)
+		g_vars.pid = fork();
+		if (g_vars.pid < 0)
 			exit(1);
-		if (g_variables.pid == 0)
+		if (g_vars.pid == 0)
 		{
-			ft_is_redirection(wrp->pipeline->redir);
-			if (execve(wrp->pipeline->cmd.tokens[0],
-				wrp->pipeline->cmd.tokens, NULL) == -1)
+			ft_is_redirection((((t_command *)(wrp->pipeline->data))->redir));
+			if (execve(((t_command *)wrp->pipeline->data)->tokens[0],
+				((t_command *)wrp->pipeline->data)->tokens, NULL) == -1)
 			{
 				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
+				ft_putstr_fd(((t_command *)wrp->pipeline->data)->tokens[0], 2);
 				ft_putendl_fd(": No such file or directory", 2);
 				exit(127);
 			}
 		}
-		waitpid(g_variables.pid, &stats, 0);
+		waitpid(g_vars.pid, &stats, 0);
 		if (WIFEXITED(stats))
-			g_variables.i = WEXITSTATUS(stats);
+			g_vars.i = WEXITSTATUS(stats);
 	}
 	else
 		ft_unset_path_builtin(wrp, stats);
@@ -82,56 +161,56 @@ void    unset_path_redir(t_wrapper *wrp)
 
 void	ft_unset_path_builtin(t_wrapper *wrp, int stats)
 {
-	g_variables.pid = fork();
-	if (g_variables.pid < 0)
+	g_vars.pid = fork();
+	if (g_vars.pid < 0)
 		exit(1);
-	if (g_variables.pid == 0)
+	if (g_vars.pid == 0)
 	{
-		ft_is_redirection(wrp->pipeline->redir);
-		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+		ft_is_redirection((((t_command *)(wrp->pipeline->data))->redir));
+		exec_builtin(((t_command *)wrp->pipeline->data)->tokens, wrp->env, 1);
 	}
-	waitpid(g_variables.pid, &stats, 0);
+	waitpid(g_vars.pid, &stats, 0);
 	if (WIFEXITED(stats))
-		g_variables.i = WEXITSTATUS(stats);
+		g_vars.i = WEXITSTATUS(stats);
 }
 
 void    exec_cmd_redir(t_wrapper *wrp, char **split_path, int i)
 {
 	int		stats;
 
-    wrp->pipeline->cmd.tokens[0] = 
-		absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
+    ((t_command *)wrp->pipeline->data)->tokens[0] = 
+		absolute_path(((t_command *)wrp->pipeline->data)->tokens[0], split_path);
 	if (i == 0)
 	{
-		g_variables.pid = fork();
-		if (g_variables.pid  < 0)
+		g_vars.pid = fork();
+		if (g_vars.pid  < 0)
 			exit(1);
-		if (g_variables.pid  == 0)
+		if (g_vars.pid  == 0)
 		{
-			ft_is_redirection(wrp->pipeline->redir);
-			exec_cmd(wrp->pipeline->cmd.tokens, wrp);
+			ft_is_redirection((((t_command *)(wrp->pipeline->data))->redir));
+			exec_cmd(((t_command *)wrp->pipeline->data)->tokens, wrp);
 		}
-		waitpid(g_variables.pid , &stats, 0);
+		waitpid(g_vars.pid , &stats, 0);
 		if (WIFEXITED(stats))
-			g_variables.i = WEXITSTATUS(stats);
+			g_vars.i = WEXITSTATUS(stats);
 	}
 	else
-		exec_cmd(wrp->pipeline->cmd.tokens, wrp);
+		exec_cmd(((t_command *)wrp->pipeline->data)->tokens, wrp);
 }
 
 void    exec_builtin_redir(t_wrapper *wrp)
 {
 	int		stats;
 
-	g_variables.pid  = fork();
-	if (g_variables.pid  < 0)
+	g_vars.pid  = fork();
+	if (g_vars.pid  < 0)
 		exit(1);
-	if (g_variables.pid  == 0)
+	if (g_vars.pid  == 0)
 	{
-		ft_is_redirection(wrp->pipeline->redir);
-		exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+		ft_is_redirection((((t_command *)(wrp->pipeline->data))->redir));
+		exec_builtin(((t_command *)wrp->pipeline->data)->tokens, wrp->env, 1);
 	}
-	waitpid(g_variables.pid , &stats, 0);
+	waitpid(g_vars.pid , &stats, 0);
 	if (WIFEXITED(stats))
-		g_variables.i = WEXITSTATUS(stats);
+		g_vars.i = WEXITSTATUS(stats);
 }

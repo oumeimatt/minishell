@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "execution.h"
 
-char	*get_path(t_env *env)
+char	*get_path(t_list *env)
 {
 	int		i;
 	char	*line;
-    t_env *tmp;
+	t_list *tmp;
 
-    tmp = env;
+	tmp = env;
 	i = 0;
 	line = NULL;
 	while (tmp->next != NULL)
 	{
-		if (ft_strncmp(tmp->key, "PATH", 4) == TRUE)
-			line = ft_strdup(tmp->value + ft_strlen(tmp->key) + 1);
+		if (!ft_strncmp(((t_env *)(tmp->data))->key, "PATH", 4))
+			line = ft_strdup(((t_env *)(tmp->data))->value);
 		tmp = tmp->next;
 	}
 	return (line);
@@ -32,11 +32,12 @@ char	*get_path(t_env *env)
 
 char	*free_ret(char *str1, char *str2, char *to_ret)
 {
-	if (str1)
-	{
-		free(str1);
-		str1 = NULL;
-	}
+	(void )str1;
+	// if (str1)
+	// {
+	// 	free(str1);
+	// 	str1 = NULL;
+	// }
 	if (str2)
 	{
 		free(str2);
@@ -86,8 +87,15 @@ char	*absolute_path(char *cmd, char **s_path)
 			free(commande);
 		free(tmp);
 	}
+	free(cmd);
 	if (acc == 0)
-		return (free_ret(cmd, failed, commande));
+	{	
+		free (failed);
+		return(commande);
+	}	// return (free_ret(cmd, failed, commande));
 	else
-		return (free_ret(cmd, commande, failed));
+	{
+		free (commande);
+		return(failed);
+	}	// return (free_ret(cmd, commande, failed));
 }

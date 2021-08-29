@@ -2,7 +2,7 @@ CC = clang
 
 NAME = minishell
 
-SRCS =	libft/ft_atoi.c\
+SRCS =		libft/ft_atoi.c\
 		libft/ft_bzero.c\
 		libft/ft_calloc.c\
 		libft/ft_isalnum.c\
@@ -29,6 +29,7 @@ SRCS =	libft/ft_atoi.c\
 		libft/ft_strlen.c\
 		libft/ft_strmapi.c\
 		libft/ft_strncmp.c\
+		libft/ft_strcmp.c\
 		libft/ft_strnstr.c\
 		libft/ft_strrchr.c\
 		libft/ft_strtrim.c\
@@ -38,43 +39,58 @@ SRCS =	libft/ft_atoi.c\
 		libft/ft_split.c\
 		libft/ft_split2.c\
 		\
-		parsing/srcs/mosdef.c\
-		parsing/srcs/parser.c\
-		parsing/srcs/utils.c\
-		parsing/srcs/cmd.c\
-		parsing/srcs/tab_utils.c\
-		parsing/srcs/line.c\
-		parsing/srcs/lstredir.c\
-		parsing/srcs/parser2.c\
-		parsing/srcs/parser3.c\
-		parsing/srcs/varenv.c\
-		parsing/srcs/error.c\
-		parsing/srcs/line2.c\
-		parsing/srcs/sighandler.c\
-		parsing/main.c\
-		\
-		execution/builtins/*.c\
+		execution/execution.c\
 		execution/ft_exec_cmd.c\
 		execution/get_path.c\
-		execution/split.c\
+		execution/ft_cmd_redir.c\
 		execution/ft_redirection.c\
 		execution/ft_here_doc.c\
-		execution/ft_cmd_redir.c\
 		execution/ft_pipes_loop.c\
-		execution/utils_list.c\
-		execution/handle_quotes.c\
+		\
+		builtins/cd_builtin.c\
+		builtins/echo_builtin.c\
+		builtins/env_builtin.c\
+		builtins/exit_builtin.c\
+		builtins/export_builtin.c\
+		builtins/is_builtin.c\
+		builtins/pwd_builtin.c\
+		builtins/unset_builtin.c\
+		builtins/handle_quotes.c\
+		builtins/utils.c\
+		builtins/split.c\
+		\
+		define/debugg.c\
+		define/define.c\
+		define/destroy.c\
+		define/ldestroy.c\
+		\
+		list/list.c\
+		\
+		parser/err.c\
+		parser/line.c\
+		parser/line2.c\
+		parser/parser.c\
+		parser/tokens.c\
+		parser/wrapper.c\
+		\
+		petitshell/petitshell.c\
+		\
+		tools/tools.c\
+		tools/tools2.c\
+		tools/tools3.c\
+		tools/tools4.c\
+		tools/tools5.c\
+		\
+		signals/signal.c\
+		\
 
-
-INCLUDES =	inc/libft.h\
-			inc/minishell.h\
-
-FLAGS = -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 
 all:		$(NAME)
 
 $(NAME):	$(SRCS)
 		@echo "Compiling..."
-		@$(CC) $(FLAGS) $(SRCS) -o minishell
+		@$(CC) $(FLAGS) -o $(NAME) $(SRCS)
 		@echo "Done."
 
 clean:

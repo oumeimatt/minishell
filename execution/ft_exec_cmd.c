@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "execution.h"
 
 void    exec_cmd(char **cmd, t_wrapper *wrp)
 {
@@ -32,34 +32,34 @@ void	unset_path_cmd(t_wrapper *wrp, int i)
 {
 	int		stats;
 
-	if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
+	if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 1)
 	{
 		if (i == 0)
 		{
-			g_variables.pid = fork();
-			if (g_variables.pid < 0)
+			g_vars.pid = fork();
+			if (g_vars.pid < 0)
 				exit(1);
-			if (g_variables.pid == 0)
+			if (g_vars.pid == 0)
 			{
-				if (execve(wrp->pipeline->cmd.tokens[0], wrp->pipeline->cmd.tokens, NULL) == -1)
+				if (execve(((t_command *)(wrp->pipeline->data))->tokens[0], ((t_command *)(wrp->pipeline->data))->tokens, NULL) == -1)
 				{
 					ft_putstr_fd("minishell: ", 2);
-					ft_putstr_fd(wrp->pipeline->cmd.tokens[0], 2);
+					ft_putstr_fd(((t_command *)(wrp->pipeline->data))->tokens[0], 2);
 					ft_putendl_fd(": No such file or directory", 2);
 					exit(127);
 				}
 			}
-			waitpid(g_variables.pid, &stats, 0);
+			waitpid(g_vars.pid, &stats, 0);
 			if (WIFEXITED(stats))
-				g_variables.i = WEXITSTATUS(stats);
+				g_vars.i = WEXITSTATUS(stats);
 		}
 	}
 	else
 	{
 		if (i == 0)
-			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 0);
+			exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, wrp->env, 0);
 		else
-			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 1);
+			exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, wrp->env, 1);
 	}
 }
 
@@ -73,24 +73,24 @@ void	ft_only_cmd(t_wrapper *wrp, int i)
 	if (path != NULL)
 	{
 		split_path = ft_split_2(path, ':');
-		if (is_builtin(wrp->pipeline->cmd.tokens) == 1)
+		if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 1)
 		{
-			wrp->pipeline->cmd.tokens[0] =
-				absolute_path(wrp->pipeline->cmd.tokens[0], split_path);
+			((t_command *)(wrp->pipeline->data))->tokens[0] =
+				absolute_path(((t_command *)(wrp->pipeline->data))->tokens[0], split_path);
 			if (i == 0)
 			{
-				g_variables.pid = fork();
-				if (g_variables.pid < 0)
+				g_vars.pid = fork();
+				if (g_vars.pid < 0)
 					exit(1);
-				if (g_variables.pid == 0)
-					exec_cmd(wrp->pipeline->cmd.tokens, wrp);
-				waitpid(g_variables.pid, &stats, 0);
+				if (g_vars.pid == 0)
+					exec_cmd(((t_command *)(wrp->pipeline->data))->tokens, wrp);
+				waitpid(g_vars.pid, &stats, 0);
 				if (WIFEXITED(stats))
-					g_variables.i = WEXITSTATUS(stats);
+					g_vars.i = WEXITSTATUS(stats);
 			}
 		}
 		else
-			exec_builtin(wrp->pipeline->cmd.tokens, wrp->env, 0);
+			exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, wrp->env, 0);
 	}
 	else
 	{
