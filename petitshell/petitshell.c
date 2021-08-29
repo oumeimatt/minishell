@@ -18,12 +18,10 @@ void		execution_loop(t_wrapper *wrp)
 {
 	while (420)
 	{
-		if (parser(wrp)) //true means nothing is wrong with parsing Line.
+		if (parser(wrp))
 		{
-			/*hello oum*/
-			/*execution*/
 			execute(wrp);
-			debug_pipeline(wrp->pipeline);
+			//debug_pipeline(wrp->pipeline);
 			destroy_lcommand(wrp->pipeline);
 		}
 	}

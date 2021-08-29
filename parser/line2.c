@@ -5,7 +5,7 @@ int			check_line(t_wrapper *wrp, char *line)
 	if (line == NULL)
 	{
 		put_err(wrp);
-		exit (0);
+		return (0);
 	}
 	else
 	{
