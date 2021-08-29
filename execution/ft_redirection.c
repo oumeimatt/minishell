@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:58:12 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/29 11:41:05 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/29 16:34:34 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_in_redir(t_list *redir)
 	in = open(((t_redir *)redir->data)->filename, O_RDONLY);
 	if (in == -1)
 	{
-		ft_putstr_fd("petitshell123: ", 2);
+		ft_putstr_fd("petitshell: ", 2);
 		perror(((t_redir *)redir->data)->filename);
 		g_vars.i = 123;
 	}

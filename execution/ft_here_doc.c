@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:50:02 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/29 14:49:07 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/29 17:46:52 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		check_for_heredoc(t_wrapper *wrp)
 	}
 	return (0);
 }
-void	ft_here_doc(t_wrapper *wrp, char *filename)
+void	ft_here_doc(t_wrapper *wrp, char *filename, t_list *redir)
 {
 	int			in;
 	char		*delimiter;
@@ -45,10 +45,11 @@ void	ft_here_doc(t_wrapper *wrp, char *filename)
 	int			expand;
 
 	in = open(filename, O_RDONLY | O_WRONLY | O_CREAT, 0644);
-	delimiter = check_quotes(((t_redir *)((t_command *)(wrp->pipeline->data))->redir->data)->filename);
+	delimiter = check_quotes(((t_redir *)redir->data)->filename);
 	expand = 1;
-	if (ft_strcmp(delimiter, ((t_redir *)((t_command *)(wrp->pipeline->data))->redir->data)->filename))
+	if (ft_strcmp(delimiter, ((t_redir *)redir->data)->filename))
 		expand = 0;
+	ft_putendl_fd(delimiter, 2);
 	while (1)
 	{
 		line  = readline(">");
@@ -87,7 +88,7 @@ void	ft_open_heredoc(t_wrapper *wrp)
 				if (((t_redir *)tmpredir->data)->type == 2)
 				{
 					filename = ft_random_name(filename);
-					ft_here_doc(wrp, filename);
+					ft_here_doc(wrp, filename, tmpredir);
 					((t_redir *)tmpredir->data)->type = 1;
 					((t_redir *)tmpredir->data)->filename = ft_strdup(filename);
 				}

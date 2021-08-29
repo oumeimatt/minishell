@@ -34,7 +34,7 @@ void	ft_append_redir(t_list *redir);
 void	execute(t_wrapper *wrp);
 
 int		check_for_heredoc(t_wrapper *wrp);
-void	ft_here_doc(t_wrapper *wrp, char *filename);
+void	ft_here_doc(t_wrapper *wrp, char *filename, t_list *redir);
 void	ft_open_heredoc(t_wrapper *wrp);
 char	*ft_random_name(char *filename);
 

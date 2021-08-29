@@ -20,8 +20,8 @@ void		execution_loop(t_wrapper *wrp)
 	{
 		if (parser(wrp))
 		{
+			debug_pipeline(wrp->pipeline);
 			execute(wrp);
-			//debug_pipeline(wrp->pipeline);
 			destroy_lcommand(wrp->pipeline);
 		}
 	}

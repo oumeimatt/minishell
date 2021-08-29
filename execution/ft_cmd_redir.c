@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:53:35 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/29 11:32:19 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/29 17:34:07 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_redir		*ft_hook_in(t_list *redir)
 			free(filename);
 			type = ((t_redir *)tmp->data)->type;
 			filename = ft_strdup(((t_redir *)tmp->data)->filename);
-			ft_in_redir(tmp);
 		}
 		if (tmp->next != NULL)
 			tmp = tmp->next;
@@ -57,14 +56,12 @@ t_redir		*ft_hook_out(t_list *redir)
 			free(filename);
 			type = ((t_redir *)tmp->data)->type;
 			filename = ft_strdup(((t_redir *)tmp->data)->filename);
-			ft_out_redir(tmp);
 		}
 		else if (((t_redir *)tmp->data)->type == 4)
 		{
 			free(filename);
 			type = ((t_redir *)tmp->data)->type;
 			filename = ft_strdup(((t_redir *)tmp->data)->filename);
-			ft_append_redir(tmp);
 		}
 		if (tmp->next != NULL)
 			tmp = tmp->next;
@@ -75,6 +72,26 @@ t_redir		*ft_hook_out(t_list *redir)
 		return (new_redir(type, filename));
 	else
 		return (NULL);
+}
+
+void	check_errors(t_list *redir)
+{
+	t_list *tmp;
+
+	tmp = redir;
+	while (tmp != NULL)
+	{
+		if (((t_redir *)tmp->data)->type == 1 && g_vars.i != 123)
+			ft_in_redir(tmp);
+		else if (((t_redir *)tmp->data)->type == 3 && g_vars.i != 123)
+			ft_out_redir(tmp);
+		else if (((t_redir *)tmp->data)->type == 4&& g_vars.i != 123)
+			ft_append_redir(tmp);
+		if (tmp->next != NULL)
+			tmp = tmp->next;
+		else
+			break;
+	}
 }
 
 t_redir		*same_redir(t_list *redir)
@@ -92,6 +109,7 @@ t_list	*ft_hook(t_list *redir)
 	t_list	*tmp;
 
 	tmp = NULL;
+	check_errors(redir);
 	if (redir->next != NULL)
 	{
 		if (!same_redir(redir))

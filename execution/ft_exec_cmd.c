@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:09:56 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/29 16:26:34 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/29 17:31:16 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void    exec_cmd(char **cmd, t_wrapper *wrp)
 		wrng_cmd = ft_split_2(cmd[0], ' ');
 		ft_putstr_fd("petitshell: ", 2);
 		ft_putstr_fd(wrng_cmd[0], 2);
-		ft_putendl_fd(": permission denied", 2);
+		ft_putendl_fd(": Permission denied", 2);
 		exit(126);
 	}
 }
