@@ -29,5 +29,6 @@ int			is_redir(char c);
 char			*expand_exit_code(char *string);
 int			dollar_valid(char c);
 
+int			spaces(char *line);
 
 #endif

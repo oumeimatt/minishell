@@ -22,3 +22,17 @@ void			debug_tab(char **tab)
 		printf (" [%s]", tab[i]);
 	}
 }
+
+int			spaces(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}

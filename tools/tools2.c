@@ -9,7 +9,7 @@ int			check_line_syntax(char *string)
 	d_quote = 2;
 	s_count = 0;
 	len = ft_strlen(string);
-	if (!ft_strcmp(string, "\n"))
+	if (!ft_strcmp(string, "\n") || spaces(string))
 		return (0);
 	if (!ft_strncmp(string, "| |", 3))
 		return (-2);
