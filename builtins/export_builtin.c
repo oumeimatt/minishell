@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:02:40 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/29 14:31:29 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/30 12:21:36 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ char	*quotes_after_equal(char *str)
 	return (print_quotes(str, temp));
 }
 
-void	only_export(t_list *env)
+void	only_export(t_list **env)
 {
 	t_list	*tmp;
 	char	*str;
 
-	tmp = env;
+	tmp = *env;
 	while (tmp != NULL)
 	{
 		if (!ft_strcmp(((t_env *)(tmp->data))->value, "_"))
@@ -139,7 +139,7 @@ void	export_error(char *str)
 	g_vars.i = 1;
 }
 
-void	export_builtin(char **str, t_list *env, int i)
+void	export_builtin(char **str, t_list **env, int i)
 {
 	int		j;
 	char	*line;
@@ -164,17 +164,17 @@ void	export_builtin(char **str, t_list *env, int i)
 	line = ft_strjoin(key, line);
 	if (!is_key_exist(env, key) && egal == 1)
 	{
-		delete_node_env(&env, key);
-		addback_list(&env, new_list((t_env *)new_env(key, line)));
+		delete_node_env(env, key);
+		addback_list(env, new_list((t_env *)new_env(key, line)));
 	}
 	else if (!is_key_exist(env, key) && egal == 0)
 		return ;
 	else if (is_key_exist(env, key))
-		addback_list(&env, new_list((t_env *)new_env(key, line)));
+		addback_list(env, new_list((t_env *)new_env(key, line)));
 	free(key);
 	key = NULL;
 }
-void	exec_export(char **str, t_list *env, int x)
+void	exec_export(char **str, t_list **env, int x)
 {
 	int		i;
 

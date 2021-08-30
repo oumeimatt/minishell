@@ -14,13 +14,10 @@ void			tab_trimmer(char **tab)
 
 void			debug_tab(char **tab)
 {
-	if (*tab)
-	{
-		int i;
-		for (i = 0; tab[i + 1]; i++)
-			printf (" [%s] -", tab[i]);
-		printf (" [%s]", tab[i]);
-	}
+	int i;
+	for (i = 0; tab[i + 1]; i++)
+		printf (" [%s] -", tab[i]);
+	printf (" [%s]", tab[i]);
 }
 
 int			spaces(char *line)

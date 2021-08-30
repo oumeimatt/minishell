@@ -67,7 +67,7 @@ char *expand_env(t_wrapper *wrp, char *string)
 		{
 			p_count++;
 			char *ss = ft_substr(string, p_count, get_len_env(&string[p_count]));
-			value = get_value_env(wrp->env, ss) + ft_strlen(ss) + 1;
+			value = get_value_env(&wrp->env, ss) + ft_strlen(ss) + 1;
 			free (ss);
 			p_count += get_len_env(&string[p_count]);
 			c_count = 0;

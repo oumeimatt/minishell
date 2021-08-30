@@ -6,19 +6,19 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 18:06:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/16 17:50:35 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/30 10:44:13 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-char	*get_path(t_list *env)
+char	*get_path(t_list **env)
 {
 	int		i;
 	char	*line;
 	t_list *tmp;
 
-	tmp = env;
+	tmp = *env;
 	i = 0;
 	line = NULL;
 	while (tmp->next != NULL)

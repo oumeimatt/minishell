@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 18:34:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/29 15:16:51 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/30 12:24:42 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_pipe_cmd_only(t_wrapper *wrp)
 			exec_cmd(((t_command *)wrp->pipeline->data)->tokens, wrp);
 		}
 		else
-			exec_builtin(((t_command *)wrp->pipeline->data)->tokens, wrp->env, 1);
+			exec_builtin(((t_command *)wrp->pipeline->data)->tokens, &wrp->env, 1);
 	}
 	if (((t_command *)wrp->pipeline->data)->out != 1)
 		close(((t_command *)wrp->pipeline->data)->out);		
@@ -68,7 +68,7 @@ void	ft_exec_pipe_redir(t_wrapper *wrp)
 	char		*path;
 	char		**split_path;
 
-	path = get_path(wrp->env);
+	path = get_path(&wrp->env);
 	split_path = ft_split_2(path, ':');
 	((t_command *)(wrp->pipeline->data))->redir = ft_hook(((t_command *)(wrp->pipeline->data))->redir);
 	if (path)
@@ -84,7 +84,7 @@ void	ft_exec_pipe_redir(t_wrapper *wrp)
 		else
 		{
 			ft_is_redirection(((t_command *)(wrp->pipeline->data))->redir);
-			exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, wrp->env, 1);
+			exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, &wrp->env, 1);
 		}
 	}
 	else
@@ -105,7 +105,7 @@ void	ft_exec_pipe_redir_2(t_wrapper *wrp)
 		}
 	}
 	else
-		exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, wrp->env, 1);
+		exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, &wrp->env, 1);
 	
 }
 

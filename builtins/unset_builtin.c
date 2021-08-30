@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:29:06 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/28 09:35:20 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/30 11:07:20 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    unset_error(char *str)
 	g_vars.i = 1;
 }
 
-void    exec_unset(char **str, t_list *env, int x)
+void    exec_unset(char **str, t_list **env, int x)
 {
 	int     i;
 
@@ -36,7 +36,7 @@ void    exec_unset(char **str, t_list *env, int x)
 		}
 		else
 		{
-			delete_node_env(&env, str[i]);
+			delete_node_env(env, str[i]);
 			i++;
 		}
 	}

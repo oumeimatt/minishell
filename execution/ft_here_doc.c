@@ -49,7 +49,7 @@ void	ft_here_doc(t_wrapper *wrp, char *filename, t_list *redir)
 	expand = 1;
 	if (ft_strcmp(delimiter, ((t_redir *)redir->data)->filename))
 		expand = 0;
-	//ft_putendl_fd(delimiter, 2);
+	ft_putendl_fd(delimiter, 2);
 	while (1)
 	{
 		line  = readline(">");

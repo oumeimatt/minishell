@@ -6,13 +6,12 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 09:08:08 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/29 14:52:44 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/30 15:34:15 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-t_vars	g_vars;
 
 void	execute(t_wrapper *wrp)
 {

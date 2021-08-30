@@ -36,11 +36,11 @@ t_env			*new_env(char *key, char *value)
 	return (env);
 }
 
-char			*get_value_env(t_list *env, char *value)
+char			*get_value_env(t_list **env, char *value)
 {
 	t_list	*temp;
 
-	temp = env;
+	temp = *env;
 	while (temp != NULL)
 	{
 		if (!ft_strcmp(value, ((t_env *)(temp->data))->key))

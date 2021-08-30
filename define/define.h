@@ -54,7 +54,7 @@ void			debug_env(t_list *env);
 void			debug_redir(t_list *redir);
 void			debug_pipeline(t_list *pipeline);
 
-char			*get_value_env(t_list *env, char *value);
+char			*get_value_env(t_list **env, char *value);
 void			delete_node_env(t_list **env, char *key);
 
 #endif

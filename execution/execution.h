@@ -4,15 +4,19 @@
 # include "../parser/parser.h"
 # include "../libft/libft.h"
 # include "../builtins/builtins.h"
+# include <dirent.h>
+# include <sys/types.h>
 # include <fcntl.h>  
+
+t_vars	g_vars;
 
 void    exec_cmd(char **cmd, t_wrapper *wrp);
 void	unset_path_cmd(t_wrapper *wrp, int i);
 void	ft_only_cmd(t_wrapper *wrp, int i);
 
-char	*get_path(t_list *env);
+char	*get_path(t_list **env);
 char	*absolute_path(char *cmd, char **s_path);
-int		check_first(char **s_path, char *cmd);
+int	check_first(char **s_path, char *cmd);
 char	*free_ret(char *str1, char *str2, char *to_ret);
 
 

@@ -35,7 +35,6 @@ char	*redirection_reformat(const char *string)
 	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 10);
 	if (!str)
 		return (NULL);
-	//printf ("redir		0,0		%s\n", string);
 	while (string[p_count] != '\0')
 	{
 		if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && !quote)
@@ -57,7 +56,6 @@ char	*redirection_reformat(const char *string)
 	str[s_count] = '\0';
 	free ((void *)string);
 	str = ext_redir(str);
-	//printf ("redir		0,1		%s\n", str);
 	return (str);
 }
 

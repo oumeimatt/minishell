@@ -9,6 +9,8 @@ void			ext_parse_tokens(t_list **pipeline, char **tab)
 	i = 0;
 	while (tab[i])
 	{
+/* 		if (ft_strncmp(tab[i], "export", 6) && ft_strncmp(tab[i], "<<", 2))
+			tab[i] = quotes_reformat(tab[i]); */
 		tmp = ft_split2(tab[i], ' ');
 		if (ft_strcmp(tmp[0], "<<") && ft_strcmp(tmp[0], "export"))
 			tab_trimmer(tmp);
