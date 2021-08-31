@@ -6,14 +6,12 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 18:34:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/31 16:26:51 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/31 16:48:51 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-// ls > m | <nj
 // fix cd and pwd
-
 void	ft_pipe_cmd_only(t_wrapper *wrp)
 {
 	g_vars.pid = fork();

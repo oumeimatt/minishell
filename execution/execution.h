@@ -19,7 +19,7 @@ void    exec_cmd(char **cmd, t_wrapper *wrp, char *error);
 void	unset_path_cmd(t_wrapper *wrp);
 void	ft_only_cmd(t_wrapper *wrp);
 
-char	*get_path(t_list **env);
+// char	*get_path(t_list **env);
 char	*absolute_path(char *cmd, char **s_path);
 int	check_first(char **s_path, char *cmd);
 char	*ft_cmd_path(char *cmd, char *full_path);

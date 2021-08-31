@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:31:04 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/30 18:03:43 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/31 17:58:26 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,19 @@
 void	change_value(t_list **env, char *key, char *value)
 {
     t_list   *tmp;
-    int     found_key;
 
-    found_key = 0;
     tmp = *env;
     while (tmp != NULL)
     {
-        if (tmp->next == NULL && found_key == 1)
+        if (!ft_strcmp(key, ((t_env *)(tmp->data))->key))
         {
-            if (ft_strcmp(key, ((t_env *)(tmp->data))->key) == 0)
-            {
-                free(((t_env *)(tmp->data))->value);
-                ((t_env *)(tmp->data))->value = ft_strdup(value);
-            }
-            else
-                break;
+            free(((t_env *)(tmp->data))->value);
+            ((t_env *)(tmp->data))->value = ft_strdup(value);
         }
-        else
-        {
-            if (ft_strcmp(key, ((t_env *)(tmp->data))->key) == 0)
-            {
-                free(((t_env *)(tmp->data))->value);
-                ((t_env *)(tmp->data))->value = ft_strdup(value);
-                found_key = 1;
-            }
-            tmp = tmp->next;
-        }
+		if (tmp->next)
+        	tmp = tmp->next;
+		else
+			break;
     }
 }
 
@@ -69,22 +56,17 @@ void    exec_cd(char **str, t_list **env, int x)
 {
 	int     size;
 	int     i;
-	char	*oldpwd;
-	char	*pwd;
+	char	*oldpwd = NULL;
+	char	*pwd = NULL;
 	char	*buff;
 
 	size = 100;
 	buff = malloc(100);
-	oldpwd = ft_strdup(get_value_env(env, "OLDPWD"));
-	pwd = ft_strdup(get_value_env(env, "PWD"));
 	if (str[1] == NULL)
 		cd_only(env, oldpwd);
 	else
 	{
-		if (getcwd(buff, 100))
-			oldpwd =  ft_strjoin("OLDPWD=",	getcwd(buff, 100));
-		else
-			oldpwd = ft_strdup(pwd);
+		oldpwd = ft_strdup(get_value_env(env, "PWD"));
 		i = chdir(str[1]);
 		if (i == 0)
 		{
@@ -92,7 +74,7 @@ void    exec_cd(char **str, t_list **env, int x)
 			if (getcwd(buff, 100))
 				pwd = ft_strjoin("PWD=", getcwd(buff, 100));
 			else
-				pwd = ft_strjoin(pwd, "/.");
+				pwd = ft_strdup(get_value_env(env, "PWD"));
 			change_value(env, "PWD", pwd);
 		}
 		else

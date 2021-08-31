@@ -6,29 +6,29 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 18:06:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/31 14:23:21 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/31 16:43:22 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-char	*get_path(t_list **env)
-{
-	int		i;
-	char	*line;
-	t_list *tmp;
+// char	*get_path(t_list **env)
+// {
+// 	int		i;
+// 	char	*line;
+// 	t_list *tmp;
 
-	tmp = *env;
-	i = 0;
-	line = NULL;
-	while (tmp->next != NULL)
-	{
-		if (!ft_strncmp(((t_env *)(tmp->data))->key, "PATH", 4))
-			line = ft_strdup(((t_env *)(tmp->data))->value);
-		tmp = tmp->next;
-	}
-	return (line);
-}
+// 	tmp = *env;
+// 	i = 0;
+// 	line = NULL;
+// 	while (tmp->next != NULL)
+// 	{
+// 		if (!ft_strncmp(((t_env *)(tmp->data))->key, "PATH", 4))
+// 			line = ft_strdup(((t_env *)(tmp->data))->value);
+// 		tmp = tmp->next;
+// 	}
+// 	return (line);
+// }
 
 char	*free_ret(char *str, char *to_ret)
 {
