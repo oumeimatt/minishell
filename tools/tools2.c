@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/31 17:55:16 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/08/31 17:59:29 by ztaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tools.h"
 
-int			check_line_syntax(char *string)
+int	check_line_syntax(char *string)
 {
 	int	s_count;
-	int len;
-	int d_quote;
-	
+	int	len;
+	int	d_quote;
+
 	d_quote = 2;
 	s_count = 0;
 	len = ft_strlen(string);
@@ -15,7 +27,10 @@ int			check_line_syntax(char *string)
 		return (-2);
 	else if (!ft_strncmp(string, "|", 1))
 		return (-1);
-	else if ((!ft_strncmp(string, "\"", 1) && len < 2) || (!ft_strncmp(string, "\'", 1) && len < 2) || (string[len - 1] == '|' && string[len] == '\0') || *string == 0)
+	else if ((!ft_strncmp(string, "\"", 1) && len < 2)
+		|| (!ft_strncmp(string, "\'", 1) && len < 2)
+		|| (string[len - 1] == '|' && string[len] == '\0')
+		|| *string == 0)
 		return (0);
 	while (string[s_count])
 	{
@@ -28,9 +43,9 @@ int			check_line_syntax(char *string)
 	return (check_line_syntax2(string));
 }
 
-int			check_line_syntax2(char *string)
+int	check_line_syntax2(char *string)
 {
-	int 	i;
+	int	i;
 
 	i = 0;
 	while (string[i])
@@ -54,9 +69,9 @@ int			check_line_syntax2(char *string)
 	return (check_line_syntax3(string));
 }
 
-int			check_line_syntax3(char *string)
+int	check_line_syntax3(char *string)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (string[i])
@@ -67,5 +82,5 @@ int			check_line_syntax3(char *string)
 			return (-7);
 		i++;
 	}
-	return (1);	
+	return (1);
 }

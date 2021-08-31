@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   petitshell.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/31 16:43:45 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/08/31 16:45:54 by ztaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "petitshell.h"
 
 int	main(int argc, char **argv, char **envp)
@@ -5,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	t_wrapper	wrp;
 
 	if (argc == 1 && argv[0])
-	{	
+	{
 		parse_env(&(wrp.env), envp);
 		signal(SIGINT, signal_handler);
 		signal(SIGQUIT, signal_handler);
@@ -14,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-void		execution_loop(t_wrapper *wrp)
+void	execution_loop(t_wrapper *wrp)
 {
 	while (420)
 	{

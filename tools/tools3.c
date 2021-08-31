@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/31 17:11:27 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/08/31 17:58:56 by ztaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tools.h"
 
 char	*dquotes_reformat(char *line)
 {	
-	int i;
-	int j;
-	char *str;
+	int		i;
+	int		j;
+	char	*str;
 
 	i = 0;
 	j = 0;
@@ -13,21 +25,21 @@ char	*dquotes_reformat(char *line)
 	{
 		if (is_dquote(line[i]) && is_dquote(line[i + 1]))
 			i += 2;
-		str[j++] = line[i++];	
+		str[j++] = line[i++];
 	}
 	str[j] = '\0';
 	return (str);
 }
 
-char		*spaces_dquotes_reformat(char *line)
+char	*spaces_dquotes_reformat(char *line)
 {
-	int	i;
-	int dquote;
-	int j;
-	char *str;
+	int		i;
+	int		dquote;
+	int		j;
+	char	*str;
 
 	i = 0;
-	j = 0;	
+	j = 0;
 	dquote = 0;
 	str = (char *)malloc(sizeof(char) * ft_strlen(line) * 2);
 	if (!str)
@@ -50,13 +62,13 @@ char		*spaces_dquotes_reformat(char *line)
 
 char	*spaces_dquotes_reformat2(char *line)
 {
-	int	i;
-	int dquote;
-	int j;
-	char *str;
+	int		i;
+	int		dquote;
+	int		j;
+	char	*str;
 
 	i = 0;
-	j = 0;	
+	j = 0;
 	dquote = 0;
 	str = (char *)malloc(sizeof(char) * ft_strlen(line) * 2);
 	if (!str)
@@ -89,7 +101,7 @@ char	*quotes_reformat(char *line)
 	s_quote = 0;
 	p_count = 0;
 	s_count = 0;
-	string = (char *)malloc(sizeof(char) * ( ft_strlen(line) + 1));
+	string = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (!string)
 		return (NULL);
 	while (line[p_count] != '\0')
@@ -102,10 +114,11 @@ char	*quotes_reformat(char *line)
 			s_quote = 1;
 		else if (is_squote(line[p_count]) && s_quote)
 			s_quote = 0;
-		if (line[p_count] && (!is_squote(line[p_count] || !is_dquote(line[p_count]))))
+		if (line[p_count] && (!is_squote(line[p_count]
+					|| !is_dquote(line[p_count]))))
 			string[s_count++] = line[p_count++];
 		if (is_squote(line[p_count]) || is_dquote(line[p_count]))
-			continue;
+			continue ;
 	}
 	if (string[s_count - 1] == '\'')
 		string[s_count - 1] = 0;
