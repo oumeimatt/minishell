@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:50:02 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/29 17:46:52 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/30 18:13:15 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void	ft_open_heredoc(t_wrapper *wrp)
 				if (((t_redir *)tmpredir->data)->type == 2)
 				{
 					filename = ft_random_name(filename);
+					ft_putendl_fd("=========", 2);
+					ft_putendl_fd(filename, 2);
+					ft_putendl_fd("=========", 2);
 					ft_here_doc(wrp, filename, tmpredir);
 					((t_redir *)tmpredir->data)->type = 1;
 					((t_redir *)tmpredir->data)->filename = ft_strdup(filename);

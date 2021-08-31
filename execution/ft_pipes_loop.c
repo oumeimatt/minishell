@@ -6,11 +6,13 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 18:34:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/30 12:24:42 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/31 16:26:51 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+// ls > m | <nj
+// fix cd and pwd
 
 void	ft_pipe_cmd_only(t_wrapper *wrp)
 {
@@ -27,18 +29,27 @@ void	ft_pipe_cmd_only(t_wrapper *wrp)
 		}
 		if (((t_command *)wrp->pipeline->data)->in != 0)
 			dup2(((t_command *)wrp->pipeline->data)->in, 0);
-		if (is_builtin(((t_command *)wrp->pipeline->data)->tokens) == 1)
-		{
-			ft_only_cmd(wrp, 1);
-			exec_cmd(((t_command *)wrp->pipeline->data)->tokens, wrp);
-		}
-		else
-			exec_builtin(((t_command *)wrp->pipeline->data)->tokens, &wrp->env, 1);
+		only_cmd_pipe(wrp);
 	}
 	if (((t_command *)wrp->pipeline->data)->out != 1)
 		close(((t_command *)wrp->pipeline->data)->out);		
 	if (((t_command *)wrp->pipeline->data)->in != 0)
 		close(((t_command *)wrp->pipeline->data)->in);
+}
+
+void	only_cmd_pipe(t_wrapper *wrp)
+{
+	if (is_path_exist(wrp) == TRUE)
+		exec_cmd(((t_command *)(wrp->pipeline->data))->tokens, wrp, CNF);
+	else if (is_path_exist(wrp) == 2)
+		exec_builtin(((t_command *)wrp->pipeline->data)->tokens, &wrp->env, 1);
+	else if (is_path_exist(wrp) == FALSE)
+	{
+		if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 1)
+			exec_cmd(((t_command *)(wrp->pipeline->data))->tokens, wrp, NSFD);
+		else
+			exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, &wrp->env, 1);
+	}
 }
 
 void	ft_pipe_cmd_redir(t_wrapper *wrp)
@@ -51,7 +62,8 @@ void	ft_pipe_cmd_redir(t_wrapper *wrp)
 		if (((t_command *)wrp->pipeline->data)->out != 1)
 		{
 			dup2(((t_command *)wrp->pipeline->data)->out, 1);
-			close(((t_command *)wrp->pipeline->next->data)->in);
+			if (wrp->pipeline->next)
+				close(((t_command *)wrp->pipeline->next->data)->in);
 		}
 		if (((t_command *)wrp->pipeline->data)->in != 0)
 			dup2(((t_command *)wrp->pipeline->data)->in, 0);
@@ -65,27 +77,23 @@ void	ft_pipe_cmd_redir(t_wrapper *wrp)
 
 void	ft_exec_pipe_redir(t_wrapper *wrp)
 {
-	char		*path;
-	char		**split_path;
-
-	path = get_path(&wrp->env);
-	split_path = ft_split_2(path, ':');
-	((t_command *)(wrp->pipeline->data))->redir = ft_hook(((t_command *)(wrp->pipeline->data))->redir);
-	if (path)
+	check_errors(((t_command *)(wrp->pipeline->data))->redir);
+	((t_command *)(wrp->pipeline->data))->redir =
+		ft_hook(((t_command *)(wrp->pipeline->data))->redir);
+	if (is_path_exist(wrp) == TRUE)
+	{		
+		ft_is_redirection(((t_command *)(wrp->pipeline->data))->redir, 1);
+		exec_cmd(((t_command *)(wrp->pipeline->data))->tokens, wrp, CNF);
+	}
+	else if(is_path_exist(wrp) == 2)
 	{
-		if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 1)
-		{
-			ft_is_redirection(((t_command *)(wrp->pipeline->data))->redir);
-			((t_command *)(wrp->pipeline->data))->tokens[0] = 
-				absolute_path(((t_command *)(wrp->pipeline->data))->tokens[0], split_path);
-			ft_putendl_fd(((t_command *)(wrp->pipeline->data))->tokens[0], 2);
-			exec_cmd(((t_command *)(wrp->pipeline->data))->tokens, wrp);
-		}
-		else
-		{
-			ft_is_redirection(((t_command *)(wrp->pipeline->data))->redir);
-			exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, &wrp->env, 1);
-		}
+		ft_is_redirection(((t_command *)(wrp->pipeline->data))->redir, 1);
+		exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, &wrp->env, 1);
+	}
+	else if (is_path_exist(wrp) == 3)
+	{
+		ft_is_redirection(((t_command *)(wrp->pipeline->data))->redir, 2);
+		exit(g_vars.i);
 	}
 	else
 		ft_exec_pipe_redir_2(wrp);
@@ -93,18 +101,16 @@ void	ft_exec_pipe_redir(t_wrapper *wrp)
 
 void	ft_exec_pipe_redir_2(t_wrapper *wrp)
 {
-	ft_is_redirection(((t_command *)(wrp->pipeline->data))->redir);
-	if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 1)
+	if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 2)
 	{
-		if (execve(((t_command *)(wrp->pipeline->data))->tokens[0], ((t_command *)(wrp->pipeline->data))->tokens, NULL) == -1)
-		{
-			ft_putstr_fd("petitshell: ", 2);
-			ft_putstr_fd(((t_command *)(wrp->pipeline->data))->tokens[0], 2);
-			ft_putendl_fd(": No such file or directory", 2);
-			exit(127);
-		}
+		ft_is_redirection(((t_command *)(wrp->pipeline->data))->redir, 0);
+		return ;
 	}
 	else
+		ft_is_redirection(((t_command *)(wrp->pipeline->data))->redir, 1);
+	if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 1)
+		exec_cmd(((t_command *)(wrp->pipeline->data))->tokens ,wrp, NSFD);
+	else if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 0)
 		exec_builtin(((t_command *)(wrp->pipeline->data))->tokens, &wrp->env, 1);
 	
 }

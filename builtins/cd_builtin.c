@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:31:04 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/30 14:25:48 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/30 18:03:43 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ void	change_value(t_list **env, char *key, char *value)
     }
 }
 
-void    cd_only(char *buff, t_list **env, char *oldpwd)
+void    cd_only(t_list **env, char *oldpwd)
 {
+	char	*buff;
+
+	buff = NULL;
 	if (is_key_exist(env, "HOME") == 1)
 	{
 		ft_putendl_fd("petitshell: cd: HOME not set\n", 2);
@@ -53,43 +56,44 @@ void    cd_only(char *buff, t_list **env, char *oldpwd)
 	}
 	else
 	{
-		oldpwd = ft_strjoin("OLDPWD=", pwd_builtin());
+		oldpwd = ft_strjoin("OLDPWD=", pwd_builtin(env));
 		change_value(env, "OLDPWD", oldpwd);
-		buff = get_value_env(env, "HOME");
+		buff = ft_strdup(get_value_env(env, "HOME"));
 		chdir(buff);
-		buff = ft_strjoin("PWD=", buff);
+		buff = ft_strjoin("PWD=", buff + 5);
 		change_value(env, "PWD", buff);
 	}
 }
 
 void    exec_cd(char **str, t_list **env, int x)
 {
-	char    *buff;
 	int     size;
 	int     i;
 	char	*oldpwd;
 	char	*pwd;
+	char	*buff;
 
 	size = 100;
+	buff = malloc(100);
 	oldpwd = ft_strdup(get_value_env(env, "OLDPWD"));
 	pwd = ft_strdup(get_value_env(env, "PWD"));
-	buff = malloc(sizeof(char) * size);
 	if (str[1] == NULL)
-		cd_only(buff, env, oldpwd);
+		cd_only(env, oldpwd);
 	else
 	{
-		if (pwd_builtin())
-			oldpwd = ft_strjoin("OLDPWD=", pwd_builtin());
+		if (getcwd(buff, 100))
+			oldpwd =  ft_strjoin("OLDPWD=",	getcwd(buff, 100));
+		else
+			oldpwd = ft_strdup(pwd);
 		i = chdir(str[1]);
 		if (i == 0)
 		{
 			change_value(env, "OLDPWD", oldpwd);
-			if (pwd_builtin())
-				pwd = pwd_builtin();
-			buff = ft_strjoin("PWD=", pwd);
-			change_value(env, "PWD", buff);
-			printf("=== PWD %s =====\n", buff);
-			printf("=== OLDPWD %s =====\n", oldpwd);
+			if (getcwd(buff, 100))
+				pwd = ft_strjoin("PWD=", getcwd(buff, 100));
+			else
+				pwd = ft_strjoin(pwd, "/.");
+			change_value(env, "PWD", pwd);
 		}
 		else
 		{
@@ -99,8 +103,6 @@ void    exec_cd(char **str, t_list **env, int x)
 			g_vars.i = 1;
 		}
 	}
-	if (buff)
-		free(buff);
 	if (x == 1)
 		exit(0);
 }

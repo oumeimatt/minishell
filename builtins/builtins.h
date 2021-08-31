@@ -17,7 +17,7 @@ typedef struct s_vars
 extern t_vars	g_vars;
 
 void	change_value(t_list **env, char *key, char *value);
-void	cd_only(char *buff, t_list **env, char *oldpwd);
+void	cd_only(t_list **env, char *oldpwd);
 void    exec_cd(char **str, t_list **env, int x);
 
 int		echo_valid_option(char *str);
@@ -40,7 +40,7 @@ void	exec_export(char **str, t_list **env, int x);
 int		is_builtin(char	**str);
 void    exec_builtin(char **str, t_list **env, int i); 
 
-char    *pwd_builtin();
+char    *pwd_builtin(t_list **env);
 void	exec_pwd(t_list **env, int x);
 
 void    unset_error(char *str);

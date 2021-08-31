@@ -30,7 +30,7 @@ int			parser(t_wrapper *wrp)
 {
 	char *line;
 	
-	//usleep (100000);
+	// usleep (100000);
 	line = readline(BHBLU "petitshell-1.0" reset BHWHT "$ " reset);
 	if (!is_line(line))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 18:06:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/30 10:44:13 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/08/31 14:23:21 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,12 @@ char	*get_path(t_list **env)
 	return (line);
 }
 
-char	*free_ret(char *str1, char *str2, char *to_ret)
+char	*free_ret(char *str, char *to_ret)
 {
-	(void )str1;
-	// if (str1)
-	// {
-	// 	free(str1);
-	// 	str1 = NULL;
-	// }
-	if (str2)
+	if (str)
 	{
-		free(str2);
-		str2 = NULL;
+		free(str);
+		str = NULL;
 	}
 	return (to_ret);
 }
@@ -89,13 +83,15 @@ char	*absolute_path(char *cmd, char **s_path)
 	}
 	free(cmd);
 	if (acc == 0)
-	{	
-		free (failed);
-		return(commande);
-	}	// return (free_ret(cmd, failed, commande));
+		return (free_ret(failed, commande));
 	else
-	{
-		free (commande);
-		return(failed);
-	}	// return (free_ret(cmd, commande, failed));
+		return (free_ret(commande, failed));
+}
+
+char	*ft_cmd_path(char *cmd, char *full_path)
+{
+	char	**sp_path;
+
+	sp_path = ft_split_2(full_path, ':');
+	return (absolute_path(cmd, sp_path));
 }
