@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:56:17 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/08/31 17:07:12 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/02 18:05:44 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,44 @@ int	export_check_quotes(char *line)
 {
 	int		i;
 	char	tmp;
+	int		d_flag;
+	int		s_flag;
 
 	tmp = 0;
 	i = 0;
-	while (line[i] != '\0')
+	d_flag = 0;
+	s_flag = 0;
+	//printf ("export check quotes		%s		%d		%d\n", line);
+	while (line[i++] != '\0')
 	{
-		if (is_dquote(line[i]) || is_squote(line[i]))
+/* 		if (is_dquote(line[i]) || is_squote(line[i]))
 		{
-			tmp = line[i];
-			i++;
+			tmp = line[i++];
+			enter++;
 			while (line[i] != '\0')
 			{
 				if (tmp == line[i] && (line[i + 1] == '\0' || line[i + 1]
 						== ' ' || !is_dquote(line[i + 1]
 							|| !is_squote(line[i + 1]))))
-					return (1);
+					//return (1);
+					count++;
 				i++;
 			}
-			return (0);
-		}
-		i++;
+		} */
+		if (is_dquote(line[i]) && !d_flag)
+			d_flag = 1;
+		else if (is_dquote(line[i]) && d_flag)
+			d_flag = 0;
+		if (is_squote(line[i]) && !s_flag)
+			s_flag = 1;
+		else if (is_squote(line[i]) && s_flag)
+			s_flag = 0;
+		//i++;
 	}
-	return (1);
+	//printf ("export check quotes		%s		%d		%d\n", line);
+	if (!s_flag && !d_flag)
+		return (1);
+	return (0);
 }
 
 int	get_len_env(char *string)

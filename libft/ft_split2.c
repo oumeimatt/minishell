@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:23:42 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 19:56:21 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/02 16:00:16 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ static int      word_len2(char *str, unsigned int index, char delim)
 	}
 //	printf("wordslen2 done0.1	%s,	%d,%d\n", str, i, len);
 	return (len);
-	/*	echo '$HOME' */
 }
 
 

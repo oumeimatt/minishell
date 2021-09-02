@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 17:55:16 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/08/31 17:59:29 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/01 15:24:44 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,3 +84,5 @@ int	check_line_syntax3(char *string)
 	}
 	return (1);
 }
+
+// start from bottom down
