@@ -8,6 +8,7 @@
 
 void			destroy_tab(char **tab, int n);
 void			tab_trimmer(char **tab);
+char			*ext_tab_trimmer(char *string);
 
 void			debug_tab(char **tab);
 
