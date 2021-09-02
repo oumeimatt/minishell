@@ -35,7 +35,6 @@ void	ft_unset_path_builtin(t_wrapper *wrp, int stats);
 void    exec_cmd_redir(t_wrapper *wrp);
 void    exec_builtin_redir(t_wrapper *wrp);
 
-
 void	ft_dup_out_redir(t_list *redir, int file, int i);
 void	ft_is_redirection(t_list *redir, int i);
 void	ft_in_redir(t_list *redir);
@@ -60,7 +59,7 @@ char	*free_ret(char *str, char *to_ret);
 
 
 int		is_path_exist(t_wrapper *wrp);
-void	ft_print_error(char **wrng_cmd, char *error);
+void	ft_print_error(char *cmd, char *error);
 void	only_cmd_pipe(t_wrapper *wrp);
 
 #endif

@@ -4,30 +4,42 @@ char	*check_quotes(char *line)
 {
 	int		i;
 	char	*quoted;
+	char	*tmp;
 
 	quoted = NULL;
-	i = 0;
-	if (line[0] == '\'')
-		quoted = ft_single_quotes(line);
-	else if (line[0] == '"')
-		quoted = ft_double_quotes(line);
+	i = 1;
+	if (line[1] == '\'')
+		return (ft_single_quotes(line));
+	else if (line[1] == '"')
+		return (ft_double_quotes(line));
 	else
 	{
-		quoted = ft_strdup("");
+		quoted = ft_strdup("=");
 		while (line[i] != '\0')
 		{
 			if (line[i] == '\'')
 			{
-				quoted = ft_strjoin(quoted, ft_single_quotes(line + i));
+				tmp = ft_strdup(quoted);
+				free_ret(quoted, NULL);
+				quoted = ft_strjoin(tmp, ft_single_quotes(line + i));
+				free_ret(tmp, NULL);
 				break;
 			}
 			else if (line[i] == '"')
 			{
-				quoted = ft_strjoin(quoted, ft_double_quotes(line + i));
+				tmp = ft_strdup(quoted);
+				free_ret(quoted, NULL);
+				quoted = ft_strjoin(tmp, ft_double_quotes(line + i));
+				free_ret(tmp, NULL);
 				break;
 			}
 			else
-				quoted = ft_charjoin(quoted, line[i++]);
+			{
+				tmp = ft_strdup(quoted);
+				free_ret(quoted, NULL);
+				quoted = ft_charjoin (tmp, line[i++]);
+				free_ret(tmp, NULL);
+			}
 		}
 	}
 	return (quoted);
@@ -36,17 +48,21 @@ char	*check_quotes(char *line)
 char	*ft_single_quotes(char *line)
 {
 	char	*quoted;
+	char	*tmp;
 	int		i;
 
-	i = 0;
-	quoted = ft_strdup("");
+	i = 1;
+	quoted = ft_strdup("=");
 	while (line[i] != '\0')
 	{
 		if (line[i] == '\'')
 			i++;
 		if (line[i] != '\0')
 		{
-			quoted = ft_charjoin(quoted, line[i]);
+			tmp = ft_strdup(quoted);
+			free_ret(quoted, NULL);
+			quoted = ft_charjoin(tmp, line[i]);
+			free_ret(tmp, NULL);
 			i++;
 		}
 	}
@@ -56,19 +72,23 @@ char	*ft_single_quotes(char *line)
 char	*ft_double_quotes(char *line)
 {
 	char	*quoted;
+	char	*tmp;
 	int		i;
 
-	i = 0;
-	quoted = ft_strdup("");
+	i = 1;
+	quoted = ft_strdup("=");
 	while (line[i] != '\0')
 	{
 		if (line[i] == '"')
 			i++;
 		if (line[i] != '\0')
 		{
-			quoted = ft_charjoin(quoted, line[i]);
+			tmp = ft_strdup(quoted);
+			free_ret(quoted, NULL);
+			quoted = ft_charjoin(tmp, line[i]);
+			free_ret(tmp, NULL);
 			i++;
 		}
 	}
-	return(quoted);	
+	return(quoted);
 }

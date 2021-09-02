@@ -6,16 +6,16 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 09:08:08 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/31 16:17:51 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/02 14:55:49 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	ft_print_error(char **wrng_cmd, char *error)
+void	ft_print_error(char *cmd, char *error)
 {
 	ft_putstr_fd("petitshell: ", 2);
-	ft_putstr_fd(wrng_cmd[0], 2);
+	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(error, 2);
 }
@@ -26,7 +26,7 @@ int		is_path_exist(t_wrapper *wrp)
 
 	if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 1)
 	{
-		path = get_value_env(&wrp->env, "PATH");
+		path = get_value_env(&wrp->env, "PATH") + 1;
 		if (path != NULL)
 		{
 			((t_command *)(wrp->pipeline->data))->tokens[0] =

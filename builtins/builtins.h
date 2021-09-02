@@ -14,12 +14,15 @@ typedef struct s_vars
 	int	pid;
 }	t_vars;
 
+# define HD 11
+# define EXP 22
+
 extern t_vars	g_vars;
 
 void	change_value(t_list **env, char *key, char *value);
-void	cd_only(t_list **env, char *oldpwd);
+void	cd_only(t_list **env);
 void    exec_cd(char **str, t_list **env, int x);
-
+char	*free_ret(char *str, char *to_ret);
 int		echo_valid_option(char *str);
 void	echo_option_exist(char **str);
 void   exec_echo(char **str, int x);

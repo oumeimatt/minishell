@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 12:42:08 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/30 10:48:38 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/02 11:40:36 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,15 @@ void    exec_env(t_list **env, int x)
     tmp = *env;
     while(tmp != NULL)
 	{
-        if (valid_export(((t_env *)(tmp->data))->value) != 2 && tmp->next != NULL)
+        if (((t_env *)(tmp->data))->value != NULL)
+        {
+            ft_putstr_fd(((t_env *)(tmp->data))->key, 1);
+            ft_putendl_fd(((t_env *)(tmp->data))->value, 1);
+        }
+        if (tmp->next || (((t_env *)(tmp->data))->value == NULL && tmp->next))
             tmp = tmp->next;
-        if(tmp->next == NULL)
-        {
-            if (valid_export(((t_env *)(tmp->data))->value) == 2)
-            {
-                ft_putendl_fd(((t_env *)(tmp->data))->value, 1);
-                break ;
-            }
-            else
-                break ;
-        }
-        else
-        {
-            if (valid_export(((t_env *)(tmp->data))->value) == 2)
-            {
-                ft_putendl_fd(((t_env *)(tmp->data))->value, 1);
-                tmp = tmp->next;
-            }
-            else
-                tmp = tmp->next;
-        }
+        else if (!tmp->next)
+            break ;
     }
 	if (x == 1)
 		exit(0);
@@ -53,19 +40,12 @@ int     is_key_exist(t_list **env, char *key)
     temp = *env;
     while (temp != NULL)
     {
-        if (temp->next == NULL)
-        {
-            if (ft_strcmp(key, ((t_env *)(temp->data))->key) == 0)
-                return (0);
-            else
-                return (1);
-        }
-        else
-        {
-            if (ft_strcmp(key, ((t_env *)(temp->data))->key) == 0)
-                return (0);
+        if (!ft_strcmp(key, ((t_env *)(temp->data))->key))
+            return (0);
+        if (temp->next)
             temp = temp->next;
-        }
+        else
+            break ; 
     }
     return (1);
 }

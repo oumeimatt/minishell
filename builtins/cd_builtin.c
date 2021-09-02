@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:31:04 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/31 17:58:26 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/02 19:34:01 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ void	change_value(t_list **env, char *key, char *value)
     }
 }
 
-void    cd_only(t_list **env, char *oldpwd)
+void    cd_only(t_list **env)
 {
 	char	*buff;
+	char	*oldpwd;
+	char	*tmp;
 
 	buff = NULL;
 	if (is_key_exist(env, "HOME") == 1)
@@ -43,27 +45,27 @@ void    cd_only(t_list **env, char *oldpwd)
 	}
 	else
 	{
-		oldpwd = ft_strjoin("OLDPWD=", pwd_builtin(env));
+		oldpwd = ft_strdup(get_value_env(env, "PWD"));
 		change_value(env, "OLDPWD", oldpwd);
 		buff = ft_strdup(get_value_env(env, "HOME"));
 		chdir(buff);
-		buff = ft_strjoin("PWD=", buff + 5);
+		tmp = ft_strjoin("=", buff);
 		change_value(env, "PWD", buff);
+		free_ret(oldpwd, NULL);
+		free_ret(buff, NULL);
+		free_ret(tmp, NULL);
 	}
 }
 
 void    exec_cd(char **str, t_list **env, int x)
 {
-	int     size;
 	int     i;
-	char	*oldpwd = NULL;
+	char	*oldpwd;
 	char	*pwd = NULL;
-	char	*buff;
+	char	buff[100];
 
-	size = 100;
-	buff = malloc(100);
 	if (str[1] == NULL)
-		cd_only(env, oldpwd);
+		cd_only(env);
 	else
 	{
 		oldpwd = ft_strdup(get_value_env(env, "PWD"));
@@ -72,7 +74,7 @@ void    exec_cd(char **str, t_list **env, int x)
 		{
 			change_value(env, "OLDPWD", oldpwd);
 			if (getcwd(buff, 100))
-				pwd = ft_strjoin("PWD=", getcwd(buff, 100));
+				pwd = ft_strjoin("=", getcwd(buff, 100));
 			else
 				pwd = ft_strdup(get_value_env(env, "PWD"));
 			change_value(env, "PWD", pwd);
@@ -84,6 +86,8 @@ void    exec_cd(char **str, t_list **env, int x)
 			ft_putendl_fd(": No such file or directory", 2);
 			g_vars.i = 1;
 		}
+		free_ret(pwd, NULL);
+		free_ret(oldpwd, NULL);
 	}
 	if (x == 1)
 		exit(0);

@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:53:35 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/31 16:12:17 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/02 17:28:04 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ t_redir		*ft_hook_in(t_list *redir)
 	if (type != 0)
 		return (new_redir(type, filename));
 	else
+	{
+		free(filename);
 		return (NULL);
+	}
 }
 
 t_redir		*ft_hook_out(t_list *redir)
@@ -71,7 +74,10 @@ t_redir		*ft_hook_out(t_list *redir)
 	if (type != 0)
 		return (new_redir(type, filename));
 	else
+	{
+		free(filename);
 		return (NULL);
+	}
 }
 
 void	check_errors(t_list *redir)
@@ -96,32 +102,49 @@ void	check_errors(t_list *redir)
 
 t_redir		*same_redir(t_list *redir)
 {
-	if (!ft_hook_in(redir) && ft_hook_out(redir))
-		return (ft_hook_out(redir));
-	else if (!ft_hook_out(redir) && ft_hook_in(redir))
-		return (ft_hook_in(redir));
+	t_redir		*in;
+	t_redir		*out;
+
+	in = ft_hook_in(redir);
+	out = ft_hook_out(redir);
+	if (!in && out)
+		return (out);
+	else if (!out && in)
+		return (in);
 	else
+	{
+		destroy_redir(in);
+		destroy_redir(out);
 		return (NULL);
+	}
 }
 
 t_list	*ft_hook(t_list *redir)
 {
-	t_list	*tmp;
+	t_list	*redirlist;
+	t_redir	*tmp;
+	t_redir *tmp2;
 
-	tmp = NULL;
+	redirlist = NULL;
+	tmp = same_redir(redir);
+	tmp2 = NULL;
 	if (redir->next != NULL)
 	{
-		if (!same_redir(redir))
+		if (!tmp)
 		{
-			tmp = new_list((void*)ft_hook_in(redir));
-			addback_list(&tmp, new_list((void*)ft_hook_out(redir)));
+			tmp = ft_hook_in(redir);
+			redirlist = new_list((void*)tmp);
+			tmp2 = ft_hook_out(redir);
+			addback_list(&redirlist, new_list((void*)tmp2));
 		}
 		else
-			tmp = new_list((void *)same_redir(redir));
+			redirlist = new_list((void *)tmp);
 	}
 	else
-		tmp = new_list((void *)same_redir(redir));
-	return (tmp);
+		redirlist = new_list((void *)tmp);
+	 destroy_lredir(redir);
+	return (redirlist);
+
 }
 
 void	ft_redir_cmd(t_wrapper *wrp)
@@ -194,8 +217,6 @@ void    exec_cmd_redir(t_wrapper *wrp)
 	waitpid(g_vars.pid , &stats, 0);
 	if (WIFEXITED(stats))
 		g_vars.i = WEXITSTATUS(stats);
-	// else ======== PIPESSSSS
-	// 	exec_cmd(((t_command *)wrp->pipeline->data)->tokens, wrp, NSFD);
 }
 
 void    exec_builtin_redir(t_wrapper *wrp)

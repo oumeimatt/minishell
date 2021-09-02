@@ -10,7 +10,7 @@ void			parse_env(t_list **env, char **envp)
 	while (envp[i] != NULL)
 	{
 		key = ft_substr(envp[i], 0, (ft_strchr(envp[i], '=') - envp[i]));
-		addback_list(env, new_list((t_list *)new_env(key, envp[i])));
+		addback_list(env, new_list((t_list *)new_env(key, envp[i] + ft_strlen(key))));
 		free (key);
 		i++;
 	}

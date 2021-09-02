@@ -50,3 +50,9 @@ char	**list_to_arr(t_list *head)
 	arr[len] = NULL;
 	return(arr);
 }
+
+void	free_str(char *str)
+{
+	free(str);
+	str = NULL;
+}
