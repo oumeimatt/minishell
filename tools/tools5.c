@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:56:21 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/02 18:37:02 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/02 19:18:04 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ char	*ext_tab_trimmer(char *string)
 	c_count = 0;
 	while (string[c_count] != '\0')
 	{
-		if (is_dquote(string[c_count]) || is_squote(string[c_count]))
+		if (is_dquote(string[c_count]))
 			c_count++;
+		if (is_squote(string[c_count]))
+			c_count++;
+		if (is_dquote(string[c_count]) || is_squote(string[c_count]))
+			continue ;
 		if (string[c_count])
 			str[p_count++] = string[c_count++];
 	}
