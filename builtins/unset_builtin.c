@@ -6,13 +6,13 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:29:06 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/03 14:14:09 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 15:39:47 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void    unset_error(char *str)
+void	unset_error(char *str)
 {
 	ft_putstr_fd("petitshell: unset: '", 2);
 	ft_putstr_fd(str, 2);
@@ -20,9 +20,9 @@ void    unset_error(char *str)
 	g_vars.i = 1;
 }
 
-void    exec_unset(char **str, t_list **env, int x)
+void	exec_unset(char **str, t_list **env, int x)
 {
-	int     i;
+	int	i;
 
 	i = 1;
 	if (str[i] == NULL)

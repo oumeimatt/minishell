@@ -10,7 +10,7 @@ void			ext_parse_tokens(t_list **pipeline, char **tab)
 	while (tab[i])
 	{
 		tmp = ft_split(tab[i], ' ');
-		if (ft_strcmp(tmp[0], "<<") && ft_strcmp(tmp[0], "export"))
+		if (ft_strcmp(tmp[0], "<<"))
 			tab_trimmer(tmp);
 		ext2_parse_tokens(&cmd, tmp);
 		addback_list(pipeline, new_list((t_command *)new_command(cmd.tokens, cmd.redir)));

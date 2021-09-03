@@ -6,18 +6,18 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:13:53 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/03 11:13:57 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 15:37:20 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char    *pwd_builtin(t_list **env)
+char	*pwd_builtin(t_list **env)
 {
 	char	buff[100];
 
 	if (is_key_exist(env, "PWD") == 1)
-		return(getcwd(buff, 100));
+		return (getcwd(buff, 100));
 	else
 		return (ft_strdup(get_value_env(env, "PWD") + 1));
 }

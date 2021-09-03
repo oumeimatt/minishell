@@ -6,13 +6,13 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 13:51:29 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/28 09:35:10 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 14:54:43 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int		echo_valid_option(char *str)
+int	echo_valid_option(char *str)
 {
 	int	i;
 
@@ -25,22 +25,23 @@ int		echo_valid_option(char *str)
 				return (1);
 			i++;
 		}
-		return(0);
+		return (0);
 	}
-	return(1);
+	return (1);
 }
+
 void	echo_option_exist(char **str)
 {
-	int		i;
+	int	i;
 
 	if (str[2] == NULL)
-		return;
+		return ;
 	i = 2;
 	while (echo_valid_option(str[i]) == 0)
 	{
 		i++;
 		if (str[i] == NULL)
-			return;
+			return ;
 	}
 	while (str[i] != NULL)
 	{
@@ -51,7 +52,7 @@ void	echo_option_exist(char **str)
 	}
 }
 
-void   exec_echo(char **str, int x)
+void	exec_echo(char **str, int x)
 {
 	int	j;
 
@@ -75,5 +76,5 @@ void   exec_echo(char **str, int x)
 		}
 	}
 	if (x == 1)
-		exit(0); 
-}        
+		exit(0);
+}

@@ -20,6 +20,7 @@ typedef struct s_vars
 extern t_vars	g_vars;
 
 void	change_value(t_list **env, char *key, char *value);
+void	help_exec_cd(char **str, char *oldpwd, t_list **env);
 void	cd_only(t_list **env);
 void    exec_cd(char **str, t_list **env, int x);
 char	*free_ret(char *str, char *to_ret);
