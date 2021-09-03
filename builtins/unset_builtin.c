@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:29:06 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/08/30 11:07:20 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 14:14:09 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,10 @@ void    exec_unset(char **str, t_list **env, int x)
 	while (str[i] != NULL)
 	{
 		if (valid_export(str[i]) == 1)
-		{
 			unset_error(str[i]);
-			i++;
-		}
 		else
-		{
 			delete_node_env(env, str[i]);
-			i++;
-		}
+		i++;
 	}
 	if (x == 1)
 		exit(0);

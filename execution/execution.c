@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 09:08:08 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/03 13:21:28 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 14:05:14 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int		is_path_exist(t_list *pipeline, t_list **env)
 
 	if (is_builtin(((t_command *)(pipeline->data))->tokens) == 1)
 	{
-		path = get_value_env(env, "PATH") + 1;
+		path = get_value_env(env, "PATH");
 		if (path != NULL)
 		{
-			tmp = ft_cmd_path(((t_command *)(pipeline->data))->tokens[0], path);
+			tmp = ft_cmd_path(((t_command *)(pipeline->data))->tokens[0], path + 1);
 			((t_command *)(pipeline->data))->tokens[0] = tmp;
 			return (TRUE);
 		}

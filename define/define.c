@@ -45,7 +45,10 @@ char			*get_value_env(t_list **env, char *value)
 	{
 		if (!ft_strcmp(value, ((t_env *)(temp->data))->key))
 			return (((t_env *)(temp->data))->value);
-		temp = temp->next;
+		if (temp->next)
+			temp = temp->next;
+		else
+			break ;
 	}
 	return (NULL);
 }
@@ -59,6 +62,7 @@ void	delete_node_env(t_list **env, char *key)
 	if (temp != NULL && !strcmp(((t_env *)(temp->data))->key, key)) 
 	{
 		*env = temp->next;
+		destroy_env((t_env *)temp->data);
 		free(temp);
 		return;
 	}
@@ -70,5 +74,6 @@ void	delete_node_env(t_list **env, char *key)
 	if (temp == NULL)
 		return;
 	prev->next = temp->next;
+	destroy_env((t_env *)temp->data);
 	free(temp);
 }
