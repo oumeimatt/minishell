@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   petitshell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:43:45 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/03 14:09:20 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:38:42 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	execution_loop(t_wrapper *wrp)
 			execute(wrp);
 			// debug_pipeline(wrp->pipeline);
 			destroy_lcommand(wrp->pipeline);
-			system("leaks minishell");
+			//system("leaks minishell");
 		}
 	}
 }

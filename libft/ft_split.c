@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/03 11:20:01 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:35:55 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int      words_n(const char *s, char c)
 
 	i = 0;
 	count = 0;
-//	printf ("nwords		0,0		%s, [%c]\n", s, c);
 	while (s[i])
 	{    
 		if (s[i] != c && ((s[i + 1] == c && dq[i + 1] == 0 && sq[i + 1] == 0)|| !s[i + 1]))
@@ -48,14 +47,12 @@ static int      word_len(const char *str, unsigned int index, char delim)
 	sq = ext_dsqmsk(str, 0);
 	len = 0;
 	i = index;
-	//printf("WordLen done0,0		%s	%d	[%c]\n", str, index, delim);
 	while (str[i] && str[i] != '\0' && (str[i] != delim || (dq[i] == 1 || sq[i] == 1))) 
 	{
 		if (str[i])
 			i++;
 		len++;
 	}
-	//printf("WordLen done0,1		%s	%d	%d\n\n", str, i, len);
 	free (dq);
 	free (sq);
 	return (len);

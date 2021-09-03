@@ -69,9 +69,8 @@ char *expand_env(t_wrapper *wrp, char *string)
 			j = 0;
 			while (value && value[j] != '\0')
 				str[p_count++] = value[j++];
-
 		}
-		if (is_dollar(string[s_count]))
+		if (is_dollar(string[s_count]) && sq[s_count] == 0)
 			continue ;
 		if (string[s_count])
 			str[p_count++] = string[s_count++];
