@@ -55,7 +55,7 @@ char	*ft_double_quotes(char *line);
 
 char    *ft_charjoin(char *str, char c);
 int	find_length(t_list *head);
-char	**list_to_arr(t_list *head);
+char	**list_to_arr(t_list **head);
 
 int	ft_word(char const *str, int i, int *nb_word, int c);
 int	ft_add_word(char **tab, char const *str, int *nb_word, int c);

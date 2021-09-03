@@ -15,7 +15,7 @@
 
 t_vars	g_vars;
 
-void    exec_cmd(char **cmd, t_wrapper *wrp, char *error);
+void    exec_cmd(char **cmd, t_list **env, char *error);
 void	unset_path_cmd(t_wrapper *wrp);
 void	ft_only_cmd(t_wrapper *wrp);
 
@@ -47,19 +47,19 @@ void	ft_here_doc(t_wrapper *wrp, char *filename, t_list *redir);
 void	ft_open_heredoc(t_wrapper *wrp);
 char	*ft_random_name(char *filename);
 
-void	ft_pipe_cmd_only(t_wrapper *wrp);
-void	ft_pipe_cmd_redir(t_wrapper *wrp);
-void	ft_exec_pipe_redir(t_wrapper *wrp);
-void	ft_exec_pipe_redir_2(t_wrapper *wrp);
-void	ft_pipe(t_wrapper *wrp);
+void	ft_pipe_cmd_only(t_list *pipeline, t_list **env);
+void	ft_pipe_cmd_redir(t_list *pipeline, t_list **env);
+void	ft_exec_pipe_redir(t_list *pipeline, t_list **env);
+void	ft_exec_pipe_redir_2(t_list *pipeline, t_list **env);
+void	ft_pipe(t_list *pipeline);
 void	ft_pipes_loop(t_wrapper *wrp);
 void	check_errors(t_list *redir);
 char	*free_ret(char *str, char *to_ret);
 
 
 
-int		is_path_exist(t_wrapper *wrp);
+int		is_path_exist(t_list *pipeline, t_list **env);
 void	ft_print_error(char *cmd, char *error);
-void	only_cmd_pipe(t_wrapper *wrp);
+void	only_cmd_pipe(t_list *pipeline, t_list **env);
 
 #endif

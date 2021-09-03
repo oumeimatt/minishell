@@ -33,16 +33,16 @@ int	find_length(t_list *head)
 	return count;
 }
 
-char	**list_to_arr(t_list *head)
+char	**list_to_arr(t_list **head)
 {
 	int len;
 	char **arr;
 
-	len = find_length(head);
+	len = find_length(*head);
 	arr = NULL;
 	arr = malloc(sizeof (char **) * (len + 1));
 	int index = 0;
-	t_list *curr = head;
+	t_list *curr = *head;
 	while (curr != NULL) {
 		arr[index++] = ft_strdup(((t_env *)(curr->data))->value);
 		curr = curr->next;

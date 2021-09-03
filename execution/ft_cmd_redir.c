@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:53:35 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/02 17:28:04 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 13:25:32 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,11 +152,11 @@ void	ft_redir_cmd(t_wrapper *wrp)
 	check_errors(((t_command *)wrp->pipeline->data)->redir);
 	((t_command *)wrp->pipeline->data)->redir = 
 		ft_hook((((t_command *)(wrp->pipeline->data))->redir));
-	if (is_path_exist(wrp) == TRUE) // NOT BUILTIN
+	if (is_path_exist(wrp->pipeline, &wrp->env) == TRUE) // NOT BUILTIN
         exec_cmd_redir(wrp);
-	else if (is_path_exist(wrp) == 2)
+	else if (is_path_exist(wrp->pipeline, &wrp->env) == 2)
         exec_builtin_redir(wrp);
-	else if (is_path_exist(wrp) == 3)
+	else if (is_path_exist(wrp->pipeline, &wrp->env) == 3)
 			ft_is_redirection((((t_command *)(wrp->pipeline->data))->redir), 0);
 	else
         unset_path_redir(wrp);
@@ -175,7 +175,7 @@ void    unset_path_redir(t_wrapper *wrp)
 		if (g_vars.pid == 0)
 		{
 			ft_is_redirection((((t_command *)(wrp->pipeline->data))->redir), 1);
-			exec_cmd(((t_command *)wrp->pipeline->data)->tokens, wrp, NSFD);
+			exec_cmd(((t_command *)wrp->pipeline->data)->tokens, &wrp->env, NSFD);
 		}
 		waitpid(g_vars.pid, &stats, 0);
 		if (WIFEXITED(stats))
@@ -212,7 +212,7 @@ void    exec_cmd_redir(t_wrapper *wrp)
 	if (g_vars.pid  == 0)
 	{
 		ft_is_redirection((((t_command *)(wrp->pipeline->data))->redir), 1);
-		exec_cmd(((t_command *)wrp->pipeline->data)->tokens, wrp, CNF);
+		exec_cmd(((t_command *)wrp->pipeline->data)->tokens, &wrp->env, CNF);
 	}
 	waitpid(g_vars.pid , &stats, 0);
 	if (WIFEXITED(stats))

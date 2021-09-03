@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:43:45 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/03 11:51:45 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 13:27:37 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, signal_handler);
 		execution_loop(&wrp);
 	}
-	system("leaks minishell");
 	return (EXIT_SUCCESS);
 }
 
@@ -36,7 +35,7 @@ void	execution_loop(t_wrapper *wrp)
 			execute(wrp);
 			debug_pipeline(wrp->pipeline);
 			destroy_lcommand(wrp->pipeline);
-			return ;
+			system("leaks minishell");
 		}
 	}
 }
