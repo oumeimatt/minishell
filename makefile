@@ -52,6 +52,8 @@ SRCS =	libft/ft_atoi.c\
 		builtins/env_builtin.c\
 		builtins/exit_builtin.c\
 		builtins/export_builtin.c\
+		builtins/export_helper.c\
+		builtins/spl_cmd_export.c\
 		builtins/is_builtin.c\
 		builtins/pwd_builtin.c\
 		builtins/unset_builtin.c\
