@@ -39,50 +39,46 @@ char	*reformat_line(t_wrapper *wrp, char *line)
 
 char *expand_env(t_wrapper *wrp, char *string)
 {
-	int p_count;
-	int s_count;
-	char *str;
-	char *value;
-	int c_count;
-	int s_flag;
-	int d_flag;
+	int		*dq;
+	int		*sq;
+	char	*str;
+	int		s_count;
+	int		p_count;
+	char	*key;
+	char	*value;
+	int		j;
 
-	s_flag = 0;
-	d_flag = 0;
-	p_count = 0;
-	s_count = 0;
-	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 200);//yes nasty
+	str = malloc(sizeof(char) * ft_strlen(string) * 400);
 	if (!str)
 		return (NULL);
-	while (string[p_count] != '\0')
+	p_count = 0;
+	s_count = 0;
+	dq = ext_dsqmsk(string, 1);
+	sq = ext_dsqmsk(string, 0);
+	while (string[s_count])
 	{
-		if (is_dquote(string[p_count]) && !d_flag)
-			d_flag = 1;
-		else if (is_dquote(string[p_count] && d_flag))
-			d_flag = 0;
-		if (string[p_count] == '\'' && !s_flag)
-			s_flag = 1;
-		else if (string[p_count] == '\'' && s_flag)
-			s_flag = 0;
-		if (is_dollar(string[p_count]) && !dollar_valid(string[p_count + 1]) && !s_flag)
+		if (is_dollar(string[s_count]) && !dollar_valid(string[s_count + 1]) && sq[s_count] == 0)
 		{
-			p_count++;
-			char *ss = ft_substr(string, p_count, get_len_env(&string[p_count]));
-			value = get_value_env(&wrp->env, ss) + 1;
-			free (ss);
-			p_count += get_len_env(&string[p_count]);
-			c_count = 0;
-			while (value && value[c_count] != '\0')
-				str[s_count++] = value[c_count++];
-			if (is_dquote(string[p_count]) || is_squote(string[p_count]))
-				continue;
+			s_count++;
+			key = ft_substr(string, s_count, get_len_env(&string[s_count]));
+			if (!get_value_env(&wrp->env, key))
+				return (NULL);
+			value = get_value_env(&wrp->env, key) + 1;
+			free (key);
+			s_count += get_len_env(&string[s_count]);
+			j = 0;
+			while (value && value[j] != '\0')
+				str[p_count++] = value[j++];
+
 		}
-		if (string[p_count])
-			if (string[p_count] != '$'|| (is_dollar(string[p_count]) && dollar_valid(string[p_count + 1])) || (is_dollar(string[p_count]) && s_flag))
-				str[s_count++] = string[p_count++];
+		if (is_dollar(string[s_count]))
+			continue ;
+		if (string[s_count])
+			str[p_count++] = string[s_count++];
 	}
-	str[s_count] = '\0';
+	str[p_count] = '\0';
 	free (string);
+	free (dq);
+	free (sq);
 	return (str);
 }
-
