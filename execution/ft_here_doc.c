@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:50:02 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/03 11:13:01 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 13:46:47 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	ft_open_heredoc(t_wrapper *wrp)
 					filename = ft_random_name(filename);
 					ft_here_doc(wrp, filename, tmpredir);
 					((t_redir *)tmpredir->data)->type = 1;
+					free_ret(((t_redir *)tmpredir->data)->filename, NULL);
 					((t_redir *)tmpredir->data)->filename = ft_strdup(filename);
 				}
 				if (tmpredir->next != NULL)
@@ -126,10 +127,10 @@ char	*ft_random_name(char *filename)
 	nb++;
 	str_nb = ft_itoa(nb);
 	str_modulo = ft_itoa(nb % 3);
-	tmp = ft_strdup("/tmp/");
-	tmp = ft_strjoin(tmp, str_nb);
+	tmp = ft_strjoin("/tmp/", str_nb);
 	name = ft_strjoin(tmp, str_modulo);
 	free(str_nb);
 	free(str_modulo);
+	free(tmp);
 	return (name);
 }
