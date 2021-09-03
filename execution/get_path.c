@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 18:06:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/03 11:32:55 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 14:29:16 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ char	*absolute_path(char *cmd, char **s_path)
 	char	*failed;
 
 	if (cmd[0] == '/' || cmd[0] == '.')
+	{
+		destroy_tab(s_path, 0);
 		return (cmd);
+	}
 	failed = ft_strdup(cmd);
 	i = 0;
 	acc = check_first(s_path, cmd);
