@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:09:56 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/02 14:56:25 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 11:30:10 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void    exec_cmd(char **cmd, t_wrapper *wrp , char *error)
 		ft_strncmp(cmd[0], "../", 2)))
 	{
 		ft_print_error(wrng_cmd[0], error);
+		destroy_tab(wrng_cmd, 0);
+		destroy_tab(arr, 0);
 		exit (127);
 	}
 	else
@@ -49,6 +51,8 @@ void    exec_cmd(char **cmd, t_wrapper *wrp , char *error)
 			closedir(dirp);
 			ft_print_error(wrng_cmd[0], ID);
 		}
+		destroy_tab(wrng_cmd, 0);
+		destroy_tab(arr, 0);
 		exit(126);
 	}
 }

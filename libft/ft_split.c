@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/03 10:43:45 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/03 11:20:01 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int      words_n(const char *s, char c)
 		i++;
 	}
 //	printf ("nwords		0,1		%s, [%c]		%d\n", s, c, count);
+	free (dq);
+	free (sq);
 	return (count);
 }
 
@@ -54,6 +56,8 @@ static int      word_len(const char *str, unsigned int index, char delim)
 		len++;
 	}
 	//printf("WordLen done0,1		%s	%d	%d\n\n", str, i, len);
+	free (dq);
+	free (sq);
 	return (len);
 }
 

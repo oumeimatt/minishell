@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:31:04 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/02 19:34:01 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 11:15:59 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	change_value(t_list **env, char *key, char *value)
     {
         if (!ft_strcmp(key, ((t_env *)(tmp->data))->key))
         {
-            free(((t_env *)(tmp->data))->value);
+            free_ret(((t_env *)(tmp->data))->value, NULL);
             ((t_env *)(tmp->data))->value = ft_strdup(value);
         }
 		if (tmp->next)
@@ -47,10 +47,10 @@ void    cd_only(t_list **env)
 	{
 		oldpwd = ft_strdup(get_value_env(env, "PWD"));
 		change_value(env, "OLDPWD", oldpwd);
-		buff = ft_strdup(get_value_env(env, "HOME"));
+		buff = ft_strdup(get_value_env(env, "HOME") + 1);
 		chdir(buff);
 		tmp = ft_strjoin("=", buff);
-		change_value(env, "PWD", buff);
+		change_value(env, "PWD", tmp);
 		free_ret(oldpwd, NULL);
 		free_ret(buff, NULL);
 		free_ret(tmp, NULL);

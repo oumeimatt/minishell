@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:02:40 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/02 18:06:32 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 10:59:33 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,27 @@ void	only_export(t_list **env)
 
 int		valid_export(char *str)
 {
-	int	i;
+	int	i = 0;
+	int	s_q = 0;
+	int	d_q = 0;
 
 	if (!ft_isalpha(str[0]) && str[0] != '_' &&
 		str[0] != '\'' && str[0] != '"')
 		return (1);
+	if (str[0] != '\'' || str[0] != '"')
+	{
+		while (str[i] != '\0' && str[i] != '=')
+		{
+			if ((str[i] == '\'' && s_q == 0 && d_q == 1) || 
+			(str[i] == '"' && d_q == 0 && s_q == 1))
+				return (1);
+			if (str[i] == '\'')
+				s_q = 1;
+			else if (str[i] == '"')
+				d_q = 1;
+			i++;				
+		}
+	}
 	i = 1;
 	while(str[i] != '=' && str[i] != '\0')
 	{
@@ -219,9 +235,9 @@ void	export_builtin(char **str, t_list **env, int i)
 	key = get_key(str[i]);
 	tmp_value = get_value(str[i]);
 	if (tmp_value[0] != '\0')
-		value = check_quotes(tmp_value);
+		value = purge_quotes(tmp_value);
 	replace_env_value(env, key, value);
-	free_ret(tmp_value, NULL);
+	// free_ret(tmp_value, NULL);
 	free_ret(key, NULL);
 	free_ret(value, NULL);
 }

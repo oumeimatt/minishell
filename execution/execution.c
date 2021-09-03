@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 09:08:08 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/02 14:55:49 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 11:50:14 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,17 @@ void	ft_print_error(char *cmd, char *error)
 int		is_path_exist(t_wrapper *wrp)
 {
 	char	*path;
+	char	*tmp;
 
 	if (is_builtin(((t_command *)(wrp->pipeline->data))->tokens) == 1)
 	{
 		path = get_value_env(&wrp->env, "PATH") + 1;
 		if (path != NULL)
 		{
-			((t_command *)(wrp->pipeline->data))->tokens[0] =
-				ft_cmd_path(((t_command *)(wrp->pipeline->data))->tokens[0],
-					path);
+			tmp = ft_cmd_path(((t_command *)(wrp->pipeline->data))->tokens[0], path);
+			//free (((t_command *)(wrp->pipeline->data))->tokens[0]);
+			printf ("token[0] %p\n", ((t_command *)(wrp->pipeline->data))->tokens[0]);
+			((t_command *)(wrp->pipeline->data))->tokens[0] = tmp;
 			return (TRUE);
 		}
 		else

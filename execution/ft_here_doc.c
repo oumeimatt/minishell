@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:50:02 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/02 18:06:43 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 11:13:01 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_here_doc(t_wrapper *wrp, char *filename, t_list *redir)
 	int			expand;
 
 	in = open(filename, O_RDONLY | O_WRONLY | O_CREAT, 0644);
-	delimiter = check_quotes(((t_redir *)redir->data)->filename);
+	delimiter = purge_quotes(ft_strdup(((t_redir *)redir->data)->filename));
 	expand = 1;
 	if (ft_strcmp(delimiter, ((t_redir *)redir->data)->filename))
 		expand = 0;
@@ -88,9 +88,6 @@ void	ft_open_heredoc(t_wrapper *wrp)
 				if (((t_redir *)tmpredir->data)->type == 2)
 				{
 					filename = ft_random_name(filename);
-					ft_putendl_fd("=========", 2);
-					ft_putendl_fd(filename, 2);
-					ft_putendl_fd("=========", 2);
 					ft_here_doc(wrp, filename, tmpredir);
 					((t_redir *)tmpredir->data)->type = 1;
 					((t_redir *)tmpredir->data)->filename = ft_strdup(filename);

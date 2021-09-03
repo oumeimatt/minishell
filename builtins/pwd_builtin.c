@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:13:53 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/02 19:21:56 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/03 11:13:57 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	exec_pwd(t_list **env, int x)
 	pwd = pwd_builtin(env);
 	ft_putendl_fd(pwd, 1);
 	free(pwd);
+	pwd = NULL;
 	if (x == 1)
 		exit(0);
 }

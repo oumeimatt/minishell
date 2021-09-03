@@ -55,7 +55,6 @@ SRCS =	libft/ft_atoi.c\
 		builtins/is_builtin.c\
 		builtins/pwd_builtin.c\
 		builtins/unset_builtin.c\
-		builtins/handle_quotes.c\
 		builtins/utils.c\
 		builtins/split.c\
 		\
@@ -86,7 +85,7 @@ SRCS =	libft/ft_atoi.c\
 		signals/signal.c\
 		\
 
-FLAGS = -g -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
+FLAGS = -g -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
 
 all:		$(NAME)
 
