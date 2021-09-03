@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 17:55:16 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/02 19:14:51 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/03 13:31:30 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,6 @@ int	check_line_syntax2(char *string)
 			return (-5);
 		else if (string[i] == '>' && string[i + 1] == '<')
 			return (-6);
-		i++;
-	}
-	return (check_line_syntax3(string));
-}
-
-int	check_line_syntax3(char *string)
-{
-	int	i;
-
-	i = 0;
-	while (string[i])
-	{
 		if ((string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '<' && string[i + 3] == '<' && string[i + 4] == '\0'))
 			return (-6);
 		else if ((string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '<' && string[i + 3] == '<' && string[i + 4] == '<' && string[i + 5] == '\0'))
@@ -76,5 +64,3 @@ int	check_line_syntax3(char *string)
 	}
 	return (1);
 }
-
-// start from bottom down

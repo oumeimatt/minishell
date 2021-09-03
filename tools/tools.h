@@ -23,7 +23,6 @@ char			*spaces_dquotes_reformat(char *line);
 char			*spaces_dquotes_reformat2(char *line);
 int			check_line_syntax(char *string);
 int			check_line_syntax2(char *string);
-int			check_line_syntax3(char *string);
 char			*quotes_reformat(char *line);
 int			export_check_quotes(char *line);
 int			is_redir(char c);
