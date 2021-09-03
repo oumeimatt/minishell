@@ -4,7 +4,6 @@
 # include "../list/list.h"
 # include "../tools/tools.h"
 # include "../libft/libft.h"
-# include <stdio.h>
 
 # define BHBLK "\e[1;90m"
 # define BHRED "\e[1;91m"

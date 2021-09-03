@@ -3,8 +3,6 @@
 
 # include "../libft/libft.h"
 # include "../builtins/builtins.h"
-# include <stdlib.h>
-# include <stdio.h>
 
 void			destroy_tab(char **tab, int n);
 void			tab_trimmer(char **tab);

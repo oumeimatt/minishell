@@ -22,7 +22,6 @@ typedef struct s_wrapper
 	t_error	error;
 }		t_wrapper;
 
-//	if (parser) procced to execution
 int			parser(t_wrapper *wrp);
 
 void			parse_env(t_list **env, char **envp);
