@@ -20,7 +20,7 @@ void			parse_tokens(t_list **pipeline, char *line)
 {
 	char	**tab;
 
-	tab = ft_split2(line, '|');
+	tab = ft_split(line, '|');
 	*pipeline = NULL;
 	ext_parse_tokens(pipeline, tab);
 	destroy_tab(tab, 0);

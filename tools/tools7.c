@@ -1,48 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools5.c                                           :+:      :+:    :+:   */
+/*   tools7.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/31 16:56:21 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/03 10:47:59 by ztaouil          ###   ########.fr       */
+/*   Created: 2021/09/03 09:17:14 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/09/03 09:17:23 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-void	tab_trimmer(char **tab)
+int		is_dollar(char c)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		tab[i] = purge_quotes(tab[i]);
-		i++;
-	}
+	if (c == '$')
+		return (1);
+	return (0);
 }
 
-void	debug_tab(char **tab)
+int		is_squote(char c)
 {
-	int	i;
-
-	for (i = 0; tab[i + 1]; i++)
-		printf (" [%s] -", tab[i]);
-	printf (" [%s]", tab[i]);
+	if (c == 39)
+		return (1);
+	return (0);
 }
 
-int	spaces(char *line)
+int     is_dquote(char c)
 {
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != ' ')
-			return (0);
-		i++;
-	}
-	return (1);
+	if (c == '"')
+		return (1);
+	return (0);
 }

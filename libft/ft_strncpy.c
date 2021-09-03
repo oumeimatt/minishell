@@ -1,48 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools5.c                                           :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/31 16:56:21 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/03 10:47:59 by ztaouil          ###   ########.fr       */
+/*   Created: 2021/09/03 09:26:30 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/09/03 09:26:39 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "libft.h"
 
-void	tab_trimmer(char **tab)
+char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-	int	i;
+	unsigned int i;
 
 	i = 0;
-	while (tab[i])
+	while (src[i] != '\0' && i < n)
 	{
-		tab[i] = purge_quotes(tab[i]);
+		dest[i] = src[i];
 		i++;
 	}
-}
-
-void	debug_tab(char **tab)
-{
-	int	i;
-
-	for (i = 0; tab[i + 1]; i++)
-		printf (" [%s] -", tab[i]);
-	printf (" [%s]", tab[i]);
-}
-
-int	spaces(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
+	while (i < n)
 	{
-		if (line[i] != ' ')
-			return (0);
+		dest[i] = '\0';
 		i++;
 	}
-	return (1);
+	return (dest);
 }

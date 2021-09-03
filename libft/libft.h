@@ -1,6 +1,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "../tools/tools.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
@@ -25,7 +26,6 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
-char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -41,13 +41,7 @@ char	*ft_strtrim(char const *s1, const char *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-char	**free_tab(char **tab, size_t filled_elems);
 char    **ft_split(const char *str, char c);
-char    **ft_split2(const char *str, char c);
-int      words_n(const char *s, char c);
-int      word_len(const char *str, unsigned int index, char delim);
-int		is_dollar(char c);
-int		is_squote(char c);
-int     is_dquote(char c);
+char	*ft_strncpy(char *dest, char *src, unsigned int n);
 
 #endif

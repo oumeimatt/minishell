@@ -21,6 +21,7 @@ char	*reformat_line(t_wrapper *wrp, char *line)
 		flag = check_line_syntax(line);
 	else if (!ft_strncmp(line, "export", 6))
 		flag = export_check_quotes(line);
+//	printf ("flag : %d\n", flag);
 	if (flag <= 0)
 	{
 		load_msg_err(wrp, flag);
@@ -67,7 +68,7 @@ char *expand_env(t_wrapper *wrp, char *string)
 		{
 			p_count++;
 			char *ss = ft_substr(string, p_count, get_len_env(&string[p_count]));
-			value = get_value_env(&wrp->env, ss) + ft_strlen(ss) + 1;
+			value = get_value_env(&wrp->env, ss) + 1;
 			free (ss);
 			p_count += get_len_env(&string[p_count]);
 			c_count = 0;

@@ -32,4 +32,14 @@ int			dollar_valid(char c);
 
 int			spaces(char *line);
 
+char	    *purge_quotes(char *str);
+int		    *dsqmsk(const char *str);
+int		    count_skip(int *qmsk, int i, int len);
+int     *ext_dsqmsk(const char *str, int flag);
+int		valid_delim(const char *s, int i);
+
+int		is_dollar(char c);
+int		is_squote(char c);
+int     is_dquote(char c);
+
 #endif

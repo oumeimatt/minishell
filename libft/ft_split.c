@@ -6,122 +6,58 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 18:29:55 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/07/16 19:45:35 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/03 10:43:45 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int      words_n(const char *s, char c)
+static int      words_n(const char *s, char c)
 {
 	int count;
 	int i;
-	int dquote;
-	int squote;
+	int	*dq;
+	int	*sq;
+	
+	dq = ext_dsqmsk(s, 1);
+	sq = ext_dsqmsk(s, 0);
 
 	i = 0;
 	count = 0;
-	dquote = 2;
-	squote = 2;
-	if (!ft_strncmp(s, "export", 6))
-	{
-		while (s[i])
-		{
-			if ((s[i] != c) && (s[i + 1] == c || !s[i + 1]))
-				count++;
-			if (is_dquote(s[i]) || is_squote(s[i]))
-			{
-				char tmp = s[i];
-				while (s[i] != '\0')
-				{
-					if (s[i + 1] == tmp)
-						dquote = 4;
-					if ((s[i] != c) && (dquote == 4) && (s[i + 1] == c || !s[i + 1]))
-						count++;
-					i++;
-				}
-				return (count);
-			}
-			i++;
-		}
-	}
+//	printf ("nwords		0,0		%s, [%c]\n", s, c);
 	while (s[i])
 	{    
-	
-		if (s[i] != c && (s[i + 1] == c || !s[i + 1]))
+		if (s[i] != c && ((s[i + 1] == c && dq[i + 1] == 0 && sq[i + 1] == 0)|| !s[i + 1]))
 			count++;
 		i++;
 	}
+//	printf ("nwords		0,1		%s, [%c]		%d\n", s, c, count);
 	return (count);
 }
 
-int      word_len(const char *str, unsigned int index, char delim)
+static int      word_len(const char *str, unsigned int index, char delim)
 {
 	int len;
 	int i;
-	int quote;
+	int	*dq;
+	int	*sq;
 	
+	dq = ext_dsqmsk(str, 1);
+	sq = ext_dsqmsk(str, 0);
 	len = 0;
-	quote = 0;
 	i = index;
-//	printf("WordLen done0,0		%s	%d	[%c]\n", str, index, delim);
-	while (str[i] && str[i] != '\0' && str[i] != delim) 
+	//printf("WordLen done0,0		%s	%d	[%c]\n", str, index, delim);
+	while (str[i] && str[i] != '\0' && (str[i] != delim || (dq[i] == 1 || sq[i] == 1))) 
 	{
-		if (!ft_strncmp(str, "export", 6) && index == 7)
-		{
-			while (str[i] && str[i] != '\0' && str[i] != delim)
-			{
-				if (str[i] == delim)
-					return (len);
-				if (is_dquote(str[i]) || is_squote(str[i]))
-				{
-					char tmp = str[i];
-					while (str[++i] != '\0' && len++)
-					{
-						if (tmp == str[i] && str[i + 1] == delim)
-							return (len);
-					}
-				}
-				if (str[i])
-					i++;
-				len++;
-//				printf("wordLen done0,0		%s	%d		%d\n", str, i, len);
-			}
-		}
 		if (str[i])
 			i++;
 		len++;
 	}
-//	printf("WordLen done0,1		%s	%d	%d\n\n", str, i, len);
+	//printf("WordLen done0,1		%s	%d	%d\n\n", str, i, len);
 	return (len);
 }
 
-/*
-	export a="ls -la"
-*/
-
-int		is_dollar(char c)
-{
-	if (c == '$')
-		return (1);
-	return (0);
-}
-
-int		is_squote(char c)
-{
-	if (c == 39)
-		return (1);
-	return (0);
-}
-
-int     is_dquote(char c)
-{
-	if (c == '"')
-		return (1);
-	return (0);
-}
-
-char	**free_tab(char **tab, size_t filled_elems)
+static char	**free_tab(char **tab, size_t filled_elems)
 {
 	size_t     i;
 

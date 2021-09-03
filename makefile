@@ -2,7 +2,7 @@ CC = clang
 
 NAME = minishell
 
-SRCS =		libft/ft_atoi.c\
+SRCS =	libft/ft_atoi.c\
 		libft/ft_bzero.c\
 		libft/ft_calloc.c\
 		libft/ft_isalnum.c\
@@ -37,7 +37,7 @@ SRCS =		libft/ft_atoi.c\
 		libft/ft_tolower.c\
 		libft/ft_toupper.c\
 		libft/ft_split.c\
-		libft/ft_split2.c\
+		libft/ft_strncpy.c\
 		\
 		execution/execution.c\
 		execution/ft_exec_cmd.c\
@@ -80,11 +80,13 @@ SRCS =		libft/ft_atoi.c\
 		tools/tools3.c\
 		tools/tools4.c\
 		tools/tools5.c\
+		tools/tools6.c\
+		tools/tools7.c\
 		\
 		signals/signal.c\
 		\
 
-FLAGS = -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
+FLAGS = -g -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 
 all:		$(NAME)
 

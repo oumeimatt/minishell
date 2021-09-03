@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:56:17 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/02 19:27:14 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/03 08:52:16 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,22 @@ int	export_check_quotes(char *line)
 	i = 0;
 	d_flag = 0;
 	s_flag = 0;
-	printf ("export check quotes		%s		%d		%d\n", line, s_flag, d_flag);
+	//printf ("export check quotes		%s		%d		%d\n", line, s_flag, d_flag);
 	while (line[i++] != '\0')
 	{
-		if (is_dquote(line[i]) && !d_flag && !s_flag)
-			d_flag = 1;
-		else if (is_dquote(line[i]) && d_flag && !s_flag)
+		if (is_dquote(line[i]) && d_flag)
 			d_flag = 0;
-		if (is_squote(line[i]) && !s_flag && !d_flag)
-			s_flag = 1;
-		else if (is_squote(line[i]) && s_flag && !d_flag)
+		else if (is_squote(line[i]) && s_flag)
 			s_flag = 0;
+		else if (is_dquote(line[i]) && !s_flag)
+			d_flag = 1;
+		else if (is_squote(line[i]) && !d_flag)
+			s_flag = 1;
 	}
-	printf ("export check quotes		%s		%d		%d\n", line, s_flag, d_flag);
-	if (!s_flag && !d_flag)
-		return (1);
-	write (1, "test0\n", 7);
-	return (0);
+	//printf ("export check quotes		%s		%d		%d\n", line, s_flag, d_flag);
+	if (s_flag || d_flag)
+		return (0);
+	return (1);
 }
 
 int	get_len_env(char *string)
