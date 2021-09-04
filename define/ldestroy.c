@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ldestroy.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 13:39:15 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/09/04 13:39:43 by ztaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "define.h"
 
-void		destroy_lenv(t_list *lst)
+void	destroy_lenv(t_list *lst)
 {
-	t_list *next;
-	t_list *current;
+	t_list	*next;
+	t_list	*current;
 
 	if (!lst)
 		return ;
@@ -18,10 +30,10 @@ void		destroy_lenv(t_list *lst)
 	lst = NULL;
 }
 
-void			destroy_lredir(t_list *lst)
+void	destroy_lredir(t_list *lst)
 {
-	t_list *next;
-	t_list *current;
+	t_list	*next;
+	t_list	*current;
 
 	if (!lst)
 		return ;
@@ -36,10 +48,10 @@ void			destroy_lredir(t_list *lst)
 	lst = NULL;
 }
 
-void			destroy_lcommand(t_list *lst)
+void	destroy_lcommand(t_list *lst)
 {
-	t_list *next;
-	t_list *current;
+	t_list	*next;
+	t_list	*current;
 
 	if (!lst)
 		return ;

@@ -13,21 +13,21 @@
 # define BHMAG "\e[1;95m"
 # define BHCYN "\e[1;96m"
 # define BHWHT "\e[1;97m"
-# define reset "\e[0m"
+# define RESET "\e[0m"
 # define TRUE 1
 # define FALSE 0
 
-typedef	struct	s_redir
+typedef struct s_redir
 {
-	int	type;
+	int		type;
 	char	*filename;
 }		t_redir;
 
 typedef struct s_command
 {
 	char	**tokens;
-	int	in;
-	int	out;
+	int		in;
+	int		out;
 	t_list	*redir;
 }		t_command;
 

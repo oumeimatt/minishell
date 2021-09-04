@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debugg.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 13:38:26 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/09/04 13:42:22 by ztaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "define.h"
 
-void			debug_env(t_list *env)
+void	debug_env(t_list *env)
 {
 	t_list *temp = env;
 	
@@ -15,7 +27,7 @@ void			debug_env(t_list *env)
 	}
 }
 
-void			debug_pipeline(t_list *pipeline)
+void	debug_pipeline(t_list *pipeline)
 {
 	t_list *temp = pipeline;
 	if (temp)
@@ -33,7 +45,7 @@ void			debug_pipeline(t_list *pipeline)
 	}
 }
 
-void			debug_redir(t_list *redir)
+void	debug_redir(t_list *redir)
 {
 	t_list *temp = redir;
 	if (temp)

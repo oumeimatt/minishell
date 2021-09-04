@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 13:42:44 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/09/04 13:43:25 by ztaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "list.h"
 
-t_list		*new_list(void *data)
+t_list	*new_list(void *data)
 {
 	t_list	*lst;
 
@@ -12,7 +24,7 @@ t_list		*new_list(void *data)
 	return (lst);
 }
 
-t_list		*last_list(t_list *lst)
+t_list	*last_list(t_list *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -21,9 +33,9 @@ t_list		*last_list(t_list *lst)
 	return (lst);
 }
 
-int		size_list(t_list *lst)
+int	size_list(t_list *lst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lst->next)
@@ -31,10 +43,10 @@ int		size_list(t_list *lst)
 		i++;
 		lst = lst->next;
 	}
-	return (i);	
+	return (i);
 }
 
-void		addback_list(t_list **alst, t_list *lst)
+void	addback_list(t_list **alst, t_list *lst)
 {
 	t_list	*tmp;
 
@@ -47,10 +59,10 @@ void		addback_list(t_list **alst, t_list *lst)
 	}
 }
 
-void		destroy_list(t_list *lst)
+void	destroy_list(t_list *lst)
 {
-	t_list *next;
-	t_list *current;
+	t_list	*next;
+	t_list	*current;
 
 	if (!lst)
 		return ;
@@ -58,7 +70,7 @@ void		destroy_list(t_list *lst)
 	while (current != NULL)
 	{
 		next = current->next;
-		free (lst->data);		
+		free (lst->data);
 		free (current);
 		current = next;
 	}

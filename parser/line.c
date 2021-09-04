@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 13:49:36 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/09/04 13:49:54 by ztaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
-int			is_line(char *line)
+int	is_line(char *line)
 {
 	if (line && *line)
 		add_history(line);
@@ -21,7 +33,6 @@ char	*reformat_line(t_wrapper *wrp, char *line)
 		flag = check_line_syntax(line);
 	else if (!ft_strncmp(line, "export", 6))
 		flag = export_check_quotes(line);
-//	printf ("flag : %d\n", flag);
 	if (flag <= 0)
 	{
 		load_msg_err(wrp, flag);
@@ -37,7 +48,7 @@ char	*reformat_line(t_wrapper *wrp, char *line)
 	return (line);
 }
 
-char *expand_env(t_wrapper *wrp, char *string)
+char	*expand_env(t_wrapper *wrp, char *string)
 {
 	int		*dq;
 	int		*sq;
