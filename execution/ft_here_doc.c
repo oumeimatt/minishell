@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:50:02 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/04 12:09:15 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 19:00:55 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	ft_here_doc(t_wrapper *wrp, char *filename, t_list *redir)
 	while (1)
 	{
 		line = readline(">");
+		if (!line || !ft_strcmp(line, delimiter))
+			break ;
 		if (expand == 1)
 		{
 			line = expand_exit_code(line);
 			line = expand_env(wrp, line);
 		}
-		if (!ft_strcmp(line, delimiter))
-			break ;
 		ft_putendl_fd(line, in);
 		free_ret(line, NULL);
 	}
