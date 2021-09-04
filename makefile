@@ -90,7 +90,11 @@ SRCS =	libft/ft_atoi.c\
 		signals/signal.c\
 		\
 
+<<<<<<< HEAD
 FLAGS = -g -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
+=======
+FLAGS = -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
+>>>>>>> 0b191afe5ed6bb022077645fff1bd3d2836015e3
 
 all:		$(NAME)
 
