@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:09:56 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/04 16:40:53 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 17:20:45 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ char	*ft_filename(char *str)
 
 void	exec_dir(char *cmd)
 {
-	DIR	*dirp;
+	DIR			*dirp;
+	struct stat	filestat;
 
+	if (!stat(cmd, &filestat) && filestat.st_mode & S_IXUSR)
+		exit(0);
 	dirp = opendir(ft_filename(cmd));
 	if (!dirp)
 		ft_print_error(cmd, PD);
@@ -48,7 +51,6 @@ void	exec_cmd(char **cmd, t_list **env, char *error)
 	arr = list_to_arr(env);
 	wrng_cmd = ft_split_2(cmd[0], ' ');
 	excv = execve(cmd[0], cmd, arr);
-	// ft_putendl_fd(cmd[0], 2);
 	if (excv == -1 && (ft_strncmp(cmd[0], "./", 2)
 			&& ft_strncmp(cmd[0], "../", 2)))
 	{

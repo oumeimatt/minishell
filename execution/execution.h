@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 12:10:04 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/04 12:16:18 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 17:08:56 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include "../builtins/builtins.h"
 # include <dirent.h>
 # include <sys/types.h>
-# include <fcntl.h>  
+# include <sys/stat.h>
+# include <fcntl.h>
 
 # define NSFD "No such file or directory"
 # define PD "Permission denied"
