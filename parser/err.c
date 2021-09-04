@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 14:29:45 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/02 18:13:11 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 15:58:18 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	load_msg_err(t_wrapper *wrp, int flag)
 {
 	char	*msg;
 
+	printf ("flag : %d\n", flag);
 	msg = ft_strdup ("minishell: syntax error near unexpected token");
 	wrp->error.errnum = flag;
 	if (flag == -1)

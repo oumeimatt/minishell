@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:54:45 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 15:24:02 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 15:51:42 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int			is_dquote(char c);
 
 int			norm_help1(t_reform env, const char *string);
 int			norm_help2(t_reform env, const char *string);
+int			norm_help3(t_reform env, const char *string);
 
 #endif

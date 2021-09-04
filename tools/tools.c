@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:55:36 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 15:29:09 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 15:53:05 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ char	*redirection_reformat(const char *string)
 			env.quote = 1;
 		else if (norm_help2(env, string))
 			env.quote = 0;
-		if (is_redir(string[(env.p_count) + 1])
-			&& !is_redir(string[(env.p_count)])
-			&& string[(env.p_count)] != ' ' && env.quote == 0)
+		if (norm_help3(env, string))
 		{
 			env.str[(env.s_count)++] = string[(env.p_count)++];
 			env.str[(env.s_count)++] = ' ';
