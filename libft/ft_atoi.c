@@ -6,16 +6,15 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:08:50 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/04 14:36:28 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 14:48:06 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
-long		ft_atoi(char *str)
+long	ft_atoi(char *str)
 {
-	int				signe;
+	int					signe;
 	unsigned long long	r;
 
 	while (*str >= 9 && *str <= 32)
@@ -33,7 +32,7 @@ long		ft_atoi(char *str)
 	{
 		r = r * 10 + *str - '0';
 		if ((unsigned long long )r > 9223372036854775808U)
-			return ((signe < 0) ? 0 : -1);
+			return (0);
 		str++;
 	}
 	r = r * signe;

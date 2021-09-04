@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 16:57:58 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/04 14:43:47 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 15:18:43 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ void	exec_exit(char **str)
 			ft_putendl_fd("petitshell: exit: too many arguments", 2);
 			g_vars.i = 1;
 			return ;
+		}
+		if (!ft_strcmp(str[1], "-9223372036854775808"))
+		{
+			ft_putendl_fd("exit", 1);
+			exit(0);
 		}
 		exit_helper(str[1]);
 	}
