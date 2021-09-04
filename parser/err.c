@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 14:29:45 by ztaouil           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/09/04 15:58:18 by ztaouil          ###   ########.fr       */
-=======
-/*   Updated: 2021/09/04 16:40:29 by oel-yous         ###   ########.fr       */
->>>>>>> 0b191afe5ed6bb022077645fff1bd3d2836015e3
+/*   Updated: 2021/09/04 16:47:37 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +29,7 @@ void	load_msg_err(t_wrapper *wrp, int flag)
 {
 	char	*msg;
 
-	printf ("flag : %d\n", flag);
+	//printf ("flag : %d\n", flag);
 	msg = ft_strdup ("minishell: syntax error near unexpected token");
 	wrp->error.errnum = flag;
 	if (flag == -1)
