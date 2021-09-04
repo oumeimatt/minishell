@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 14:29:45 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 17:16:58 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 18:46:40 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,13 @@ void	fill_exit_code(t_wrapper *wrp)
 	{
 		g_vars.i = 258;
 	}
+}
+
+int	ext_env_exp(t_venv venv, char *string)
+{
+	if (is_dollar(string[venv.s_count])
+		&& !dollar_valid(string[venv.s_count + 1])
+		&& venv.sq[venv.s_count] == 0)
+		return (1);
+	return (0);
 }

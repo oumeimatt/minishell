@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:09:56 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/04 17:20:45 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 17:28:45 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ char	*ft_filename(char *str)
 void	exec_dir(char *cmd)
 {
 	DIR			*dirp;
-	struct stat	filestat;
+	// struct stat	filestat;
 
-	if (!stat(cmd, &filestat) && filestat.st_mode & S_IXUSR)
-		exit(0);
+	// if (!stat(cmd, &filestat) && filestat.st_mode & S_IXUSR)
+	// 	exit(0);
 	dirp = opendir(ft_filename(cmd));
 	if (!dirp)
 		ft_print_error(cmd, PD);

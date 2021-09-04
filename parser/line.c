@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:49:36 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 14:39:45 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 18:46:29 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*expand_env(t_wrapper *wrp, char *string)
 			venv.s_count++;
 			venv.key = ext_norm(venv, string);
 			if (!get_value_env(&wrp->env, venv.key))
-				return (NULL);
+				break ;
 			venv.value = get_value_env(&wrp->env, venv.key) + 1;
 			free (venv.key);
 			venv.s_count += get_len_env(&string[venv.s_count]);
@@ -69,7 +69,7 @@ char	*expand_env(t_wrapper *wrp, char *string)
 			while (venv.value && venv.value[venv.j] != '\0')
 				venv.str[venv.p_count++] = venv.value[venv.j++];
 		}
-		if (is_dollar(string[venv.s_count]) && venv.sq[venv.s_count] == 0)
+		if (ext_env_exp(venv, string))
 			continue ;
 		if (string[venv.s_count])
 			venv.str[venv.p_count++] = string[venv.s_count++];

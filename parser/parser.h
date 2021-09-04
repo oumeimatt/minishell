@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:46:14 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 14:23:19 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 18:45:06 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void		skip_flag(int *flag);
 void		put_err(t_wrapper *wrp);
 void		load_msg_err(t_wrapper *wrp, int flag);
 void		fill_exit_code(t_wrapper *wrp);
+
+int			ext_env_exp(t_venv venv, char *string);
 
 void		destroy_wrapper(t_wrapper *wrp);
 #endif
