@@ -44,8 +44,11 @@ SRCS =	libft/ft_atoi.c\
 		execution/get_path.c\
 		execution/ft_cmd_redir.c\
 		execution/ft_redirection.c\
+		execution/ft_redirection_2.c\
 		execution/ft_here_doc.c\
 		execution/ft_pipes_loop.c\
+		execution/ft_pipes_redir.c\
+		execution/ft_hooks.c\
 		\
 		builtins/cd_builtin.c\
 		builtins/echo_builtin.c\
