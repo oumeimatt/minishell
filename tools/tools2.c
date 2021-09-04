@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 17:55:16 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/03 13:31:30 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 16:39:27 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_line_syntax(char *string)
 		|| (!ft_strncmp(string, "\'", 1) && len < 2)
 		|| (string[len - 1] == '|' && string[len] == '\0')
 		|| *string == 0)
-		return (0);
+		return (-10);
 	return (check_line_syntax2(string));
 }
 

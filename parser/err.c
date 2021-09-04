@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 14:29:45 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/02 18:13:11 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 16:40:29 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 void	put_err(t_wrapper *wrp)
 {
 	if (wrp->error.errnum <= -1)
-		ft_putstr_fd(wrp->error.errmsg, 2);
+		if(wrp->error.errmsg)
+			ft_putstr_fd(wrp->error.errmsg, 2);
 	fill_exit_code(wrp);
-	free (wrp->error.errmsg);
+	if (wrp->error.errmsg)
+	{
+		free (wrp->error.errmsg);
+		wrp->error.errmsg = NULL;
+	}
 }
 
 void	load_msg_err(t_wrapper *wrp, int flag)
@@ -42,6 +47,8 @@ void	load_msg_err(t_wrapper *wrp, int flag)
 		wrp->error.errmsg = ft_strjoin(msg, " `<<'\n");
 	else if (flag == 0)
 		wrp->error.errmsg = ft_strdup("");
+	else if (flag == -10)
+		wrp->error.errmsg = ft_strdup("Syntax Error\n");
 	free (msg);
 }
 
