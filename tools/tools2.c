@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 17:55:16 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 16:39:27 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 16:50:21 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_line_syntax2(char *string)
 			return (-5);
 		else if (string[i] == '>' && string[i + 1] == '<')
 			return (-6);
-		if ((string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '<' && string[i + 3] == '<' && string[i + 4] == '\0'))
+		else if ((string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '<' && string[i + 3] == '<' && string[i + 4] == '\0'))
 			return (-6);
 		else if ((string[i] == '<' && string[i + 1] == '<' && string[i + 2] == '<' && string[i + 3] == '<' && string[i + 4] == '<' && string[i + 5] == '\0'))
 			return (-7);
