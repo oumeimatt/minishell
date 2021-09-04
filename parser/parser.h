@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:46:14 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 13:46:15 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 14:23:19 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ typedef struct s_wrapper
 	t_list	*env;
 	t_error	error;
 }		t_wrapper;
+
+typedef struct s_venv
+{
+	int		*dq;
+	int		*sq;
+	char	*str;
+	int		s_count;
+	int		p_count;
+	char	*key;
+	char	*value;
+	int		j;
+}		t_venv;
 
 int			parser(t_wrapper *wrp);
 

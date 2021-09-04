@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:49:24 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 13:49:29 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 14:36:48 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,40 @@ void	ctrl_d(t_wrapper *wrp, char *line)
 		free (line);
 		exit (0);
 	}
+}
+
+int	is_line(char *line)
+{
+	if (line && *line)
+		add_history(line);
+	if (line && !line[0])
+	{	
+		free (line);
+		return (0);
+	}
+	return (1);
+}
+
+char	*reformat_line(t_wrapper *wrp, char *line)
+{
+	int	flag;
+
+	flag = 0;
+	if (ft_strncmp(line, "export", 6))
+		flag = check_line_syntax(line);
+	else if (!ft_strncmp(line, "export", 6))
+		flag = export_check_quotes(line);
+	if (flag <= 0)
+	{
+		load_msg_err(wrp, flag);
+		free(line);
+		line = NULL;
+		return (NULL);
+	}
+	line = redirection_reformat(line);
+	line = pipes_reformat(line);
+	line = expand_exit_code(line);
+	line = expand_env(wrp, line);
+	line = ft_strtrim(line, "\t ");
+	return (line);
 }

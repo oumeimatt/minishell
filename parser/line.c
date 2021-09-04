@@ -6,89 +6,73 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:49:36 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 13:49:54 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 14:39:45 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	is_line(char *line)
+static int	ext_construct(char *string, t_venv *venv)
 {
-	if (line && *line)
-		add_history(line);
-	if (line && !line[0])
-	{	
-		free (line);
+	venv->str = malloc(sizeof(char) * ft_strlen(string) * 400);
+	if (!venv->str)
 		return (0);
-	}
+	venv->p_count = 0;
+	venv->s_count = 0;
+	venv->dq = ext_dsqmsk(string, 1);
+	venv->sq = ext_dsqmsk(string, 0);
 	return (1);
 }
 
-char	*reformat_line(t_wrapper *wrp, char *line)
+static char	*free_return(t_venv venv, char *string)
 {
-	int	flag;
+	venv.str[venv.p_count] = '\0';
+	free (string);
+	free (venv.dq);
+	free (venv.sq);
+	return (venv.str);
+}
 
-	flag = 0;
-	if (ft_strncmp(line, "export", 6))
-		flag = check_line_syntax(line);
-	else if (!ft_strncmp(line, "export", 6))
-		flag = export_check_quotes(line);
-	if (flag <= 0)
-	{
-		load_msg_err(wrp, flag);
-		free(line);
-		line = NULL;
-		return (NULL);
-	}
-	line = redirection_reformat(line);
-	line = pipes_reformat(line);
-	line = expand_exit_code(line);
-	line = expand_env(wrp, line);
-	line = ft_strtrim(line, "\t ");
-	return (line);
+static int	ext_env(t_venv venv, char *string)
+{
+	if (is_dollar(string[venv.s_count])
+		&& !dollar_valid(string[venv.s_count + 1])
+		&& venv.sq[venv.s_count] == 0)
+		return (1);
+	return (0);
+}
+
+static char	*ext_norm(t_venv venv, char *string)
+{
+	return (ft_substr(string, venv.s_count,
+			get_len_env(&string[venv.s_count])));
 }
 
 char	*expand_env(t_wrapper *wrp, char *string)
 {
-	int		*dq;
-	int		*sq;
-	char	*str;
-	int		s_count;
-	int		p_count;
-	char	*key;
-	char	*value;
-	int		j;
+	t_venv	venv;
 
-	str = malloc(sizeof(char) * ft_strlen(string) * 400);
-	if (!str)
+	if (!ext_construct(string, &venv))
 		return (NULL);
-	p_count = 0;
-	s_count = 0;
-	dq = ext_dsqmsk(string, 1);
-	sq = ext_dsqmsk(string, 0);
-	while (string[s_count])
+	while (string[venv.s_count])
 	{
-		if (is_dollar(string[s_count]) && !dollar_valid(string[s_count + 1]) && sq[s_count] == 0)
+		if (ext_env(venv, string))
 		{
-			s_count++;
-			key = ft_substr(string, s_count, get_len_env(&string[s_count]));
-			if (!get_value_env(&wrp->env, key))
+			venv.s_count++;
+			venv.key = ext_norm(venv, string);
+			if (!get_value_env(&wrp->env, venv.key))
 				return (NULL);
-			value = get_value_env(&wrp->env, key) + 1;
-			free (key);
-			s_count += get_len_env(&string[s_count]);
-			j = 0;
-			while (value && value[j] != '\0')
-				str[p_count++] = value[j++];
+			venv.value = get_value_env(&wrp->env, venv.key) + 1;
+			free (venv.key);
+			venv.s_count += get_len_env(&string[venv.s_count]);
+			venv.j = 0;
+			while (venv.value && venv.value[venv.j] != '\0')
+				venv.str[venv.p_count++] = venv.value[venv.j++];
 		}
-		if (is_dollar(string[s_count]) && sq[s_count] == 0)
+		if (is_dollar(string[venv.s_count]) && venv.sq[venv.s_count] == 0)
 			continue ;
-		if (string[s_count])
-			str[p_count++] = string[s_count++];
+		if (string[venv.s_count])
+			venv.str[venv.p_count++] = string[venv.s_count++];
 	}
-	str[p_count] = '\0';
-	free (string);
-	free (dq);
-	free (sq);
-	return (str);
+	return (free_return(venv, string));
 }
