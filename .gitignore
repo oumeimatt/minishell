@@ -1,6 +1,6 @@
-a.out.dSYM/Contents/Info.plist
-a.out.dSYM/Contents/Resources/DWARF/a.out
-a.out
+minishell.dSYM/Contents/Info.plist
+minishell.dSYM/Contents/Resources/DWARF/minishell
+minishell
 .vscode
 .vscode/launch.json
 minishell
