@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 18:06:21 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/04 11:29:30 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 18:12:56 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,23 @@ char	*free_ret(char *str, char *to_ret)
 	return (to_ret);
 }
 
-int	check_first(char **s_path, char *cmd)
+int	check_first(char **s_path, char *cmd, char **commande)
 {
 	char	*first;
 	int		acc;
 	char	*tmp;
-	char	*commande;
 
-	first = s_path[0] + 5;
-	tmp = ft_strjoin(first, "/");
-	commande = ft_strjoin(tmp, cmd);
-	acc = access(commande, F_OK);
+	tmp = NULL;
+	first = s_path[0];
+	if (first[ft_strlen(first)] != '/')
+		tmp = ft_strjoin(first, "/");
+	else
+		tmp = ft_strdup(first);
+	*commande = ft_strjoin(tmp, cmd);
+	acc = access(*commande, F_OK);
 	if (acc != 0)
 	{
 		free(tmp);
-		free(commande);
 	}
 	return (acc);
 }
@@ -65,7 +67,7 @@ char	*absolute_path(char *cmd, char **s_path)
 	}
 	failed = ft_strdup(cmd);
 	i = 0;
-	acc = check_first(s_path, cmd);
+	acc = check_first(s_path, cmd, &commande);
 	while (acc != 0 && s_path[++i] != NULL)
 	{
 		tmp = ft_strjoin(s_path[i], "/");

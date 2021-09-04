@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 12:10:04 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/04 17:08:56 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 18:07:38 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	check_errors(t_list *redir);
 void	ft_dup_out_redir(t_list *redir, int file, int i);
 void	ft_is_redirection(t_list *redir, int i);
 
-int		check_first(char **s_path, char *cmd);
+int		check_first(char **s_path, char *cmd, char **commande);
 char	*abs_path(int acc, char **s_path, char *commande, char *failed);
 char	*absolute_path(char *cmd, char **s_path);
 char	*ft_cmd_path(char *cmd, char *full_path);
