@@ -6,134 +6,112 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:55:36 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 13:55:37 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 15:29:09 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-void	destroy_tab(char **tab, int n)
+static int	ext_init(t_reform *env, const char *string)
 {
-	while (tab[n])
-	{
-		free (tab[n]);
-		tab[n] = NULL;
-		n++;
-	}
-	free (tab);
-	tab = NULL;
+	env->quote = 0;
+	env->s_count = 0;
+	env->p_count = 0;
+	env->str = (char *)malloc(sizeof(char) * ft_strlen(string) * 10);
+	if (!env->str)
+		return (0);
+	return (1);
 }
 
-int	is_redir(char c)
+static char	*return_free(t_reform env, const char *string)
 {
-	if (c == '<')
-		return (1);
-	else if (c == '>')
-		return (2);
-	else
-		return (0);
+	env.str[(env.s_count)] = '\0';
+	free ((void *)string);
+	env.str = ext_redir(env.str);
+	return (env.str);
 }
 
 char	*redirection_reformat(const char *string)
 {
-	char *str;
-	int p_count;
-	int s_count;
-	int quote;
+	t_reform	env;
 
-	quote = 0;
-	s_count = 0;
-	p_count = 0;
-	str = (char *)malloc(sizeof(char) * ft_strlen(string) * 10);
-	if (!str)
+	if (!ext_init(&env, string))
 		return (NULL);
-	while (string[p_count] != '\0')
+	while (string[(env.p_count)] != '\0')
 	{
-		if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && !quote)
-			quote = 1;
-		else if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && quote)
-			quote = 0;
-		if (is_redir(string[p_count + 1]) && !is_redir(string[p_count]) && string[p_count] != ' ' && quote == 0)
+		if (norm_help1(env, string))
+			env.quote = 1;
+		else if (norm_help2(env, string))
+			env.quote = 0;
+		if (is_redir(string[(env.p_count) + 1])
+			&& !is_redir(string[(env.p_count)])
+			&& string[(env.p_count)] != ' ' && env.quote == 0)
 		{
-			str[s_count++] = string[p_count++];
-			str[s_count++] = ' ';
+			env.str[(env.s_count)++] = string[(env.p_count)++];
+			env.str[(env.s_count)++] = ' ';
 		}
-		if (is_redir(string[p_count]) && !is_redir(string[p_count + 1]) && quote == 0 && !is_redir(p_count - 1))
+		if (is_redir(string[(env.p_count)])
+			&& !is_redir(string[(env.p_count) + 1])
+			&& env.quote == 0 && !is_redir((env.p_count) - 1))
 		{
-			str[s_count++] = string[p_count++];
-			str[s_count++] = ' ';
+			env.str[(env.s_count)++] = string[(env.p_count)++];
+			env.str[(env.s_count)++] = ' ';
 		}
-		str[s_count++] = string[p_count++];
+		env.str[(env.s_count)++] = string[(env.p_count)++];
 	}
-	str[s_count] = '\0';
-	free ((void *)string);
-	str = ext_redir(str);
-	return (str);
+	return (return_free(env, string));
 }
 
-char		*ext_redir(const char *string)
+char	*ext_redir(const char *string)
 {
-	char	*str;
-	int		p_count;
-	int		s_count;
-	int		quote;
+	t_reform	env;
 
-	s_count = 0;
-	p_count = 0;
-	quote = 0;
-	str = malloc(sizeof(char) * ft_strlen(string) * 10);
-	if (!str)
+	if (!ext_init(&env, string))
 		return (NULL);
-	while (string[p_count] != '\0')
+	while (string[(env.p_count)] != '\0')
 	{
-		if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && !quote)
-			quote = 1;
-		else if ((is_dquote(string[p_count]) || is_squote(string[p_count])) && quote)
-			quote = 0;
-		if (p_count >= 1 && is_redir(string[p_count + 1]) && !is_redir(string[p_count]) && !quote)
+		if (norm_help1(env, string))
+			env.quote = 1;
+		else if (norm_help2(env, string))
+			env.quote = 0;
+		if ((env.p_count) >= 1 && is_redir(string[(env.p_count) + 1])
+			&& !is_redir(string[(env.p_count)]) && !env.quote)
 		{
-			str[s_count++] = string[p_count++];
-			str[s_count++] = ' ';
+			env.str[(env.s_count)++] = string[(env.p_count)++];
+			env.str[(env.s_count)++] = ' ';
 		}
-		str[s_count++] = string[p_count++];
+		env.str[(env.s_count)++] = string[(env.p_count)++];
 	}
-	str[s_count] = '\0';
+	env.str[(env.s_count)] = '\0';
 	free ((void *)string);
-	return (str);
+	return (env.str);
 }
 
 char	*pipes_reformat(char *line)
 {
-	char *str;
-	int p_count;
-	int	s_count;
-	int	quote;
-	
-	quote = 0;
-	s_count = 0;
-	p_count = 0;
-	str = (char *)malloc(sizeof (char) * ft_strlen(line) * 10);
-	if (!str)
+	t_reform	env;
+
+	if (!ext_init(&env, (const char *)line))
 		return (NULL);
-	while (line[p_count] != '\0')
+	while (line[(env.p_count)] != '\0')
 	{
-		if ((is_dquote(line[p_count]) || is_squote(line[p_count])) && !quote)
-			quote = 1;
-		else if ((is_dquote(line[p_count]) || is_squote(line[p_count])) && quote)
-			quote = 0;
-		if (line[p_count + 1] == '|' && !quote)
+		if (norm_help1(env, (const char *)line))
+			env.quote = 1;
+		else if (norm_help2(env, (const char *)line))
+			env.quote = 0;
+		if (line[(env.p_count) + 1] == '|' && !env.quote)
 		{
-			str[s_count++] = line[p_count++];
-			str[s_count++] = ' ';
+			env.str[(env.s_count)++] = line[(env.p_count)++];
+			env.str[(env.s_count)++] = ' ';
 		}
-		if (line[p_count] == '|' && !quote)
+		if (line[(env.p_count)] == '|' && !env.quote)
 		{
-			str[s_count++] = line[p_count++];
-			str[s_count++] = ' ';
+			env.str[(env.s_count)++] = line[(env.p_count)++];
+			env.str[(env.s_count)++] = ' ';
 		}
-		str[s_count++] = line[p_count++];
+		env.str[(env.s_count)++] = line[(env.p_count)++];
 	}
-	str[s_count] = '\0';
+	env.str[(env.s_count)] = '\0';
 	free (line);
-	return (str);
+	return (env.str);
 }

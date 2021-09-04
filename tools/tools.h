@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:54:45 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/04 13:55:54 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 15:24:02 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 
 # include "../libft/libft.h"
 # include "../builtins/builtins.h"
+
+typedef struct s_dsqmk
+{
+	int		i;
+	int		*msk;
+	int		dquote;
+	int		squote;
+}	t_dsqmk;
+
+typedef struct s_reform
+{
+	char	*str;
+	int		p_count;
+	int		s_count;
+	int		quote;
+}	t_reform;
 
 void		destroy_tab(char **tab, int n);
 void		tab_trimmer(char **tab);
@@ -45,5 +61,8 @@ int			valid_delim(const char *s, int i);
 int			is_dollar(char c);
 int			is_squote(char c);
 int			is_dquote(char c);
+
+int			norm_help1(t_reform env, const char *string);
+int			norm_help2(t_reform env, const char *string);
 
 #endif
