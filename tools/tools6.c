@@ -6,50 +6,50 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 08:43:27 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/03 10:49:21 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 14:44:29 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-int     *ext_dsqmsk(const char *str, int flag)
+int	*ext_dsqmsk(const char *str, int flag)
 {
-    int     i;
-    int     *msk;
-    int     dquote;
-    int     squote;
+	t_dsqmk	env;
 
-
-    msk = malloc(sizeof(int) * strlen(str));
-    dquote = 0;
-    squote = 0;
-    i = 0;
-    while (str[i])
-    {
-        if (is_dquote(str[i]) && dquote)
-            dquote = 0;
-        else if (is_squote(str[i]) && squote)
-            squote = 0;
-        else if (is_dquote(str[i]) && !squote)
-            dquote = 1;
-        else if (is_squote(str[i]) && !dquote)
-            squote = 1;
+	env.msk = malloc(sizeof(int) * strlen(str));
+	env.dquote = 0;
+	env.squote = 0;
+	env.i = 0;
+	while (str[env.i])
+	{
+		if (is_dquote(str[env.i]) && env.dquote)
+			env.dquote = 0;
+		else if (is_squote(str[env.i]) && env.squote)
+			env.squote = 0;
+		else if (is_dquote(str[env.i]) && !env.squote)
+			env.dquote = 1;
+		else if (is_squote(str[env.i]) && !env.dquote)
+			env.squote = 1;
 		if (flag)
-			msk[i] = dquote;
+			env.msk[env.i] = env.dquote;
 		else
-			msk[i] = squote;
-        i++;
-    }
-    return (msk);
+			env.msk[env.i] = env.squote;
+		(env.i)++;
+	}
+	return (env.msk);
 }
 
-int		*dsqmsk(const char *str)
+int	*dsqmsk(const char *str)
 {
-	int		*dmsk = ext_dsqmsk(str, 1);
-	int		*smsk = ext_dsqmsk(str, 0);
-	int		*msk = malloc(sizeof(int) * strlen(str));
-	int i = 0;
+	int		*dmsk;
+	int		*smsk;
+	int		*msk;
+	int		i;
 
+	dmsk = ext_dsqmsk(str, 1);
+	smsk = ext_dsqmsk(str, 0);
+	msk = malloc(sizeof(int) * strlen(str));
+	i = 0;
 	while (str[i] != '\0')
 	{
 		if (is_squote(str[i]) && dmsk[i] == 0)
@@ -65,15 +65,15 @@ int		*dsqmsk(const char *str)
 	return (msk);
 }
 
-int		count_skip(int *qmsk, int i, int len)
+int	count_skip(int *qmsk, int i, int len)
 {
-	int count;
-	
+	int	count;
+
 	count = 0;
 	while (i < len)
 	{
 		if (qmsk[i] == 0)
-			break;
+			break ;
 		i++;
 		count++;
 	}
@@ -82,8 +82,8 @@ int		count_skip(int *qmsk, int i, int len)
 
 char	*purge_quotes(char *str)
 {
-	int	s_count;
-	int	l_count;
+	int		s_count;
+	int		l_count;
 	char	*line;
 	int		*qmsk;
 

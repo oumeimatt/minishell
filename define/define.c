@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   define.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 13:42:13 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/09/04 13:42:14 by ztaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "define.h"
 
-t_command		*new_command(char **tokens, t_list *redir)
+t_command	*new_command(char **tokens, t_list *redir)
 {
 	t_command	*cmd;
 
@@ -12,7 +24,7 @@ t_command		*new_command(char **tokens, t_list *redir)
 	return (cmd);
 }
 
-t_redir			*new_redir(int type, char *filename)
+t_redir	*new_redir(int type, char *filename)
 {
 	t_redir	*redir;
 
@@ -24,7 +36,7 @@ t_redir			*new_redir(int type, char *filename)
 	return (redir);
 }
 
-t_env			*new_env(char *key, char *value)
+t_env	*new_env(char *key, char *value)
 {
 	t_env	*env;
 
@@ -36,7 +48,7 @@ t_env			*new_env(char *key, char *value)
 	return (env);
 }
 
-char			*get_value_env(t_list **env, char *value)
+char	*get_value_env(t_list **env, char *value)
 {
 	t_list	*temp;
 
@@ -55,16 +67,16 @@ char			*get_value_env(t_list **env, char *value)
 
 void	delete_node_env(t_list **env, char *key)
 {
-	t_list *temp;
-	t_list *prev;
+	t_list	*temp;
+	t_list	*prev;
 
 	temp = *env;
-	if (temp != NULL && !strcmp(((t_env *)(temp->data))->key, key)) 
+	if (temp != NULL && !strcmp(((t_env *)(temp->data))->key, key))
 	{
 		*env = temp->next;
 		destroy_env((t_env *)temp->data);
 		free(temp);
-		return;
+		return ;
 	}
 	while (temp != NULL && strcmp(((t_env *)(temp->data))->key, key))
 	{
@@ -72,7 +84,7 @@ void	delete_node_env(t_list **env, char *key)
 		temp = temp->next;
 	}
 	if (temp == NULL)
-		return;
+		return ;
 	prev->next = temp->next;
 	destroy_env((t_env *)temp->data);
 	free(temp);

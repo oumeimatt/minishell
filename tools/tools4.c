@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:56:17 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/09/03 16:21:14 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 14:38:32 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	ext_exit_code(char *string, int *i, char *str, int *j)
 	c_count = 0;
 	if (is_dollar(string[*i]) && string[*i + 1] == '?')
 	{
-		tmp = ft_itoa(g_vars.i);
+		tmp = ft_itoa((unsigned long long)g_vars.i);
 		while (tmp[c_count] != '\0')
 			str[(*j)++] = tmp[c_count++];
 		free (tmp);

@@ -6,19 +6,19 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:50:02 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/03 13:46:47 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 19:23:04 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int		check_for_heredoc(t_wrapper *wrp)
+int	check_for_heredoc(t_wrapper *wrp)
 {
 	t_list	*tmp;
 	t_list	*redtmp;
 
 	tmp = wrp->pipeline;
-	while(tmp != NULL)
+	while (tmp != NULL)
 	{
 		redtmp = ((t_command *)(tmp->data))->redir;
 		while (redtmp != NULL)
@@ -28,15 +28,16 @@ int		check_for_heredoc(t_wrapper *wrp)
 			if (redtmp->next != NULL)
 				redtmp = redtmp->next;
 			else
-				break;
+				break ;
 		}
 		if (tmp->next != NULL)
 			tmp = tmp->next;
 		else
-			break;
+			break ;
 	}
 	return (0);
 }
+
 void	ft_here_doc(t_wrapper *wrp, char *filename, t_list *redir)
 {
 	int			in;
@@ -49,31 +50,50 @@ void	ft_here_doc(t_wrapper *wrp, char *filename, t_list *redir)
 	expand = 1;
 	if (ft_strcmp(delimiter, ((t_redir *)redir->data)->filename))
 		expand = 0;
-	ft_putendl_fd(delimiter, 2);
 	while (1)
 	{
-		line  = readline(">");
+		line = readline(">");
+		if (!line || !ft_strcmp(line, delimiter))
+			break ;
 		if (expand == 1)
 		{
 			line = expand_exit_code(line);
 			line = expand_env(wrp, line);
 		}
-		if (!ft_strcmp(line, delimiter))
-			break;
 		ft_putendl_fd(line, in);
-		free(line);
-		line = NULL;
+		free_ret(line, NULL);
 	}
-	free(delimiter);
-	free(line);
-	line = NULL;
+	free_strs(delimiter, line);
 	close(in);
+}
+
+void	open_hd_helper(t_list *redir, char *filename, t_wrapper *wrp)
+{
+	while (redir != NULL)
+	{
+		if (((t_redir *)redir->data)->type == 2)
+		{
+			filename = ft_random_name(filename);
+			ft_here_doc(wrp, filename, redir);
+			((t_redir *)redir->data)->type = 1;
+			free_ret(((t_redir *)redir->data)->filename, NULL);
+			((t_redir *)redir->data)->filename = ft_strdup(filename);
+		}
+		if (redir->next != NULL)
+			redir = redir->next;
+		else
+		{
+			free(filename);
+			filename = NULL;
+			break ;
+		}
+	}
 }
 
 void	ft_open_heredoc(t_wrapper *wrp)
 {
-	t_list	*tmp;
-	t_list	*tmpredir;
+	t_list		*tmp;
+	t_list		*tmpredir;
 	char		*filename;
 
 	tmp = wrp->pipeline;
@@ -83,29 +103,11 @@ void	ft_open_heredoc(t_wrapper *wrp)
 		while (tmp != NULL)
 		{
 			tmpredir = ((t_command *)(tmp->data))->redir;
-			while (tmpredir != NULL)
-			{
-				if (((t_redir *)tmpredir->data)->type == 2)
-				{
-					filename = ft_random_name(filename);
-					ft_here_doc(wrp, filename, tmpredir);
-					((t_redir *)tmpredir->data)->type = 1;
-					free_ret(((t_redir *)tmpredir->data)->filename, NULL);
-					((t_redir *)tmpredir->data)->filename = ft_strdup(filename);
-				}
-				if (tmpredir->next != NULL)
-					tmpredir = tmpredir->next;
-				else
-				{
-					free(filename);
-					filename = NULL;
-					break;
-				}
-			}
+			open_hd_helper(tmpredir, filename, wrp);
 			if (tmp->next != NULL)
 				tmp = tmp->next;
 			else
-				break;
+				break ;
 		}
 	}
 }

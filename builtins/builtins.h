@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 12:18:39 by oel-yous          #+#    #+#             */
+/*   Updated: 2021/09/04 12:18:41 by oel-yous         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
@@ -12,8 +24,7 @@ typedef struct s_vars
 {
 	int	i;
 	int	pid;
-}	t_vars;
-
+}				t_vars;
 
 extern t_vars	g_vars;
 
@@ -49,13 +60,14 @@ void	exec_pwd(t_list **env, int x);
 void	unset_error(char *str);
 void	exec_unset(char **str, t_list **env, int x);
 
-void    exec_exit(char **str);
+void	exec_exit(char **str);
 
 int		is_builtin(char	**str);
 void	exec_builtin(char **str, t_list **env, int i);
 
 int		find_length(t_list *head);
 char	**list_to_arr(t_list **head);
+void	free_strs(char *str1, char *str2);
 char	*free_ret(char *str, char *to_ret);
 
 int		ft_word(char const *str, int i, int *nb_word, int c);
@@ -63,6 +75,5 @@ int		ft_add_word(char **tab, char const *str, int *nb_word, int c);
 void	initial(int *i, int *j);
 char	**ft_return(char **tab, int number_words);
 char	**ft_split_2(char const *str, char c);
-
 
 #endif

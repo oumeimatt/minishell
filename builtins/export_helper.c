@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:29:08 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/03 15:33:50 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 12:02:53 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,17 @@ char	*get_value(char *str)
 void	replace_env_value(t_list **env, char *key, char *value)
 {
 	t_list	*tmp;
-	char	*env_value;
 
 	tmp = *env;
-	env_value = ft_strjoin("=", value);
-	if (!is_key_exist(&tmp, key))
+	if (!is_key_exist(&tmp, key) && value[0] == '\0')
+		return ;
+	else if (!is_key_exist(&tmp, key))
 	{
 		delete_node_env(&tmp, key);
 		addback_list(&tmp, new_list((t_env *)new_env(key, value)));
 	}
-	else if (!is_key_exist(&tmp, key) && ((t_env *)(tmp->data))->value == NULL)
-	{
-		free_ret(env_value, NULL);
-		return ;
-	}
 	else if (is_key_exist(&tmp, key))
 		addback_list(&tmp, new_list((t_env *)new_env(key, value)));
-	free_ret(env_value, NULL);
 }
 
 void	export_builtin(char **str, t_list **env, int i)

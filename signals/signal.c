@@ -6,7 +6,7 @@
 /*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:46:17 by ztaouil           #+#    #+#             */
-/*   Updated: 2021/08/31 16:54:32 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 16:54:10 by ztaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	signal_handler(int signum)
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();
+			g_vars.i = 1;
 		}
 		else if (signum == SIGQUIT)
 		{

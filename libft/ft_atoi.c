@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:08:50 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/07/15 14:43:35 by ztaouil          ###   ########.fr       */
+/*   Updated: 2021/09/04 14:48:06 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
-int		ft_atoi(char *str)
+long	ft_atoi(char *str)
 {
-	int				signe;
-	unsigned long	r;
+	int					signe;
+	unsigned long long	r;
 
 	while (*str >= 9 && *str <= 32)
 		str++;
@@ -32,8 +31,8 @@ int		ft_atoi(char *str)
 	while (*str >= 48 && *str <= 57)
 	{
 		r = r * 10 + *str - '0';
-		if (r > 9223372036854775807)
-			return ((signe < 0) ? 0 : -1);
+		if ((unsigned long long )r > 9223372036854775808U)
+			return (0);
 		str++;
 	}
 	r = r * signe;

@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 09:08:08 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/09/03 14:05:14 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/09/04 19:17:34 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,28 @@ void	ft_print_error(char *cmd, char *error)
 	ft_putendl_fd(error, 2);
 }
 
-int		is_path_exist(t_list *pipeline, t_list **env)
+int	is_path_exist(t_list *pipeline, t_list **env)
 {
 	char	*path;
 	char	*tmp;
 
 	if (is_builtin(((t_command *)(pipeline->data))->tokens) == 1)
 	{
-		path = get_value_env(env, "PATH");
+		path = ft_strdup(get_value_env(env, "PATH"));
 		if (path != NULL)
 		{
-			tmp = ft_cmd_path(((t_command *)(pipeline->data))->tokens[0], path + 1);
+			tmp = ft_cmd_path(((t_command *)(pipeline->data))->tokens[0],
+					path + 1);
 			((t_command *)(pipeline->data))->tokens[0] = tmp;
+			free (path);
 			return (TRUE);
 		}
 		else
 			return (FALSE);
 	}
-	else if (is_builtin(((t_command *)(pipeline->data))->tokens) == 2) // cmd = NULL
+	else if (is_builtin(((t_command *)(pipeline->data))->tokens) == 2)
 		return (3);
-	return (2); // cmd is builtin;
+	return (2);
 }
 
 void	execute(t_wrapper *wrp)

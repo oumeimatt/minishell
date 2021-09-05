@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokens.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ztaouil <ztaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 13:44:15 by ztaouil           #+#    #+#             */
+/*   Updated: 2021/09/04 13:45:30 by ztaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
-void			ext_parse_tokens(t_list **pipeline, char **tab)
+void	ext_parse_tokens(t_list **pipeline, char **tab)
 {
-	int	i;
-	char	**tmp;
-	t_command cmd;
+	int			i;
+	char		**tmp;
+	t_command	cmd;
 
 	i = 0;
 	while (tab[i])
@@ -13,13 +25,14 @@ void			ext_parse_tokens(t_list **pipeline, char **tab)
 		if (ft_strcmp(tmp[0], "<<"))
 			tab_trimmer(tmp);
 		ext2_parse_tokens(&cmd, tmp);
-		addback_list(pipeline, new_list((t_command *)new_command(cmd.tokens, cmd.redir)));
+		addback_list(pipeline,
+			new_list((t_command *)new_command(cmd.tokens, cmd.redir)));
 		destroy_tab(tmp, 0);
 		i++;
 	}
 }
 
-void			ext2_parse_tokens(t_command *cmd, char **tab)
+void	ext2_parse_tokens(t_command *cmd, char **tab)
 {
 	int	i;
 	int	j;
@@ -43,25 +56,29 @@ void			ext2_parse_tokens(t_command *cmd, char **tab)
 	cmd->tokens[j] = NULL;
 }
 
-static void		ext_parse_redir(t_command *cmd, char **tab, int i, int **flag)
+static void	ext_parse_redir(t_command *cmd, char **tab, int i, int **flag)
 {
 	if (!ft_strcmp(tab[i], "<"))
-		addback_list(&(cmd->redir), new_list((t_redir *)new_redir(1, ft_strdup(tab[i + 1]))));
+		addback_list(&(cmd->redir),
+			new_list((t_redir *)new_redir(1, ft_strdup(tab[i + 1]))));
 	else if (!ft_strcmp(tab[i], "<<"))
-		addback_list(&(cmd->redir), new_list((t_redir *)new_redir(2, ft_strdup(tab[i + 1]))));
-	**flag = 2;	
+		addback_list(&(cmd->redir),
+			new_list((t_redir *)new_redir(2, ft_strdup(tab[i + 1]))));
+	**flag = 2;
 }
 
-static void		ext2_parse_redir(t_command *cmd, char **tab, int i, int **flag)
+static void	ext2_parse_redir(t_command *cmd, char **tab, int i, int **flag)
 {
 	if (!ft_strcmp(tab[i], ">"))
-		addback_list(&(cmd->redir), new_list((t_redir *)new_redir(3, ft_strdup(tab[i + 1]))));
+		addback_list(&(cmd->redir),
+			new_list((t_redir *)new_redir(3, ft_strdup(tab[i + 1]))));
 	else if (!ft_strcmp(tab[i], ">>"))
-		addback_list(&(cmd->redir), new_list((t_redir *)new_redir(4, ft_strdup(tab[i + 1]))));
-	**flag = 2;	
+		addback_list(&(cmd->redir),
+			new_list((t_redir *)new_redir(4, ft_strdup(tab[i + 1]))));
+	**flag = 2;
 }
 
-int			ext3_parse_tokens(t_command *cmd, char **tab, int i, int *flag)
+int	ext3_parse_tokens(t_command *cmd, char **tab, int i, int *flag)
 {
 	if (!ft_strcmp(tab[i], "<") || !ft_strcmp(tab[i], "<<"))
 	{
@@ -73,5 +90,5 @@ int			ext3_parse_tokens(t_command *cmd, char **tab, int i, int *flag)
 		ext2_parse_redir(cmd, tab, i, &flag);
 		return (1);
 	}
-	return (0);	
+	return (0);
 }

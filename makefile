@@ -44,8 +44,11 @@ SRCS =	libft/ft_atoi.c\
 		execution/get_path.c\
 		execution/ft_cmd_redir.c\
 		execution/ft_redirection.c\
+		execution/ft_redirection_2.c\
 		execution/ft_here_doc.c\
 		execution/ft_pipes_loop.c\
+		execution/ft_pipes_redir.c\
+		execution/ft_hooks.c\
 		\
 		builtins/cd_builtin.c\
 		builtins/echo_builtin.c\
@@ -60,7 +63,6 @@ SRCS =	libft/ft_atoi.c\
 		builtins/utils.c\
 		builtins/split.c\
 		\
-		define/debugg.c\
 		define/define.c\
 		define/destroy.c\
 		define/ldestroy.c\
@@ -87,7 +89,7 @@ SRCS =	libft/ft_atoi.c\
 		signals/signal.c\
 		\
 
-FLAGS = -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
+FLAGS = -Wall -Werror -Wextra -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 
 all:		$(NAME)
 

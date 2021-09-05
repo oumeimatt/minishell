@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   define.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 19:28:50 by oel-yous          #+#    #+#             */
+/*   Updated: 2021/09/04 19:28:51 by oel-yous         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DEFINE_H
 # define DEFINE_H
 
@@ -13,21 +25,21 @@
 # define BHMAG "\e[1;95m"
 # define BHCYN "\e[1;96m"
 # define BHWHT "\e[1;97m"
-# define reset "\e[0m"
+# define RESET "\e[0m"
 # define TRUE 1
 # define FALSE 0
 
-typedef	struct	s_redir
+typedef struct s_redir
 {
-	int	type;
+	int		type;
 	char	*filename;
 }		t_redir;
 
 typedef struct s_command
 {
 	char	**tokens;
-	int	in;
-	int	out;
+	int		in;
+	int		out;
 	t_list	*redir;
 }		t_command;
 
